@@ -108,11 +108,12 @@
             <li class="nav-item">
               <a href="<?= base_url() ?>DataGuru" class="nav-link">
                 <i class="fas fa-hand-holding-usd"></i>
-                <p>Pembayaran Lainnya</p>
+                <p>Pembayaran Ujian</p>
               </a>
             </li>
           </ul>
         </li>
+
     </nav>
     <!-- /.sidebar-menu -->
   </div>
