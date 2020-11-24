@@ -24,7 +24,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 
-$config['base_url'] = 'http://localhost/smagripa_pembayaran1/';
+$config['base_url'] = 'http://localhost/rev1/smagripa_pembayaran/';
 
 /*
 |--------------------------------------------------------------------------
