@@ -28,8 +28,6 @@ class Kelas_Model extends CI_Model
 		);
 		$this->db->insert('tbl_kelas', $data);
 	}
-<<<<<<< HEAD
-=======
 	public function ubah_data( )
 	{
 		$data = array(
@@ -40,7 +38,6 @@ class Kelas_Model extends CI_Model
 		$this->db->where('kode_kelas', $this->input->post('kd_kls', true));
 		$this->db->update('tbl_kelas', $data);
 	}
->>>>>>> second commit
 
 	public function hapus_data($kd)
 	{
@@ -53,5 +50,3 @@ class Kelas_Model extends CI_Model
 	}
 
 }
-
-?>

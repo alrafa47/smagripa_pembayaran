@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php 
-=======
 <?php
->>>>>>> second commit
 
 /**
  * 
@@ -13,9 +9,6 @@ class DPPSiswa_Model extends CI_Model
 	{
 		return $this->db->get('tbl_dpp_siswa')->result();
 	}
-<<<<<<< HEAD
-	public function tambah_data( )
-=======
 
 	public function getAllDataJoinDataSiswa()
 	{
@@ -27,7 +20,6 @@ class DPPSiswa_Model extends CI_Model
 	}
 
 	public function tambah_data()
->>>>>>> second commit
 	{
 		$data = array(
 			'nisn' => $this->input->post('Nisn'),
@@ -40,11 +32,7 @@ class DPPSiswa_Model extends CI_Model
 		$this->db->insert('tbl_dpp_siswa', $data);
 	}
 
-<<<<<<< HEAD
-	public function ubah_data( )
-=======
 	public function ubah_data()
->>>>>>> second commit
 	{
 		$data = array(
 			'nominal_dpp' => $this->input->post('nmnl_dpp', true),
@@ -63,27 +51,11 @@ class DPPSiswa_Model extends CI_Model
 
 	public function detail_data($kode)
 	{
-<<<<<<< HEAD
-		return $this->db->get_where('tbl_dpp_siswa', ['nisn' => $kode]) ->row_array(); 
-=======
 		return $this->db->get_where('tbl_dpp_siswa', ['nisn' => $kode])->row();
->>>>>>> second commit
 	}
 
 	public function get_detail_siswa($id)
 	{
-<<<<<<< HEAD
-		$this->db->select('nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_jenis_spp.kode_jenisspp, tbl_jenis_spp.nominal_jenis, tbl_jenis_spp.kategori, tbl_jenis_spp.tahun');    
-		$this->db->from('tbl_siswa');
-		$this->db->join('tbl_jurusan', 'tbl_siswa.kode_jurusan = tbl_jurusan.kode_jurusan');
-		$this->db->join('tbl_jenis_spp', 'tbl_siswa.kode_jenisspp = tbl_jenis_spp.kode_jenisspp');
-		$this->db->where('tbl_siswa.nisn', $id);
-		return $this->db->get() ->result();
-	}
-}
-?>
-?>
-=======
 		$this->db->select('tbl_siswa.nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_dpp_siswa.nominal_dpp, tbl_dpp_siswa.jumlah_angsuran, tbl_dpp_siswa.nominal_angsuran');
 		$this->db->from('tbl_siswa');
 		$this->db->join('tbl_jurusan', 'tbl_siswa.kode_jurusan = tbl_jurusan.kode_jurusan');
@@ -108,4 +80,3 @@ class DPPSiswa_Model extends CI_Model
 		return $this->db->get()->result();
 	}
 }
->>>>>>> second commit

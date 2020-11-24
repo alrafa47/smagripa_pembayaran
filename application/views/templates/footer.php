@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-
-<!-- Main Footer -->
-<footer class="main-footer">
-	<strong>Copyright &copy; 2020 <a href="http://adminlte.io">SMK PGRI PAKISAJI</a>.</strong>
-	All rights reserved.
-	<div class="float-right d-none d-sm-inline-block">
-		<b>Version</b> 1.0.0
-	</div>
-=======
 <!-- Main Footer -->
 <footer class="main-footer">
     <strong>Copyright &copy; 2020 <a href="http://adminlte.io">SMK PGRI PAKISAJI</a>.</strong>
@@ -15,7 +5,6 @@
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0.0
     </div>
->>>>>>> second commit
 </footer>
 </div>
 <!-- ./wrapper -->
@@ -50,39 +39,6 @@
 <script src="<?= base_url() ?>assets/plugins/select2/js/select2.full.min.js"></script>
 
 <script>
-<<<<<<< HEAD
-	$(function () {
-		$('#example1').DataTable();
-        $('.select2').select2()
-        $('.select2bs4').select2({
-          theme: 'bootstrap4'
-      })
-    });
-
-	$(document).ready(function(){
-        $('#myModal').on('show.bs.modal', function (e) {
-            var rowid = $(e.relatedTarget).data('id');
-            //menggunakan fungsi ajax untuk pengambilan data
-            $.ajax({
-                type : 'post',
-                url : '<?= base_url() ?>DataDPPSiswa/detail_siswa',
-                data :  'rowid='+ rowid,
-                success : function(data){
-                $('.fetched-data').html(data);//menampilkan data ke dalam modal
-            }
-        });
-        });
-    });
-
-
-</script>
-
-</body>
-</html>
-
-
-
-=======
     $(function() {
         $('#example1').DataTable();
         $('.select2').select2()
@@ -194,4 +150,3 @@
 </body>
 
 </html>
->>>>>>> second commit

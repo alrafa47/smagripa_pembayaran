@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * 
@@ -11,7 +11,7 @@ class DataJenisSpp extends CI_Controller
 		$this->load->model('Jenis_Spp_Model');
 		$this->load->library('form_validation');
 	}
-	
+
 	function index()
 	{
 		$data['jenis_spp'] = $this->Jenis_Spp_Model->getAllData();
@@ -21,28 +21,19 @@ class DataJenisSpp extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function validation_form(){
-<<<<<<< HEAD
-		$this->form_validation->set_rules("kode_jenisspp", "Kode Jenis SPP", "required|is_unique[tbl_jenis_spp.kode_jenisspp]|max_length[20]");
-		$this->form_validation->set_rules("nominal_jenis", "Nominal Jenis", "required|is_unique[tbl_jenis_spp.nominal_jenis]");
-		$this->form_validation->set_rules("kategori", "Kategori", "required|is_unique[tbl_jenis_spp.kategori]");
-		$this->form_validation->set_rules("tahun", "Tahun Berlaku", "required[tbl_jenis_spp.tahun]");
-=======
+	public function validation_form()
+	{
 		// $this->form_validation->set_rules("kode_jenisspp", "Kode Jenis SPP", "required|is_unique[tbl_jenis_spp.kode_jenisspp]|max_length[20]");
 		$this->form_validation->set_rules("nominal_jenis", "Nominal Jenis", "required|is_unique[tbl_jenis_spp.nominal_jenis]");
 		$this->form_validation->set_rules("kategori", "Kategori", "required|is_unique[tbl_jenis_spp.kategori]");
-		
->>>>>>> second commit
-		if ($this->form_validation->run() == FALSE)
-		{
+
+		if ($this->form_validation->run() == FALSE) {
 			$this->index();
-		}
-		else
-		{
+		} else {
 			$this->Jenis_Spp_Model->tambah_data();
 			$this->session->set_flashdata('flash_jenis_spp', 'Disimpan');
 			redirect('DataJenisSpp');
-		}	
+		}
 	}
 
 	public function hapus($kd)
@@ -57,27 +48,17 @@ class DataJenisSpp extends CI_Controller
 		$this->form_validation->set_rules("kode_jenisspp", "Kode Jenis SPP", "required|max_length[20]");
 		$this->form_validation->set_rules("nominal_jenis", "Nominal Jenis", "required");
 		$this->form_validation->set_rules("kategori", "Kategori", "required");
-<<<<<<< HEAD
-		$this->form_validation->set_rules("tahun", "Tahun Berlaku", "required");
-=======
-		
->>>>>>> second commit
-		if ($this->form_validation->run() == FALSE)
-		{
-			$data['ubah']= $this->Jenis_Spp_Model->detail_data($kd);
+
+		if ($this->form_validation->run() == FALSE) {
+			$data['ubah'] = $this->Jenis_Spp_Model->detail_data($kd);
 			$this->load->view('templates/header');
 			$this->load->view('templates/sidebar');
 			$this->load->view('jenis_spp/ubah', $data);
 			$this->load->view('templates/footer');
-		}
-		else
-		{
+		} else {
 			$this->Jenis_Spp_Model->ubah_data();
 			$this->session->set_flashdata('flash_jenis_spp', 'DiUbah');
 			redirect('DataJenisSpp');
-		}	
+		}
 	}
-
-
 }
-?>

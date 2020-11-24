@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-Content Wrapper. Contains page content -->
-=======
-
->>>>>>> second commit
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -43,19 +38,19 @@ Content Wrapper. Contains page content -->
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nominal DPP</label>
-                      <input type="text" class="form-control"name="nmnl_dpp" value="<?= $ubah['nominal_dpp'] ?>">
+                      <input type="text" class="form-control" name="nmnl_dpp" value="<?= $ubah['nominal_dpp'] ?>">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Jumlah Angsuran</label>
-                      <input type="text" class="form-control"name="jmlh_angsuran" value="<?= $ubah['jumlah_angsuran'] ?>">
+                      <input type="text" class="form-control" name="jmlh_angsuran" value="<?= $ubah['jumlah_angsuran'] ?>">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nominal Angsuran</label>
-                      <input type="text" class="form-control"name="nmnl_angsuran" value="<?= $ubah['nominal_angsuran'] ?>">
+                      <input type="text" class="form-control" name="nmnl_angsuran" value="<?= $ubah['nominal_angsuran'] ?>">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Status</label>
-                      <input type="text" class="form-control"name="stts" value="<?= $ubah['status'] ?>">
+                      <input type="text" class="form-control" name="stts" value="<?= $ubah['status'] ?>">
                     </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>

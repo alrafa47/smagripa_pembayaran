@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-Content Wrapper. Contains page content -->
-=======
-
->>>>>>> second commit
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -25,16 +20,16 @@ Content Wrapper. Contains page content -->
   <!-- Main content -->
   <section class="content">
     <!-- NOTIFIKASI -->
-    <?php 
-    if ($this->session->flashdata('flash_jenis_spp')){ ?>
+    <?php
+    if ($this->session->flashdata('flash_jenis_spp')) { ?>
       <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h6>
-          <i class="icon fas fa-check"></i> 
-          Data Berhasil 
+          <i class="icon fas fa-check"></i>
+          Data Berhasil
           <strong>
             <?= $this->session->flashdata('flash_jenis_spp');   ?>
-          </strong> 
+          </strong>
         </h6>
       </div>
     <?php } ?>
@@ -68,24 +63,12 @@ Content Wrapper. Contains page content -->
                     <div class="form-group">
                       <label>Kategori</label>
                       <select class="form-control" name="kategori">
-<<<<<<< HEAD
-                        <option value="Normal">Normal</option>
-                        <option value="Keterangan1">Keterangan 1</option>
-                        <option value="Keterangan2">Keterangan 2</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Tahun Berlaku </label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="tahun">
-                    </div>
-=======
                         <option value="tingkat 1">Tingkat 1</option>
                         <option value="tingkat 2">Tingkat 2</option>
                         <option value="tingkat 3">Tingkat 3</option>
                       </select>
                     </div>
-                    
->>>>>>> second commit
+
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>
                   <!-- /.card-body -->
@@ -115,36 +98,28 @@ Content Wrapper. Contains page content -->
                   <th>Kode Jenis SPP</th>
                   <th>Nominal Jenis</th>
                   <th>Keterangan</th>
-<<<<<<< HEAD
-                  <th>Tahun</th>
-=======
->>>>>>> second commit
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <?php 
-                $no=1;
-                foreach ($jenis_spp as $row){ ?>
+                <?php
+                $no = 1;
+                foreach ($jenis_spp as $row) { ?>
                   <tr>
                     <td><?= $no ?></td>
                     <td><?= $row->kode_jenisspp ?></td>
-                    <td><?= $row->nominal_jenis?></td>
+                    <td><?= $row->nominal_jenis ?></td>
                     <td><?= $row->kategori ?></td>
-<<<<<<< HEAD
-                    <td><?= $row->tahun ?></td>
-=======
->>>>>>> second commit
                     <td>
                       <div class="btn-group">
                         <a href="<?= base_url() ?>DataJenisSpp/hapus/<?= $row->kode_jenisspp ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a>
-                        <a href="<?= base_url() ?>DataJenisSpp/ubah/<?= $row->kode_jenisspp?>" class="btn btn-warning">update</a>
+                        <a href="<?= base_url() ?>DataJenisSpp/ubah/<?= $row->kode_jenisspp ?>" class="btn btn-warning">update</a>
                       </div>
                     </td>
                   </tr>
-                  <?php 
+                <?php
                   $no++;
-                } 
+                }
                 ?>
               </tbody>
             </table>
