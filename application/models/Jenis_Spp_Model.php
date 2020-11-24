@@ -15,12 +15,7 @@ class Jenis_Spp_Model extends CI_Model
 		$data = array(
 			'kode_jenisspp' => $this->input->post('kode_jenisspp', true),
 			'nominal_jenis' => $this->input->post('nominal_jenis', true),
-<<<<<<< HEAD
-			'kategori' => $this->input->post('kategori', true),
-			'tahun' => $this->input->post('tahun', true)
-=======
 			'kategori' => $this->input->post('kategori', true)
->>>>>>> second commit
 		);
 
 		$this->db->insert('tbl_jenis_spp', $data);
@@ -30,12 +25,7 @@ class Jenis_Spp_Model extends CI_Model
 	{
 		$data = array(
 			'nominal_jenis' => $this->input->post('nominal_jenis', true),
-<<<<<<< HEAD
-			'kategori' => $this->input->post('kategori', true),
-			'tahun' => $this->input->post('tahun', true)
-=======
 			'kategori' => $this->input->post('kategori', true)
->>>>>>> second commit
 		);
 		$this->db->where('kode_jenisspp', $this->input->post('kode_jenisspp', true));
 		$this->db->update('tbl_jenis_spp', $data);
@@ -51,4 +41,7 @@ class Jenis_Spp_Model extends CI_Model
 		return $this->db->get_where('tbl_jenis_spp', ['kode_jenisspp' => $kode]) ->row_array(); 
 	}
 }
+<<<<<<< HEAD
+=======
 ?>
+>>>>>>> new commit from ulva

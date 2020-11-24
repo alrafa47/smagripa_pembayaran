@@ -1,20 +1,10 @@
-<<<<<<< HEAD
-<?php 
-=======
 <?php
->>>>>>> second commit
 
 /**
  * 
  */
 class DataPembayaranSPP_Model extends CI_Model
 {
-<<<<<<< HEAD
-	
-}
-
- ?>
-=======
     public function getDataSIswaJoinJenisSPP()
     {
         $this->db->select('tbl_siswa.*, tbl_jenis_spp.nominal_jenis, tbl_jenis_spp.kategori');
@@ -63,4 +53,3 @@ class DataPembayaranSPP_Model extends CI_Model
         semester genap : 1, 2, 3, 4, 5, 6
     */
 }
->>>>>>> second commit

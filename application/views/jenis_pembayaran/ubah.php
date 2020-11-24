@@ -1,16 +1,17 @@
+Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1> Ubah Data DPP Siswa</h1>
+          <h1> Ubah Jenis SPP</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">Dashboard</li>
-            <li class="breadcrumb-item">Data DPP Siswa</li>
-            <li class="breadcrumb-item active">Ubah Data DPP Siswa</li>
+            <li class="breadcrumb-item">Jenis SPP</li>
+            <li class="breadcrumb-item active">Ubah Jenis Pembayaran/li>
           </ol>
         </div>
       </div>
@@ -33,24 +34,20 @@
                 <form action="" method="post" accept-charset="utf-8">
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">NISN</label>
-                      <input type="text" class="form-control disabled" name="Nisn" value="<?= $ubah['nisn'] ?>" readonly>
+                      <label for="exampleInputEmail1">Kode Jenis Pembayaran</label>
+                      <input type="text" class="form-control disabled" name="kode_jenispembayaran" value="<?= $ubah['kode_jenispembayaran'] ?>" readonly>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Nominal DPP</label>
-                      <input type="text" class="form-control" name="nmnl_dpp" value="<?= $ubah['nominal_dpp'] ?>">
+                      <label for="exampleInputPassword1">Nama Pembayaran</label>
+                      <input type="text" class="form-control"name="nama_pembayaran" value="<?= $ubah['nama_pembayaran'] ?>">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Jumlah Angsuran</label>
-                      <input type="text" class="form-control" name="jmlh_angsuran" value="<?= $ubah['jumlah_angsuran'] ?>">
+                      <label for="exampleInputPassword1">Nominal Pembayaran</label>
+                      <input type="text" class="form-control"name="nominal" value="<?= $ubah['nominal'] ?>">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Nominal Angsuran</label>
-                      <input type="text" class="form-control" name="nmnl_angsuran" value="<?= $ubah['nominal_angsuran'] ?>">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Status</label>
-                      <input type="text" class="form-control" name="stts" value="<?= $ubah['status'] ?>">
+                      <label for="exampleInputPassword1">Tahun</label>
+                      <input type="text" class="form-control"name="tahun" value="<?= $ubah['tahun'] ?>">
                     </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>

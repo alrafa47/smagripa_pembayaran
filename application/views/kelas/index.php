@@ -21,16 +21,16 @@ Content Wrapper. Contains page content -->
   <!-- Main content -->
   <section class="content">
     <!-- NOTIFIKASI -->
-    <?php 
-    if ($this->session->flashdata('flash_kelas')){ ?>
+    <?php
+    if ($this->session->flashdata('flash_kelas')) { ?>
       <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h6>
-          <i class="icon fas fa-check"></i> 
-          Data Berhasil 
+          <i class="icon fas fa-check"></i>
+          Data Berhasil
           <strong>
             <?= $this->session->flashdata('flash_kelas');   ?>
-          </strong> 
+          </strong>
         </h6>
       </div>
     <?php } ?>
@@ -56,10 +56,7 @@ Content Wrapper. Contains page content -->
                     <div class="form-group">
                       <label>Kelas</label>
                       <select class="form-control" name="kelas">
-<<<<<<< HEAD
-=======
                         <option>--Pilih Kelas--</option>
->>>>>>> second commit
                         <option value="X">X</option>
                         <option value="XI">XI</option>
                         <option value="XII">XII</option>
@@ -69,30 +66,20 @@ Content Wrapper. Contains page content -->
                     <div class="form-group">
                       <label>jurusan</label>
                       <select class="form-control" name="kd_jur">
-<<<<<<< HEAD
-                        <?php 
-                        foreach ($jurusan as $jur) { ?>
-=======
                         <option>--Pilih Jurusan--</option>
-                        <?php 
+                        <?php
                         foreach ($jurusan as $jur) { ?>
 
->>>>>>> second commit
-                          <option value="<?= $jur->kode_jurusan?>"><?= $jur->nama_jurusan ?></option>
+                          <option value="<?= $jur->kode_jurusan ?>"><?= $jur->nama_jurusan ?></option>
                         <?php } ?>
                       </select>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Nama kelas</label>
                       <select name="nm_kelas" class="form-control">
-<<<<<<< HEAD
-                        <?php 
-                        foreach (range('A', 'Z') as $char) { ?>
-=======
                         <option>--Pilih Nama Kelas--</option>
-                        <?php 
+                        <?php
                         foreach (range('A', 'D') as $char) { ?>
->>>>>>> second commit
                           <option value="<?= $char ?>"><?= $char  ?></option>
                         <?php } ?>
                       </select>
@@ -130,9 +117,9 @@ Content Wrapper. Contains page content -->
                 </tr>
               </thead>
               <tbody>
-                <?php 
-                $no=1;
-                foreach ($kelas as $row){ ?>
+                <?php
+                $no = 1;
+                foreach ($kelas as $row) { ?>
                   <tr>
                     <td><?= $no ?></td>
                     <td><?= $row->kelas ?></td>
@@ -140,15 +127,12 @@ Content Wrapper. Contains page content -->
                     <td><?= $row->nama_kelas ?></td>
                     <td>
                       <a href="<?= base_url() ?>DataKelas/hapus/<?= $row->kode_kelas ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-<<<<<<< HEAD
-=======
                       <a href="<?= base_url() ?>DataKelas/ubah/<?= $row->kode_kelas ?>" class="btn btn-warning">update</a>
->>>>>>> second commit
                     </td>
                   </tr>
-                  <?php 
+                <?php
                   $no++;
-                } 
+                }
                 ?>
               </tbody>
             </table>

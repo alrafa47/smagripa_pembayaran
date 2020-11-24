@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Mar 2020 pada 10.53
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.4.1
+-- Waktu pembuatan: 24 Nov 2020 pada 12.47
+-- Versi server: 10.4.16-MariaDB
+-- Versi PHP: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -62,6 +61,13 @@ CREATE TABLE `tbl_dpp_siswa` (
   `status` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tbl_dpp_siswa`
+--
+
+INSERT INTO `tbl_dpp_siswa` (`nisn`, `nominal_dpp`, `jumlah_angsuran`, `nominal_angsuran`, `status`) VALUES
+('12', 100000, 2, 50000, 'belum lunas');
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +81,14 @@ CREATE TABLE `tbl_jenis_pembayaran` (
   `tahun` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tbl_jenis_pembayaran`
+--
+
+INSERT INTO `tbl_jenis_pembayaran` (`kode_jenispembayaran`, `nama_pembayaran`, `nominal`, `tahun`) VALUES
+('uas', 'UAS', 125000, '2020'),
+('uts', 'UTS', 100000, '2020');
+
 -- --------------------------------------------------------
 
 --
@@ -87,6 +101,14 @@ CREATE TABLE `tbl_jenis_spp` (
   `kategori` varchar(30) NOT NULL,
   `tahun` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_jenis_spp`
+--
+
+INSERT INTO `tbl_jenis_spp` (`kode_jenisspp`, `nominal_jenis`, `kategori`, `tahun`) VALUES
+('normal', 50000, 'tingkat 2', ''),
+('rendah', 25000, 'tingkat 1', '');
 
 -- --------------------------------------------------------
 
@@ -104,8 +126,8 @@ CREATE TABLE `tbl_jurusan` (
 --
 
 INSERT INTO `tbl_jurusan` (`kode_jurusan`, `nama_jurusan`) VALUES
-('mm', 'multimedia'),
-('ss', 'siiii');
+('ak', 'akuntansi'),
+('kantor', 'perkantorann');
 
 -- --------------------------------------------------------
 
@@ -120,6 +142,14 @@ CREATE TABLE `tbl_kelas` (
   `nama_kelas` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tbl_kelas`
+--
+
+INSERT INTO `tbl_kelas` (`kode_kelas`, `kelas`, `kode_jurusan`, `nama_kelas`) VALUES
+('XakA', 'X', 'ak', 'A'),
+('XIakB', 'XI', 'ak', 'B');
+
 -- --------------------------------------------------------
 
 --
@@ -129,6 +159,7 @@ CREATE TABLE `tbl_kelas` (
 CREATE TABLE `tbl_pembayaran` (
   `no_transaksi` int(20) NOT NULL,
   `nisn` varchar(20) NOT NULL,
+  `kode_ta` varchar(10) DEFAULT NULL,
   `tanggal` date NOT NULL,
   `total` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -142,6 +173,7 @@ CREATE TABLE `tbl_pembayaran` (
 CREATE TABLE `tbl_pembayaran_spp` (
   `no_transaksi` int(20) NOT NULL,
   `nisn` varchar(20) NOT NULL,
+  `kode_ta` varchar(10) DEFAULT NULL,
   `kode_kelas` varchar(20) NOT NULL,
   `kode_jenisspp` varchar(20) NOT NULL,
   `tanggal` date NOT NULL,
@@ -163,9 +195,39 @@ CREATE TABLE `tbl_siswa` (
   `tgl_lahir` date NOT NULL,
   `alamat` text NOT NULL,
   `no_telfon` varchar(13) NOT NULL,
+  `kode_ta` varchar(10) NOT NULL,
+  `tahun_keluar` varchar(10) DEFAULT NULL,
   `kode_jurusan` varchar(20) NOT NULL,
   `kode_jenisspp` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_siswa`
+--
+
+INSERT INTO `tbl_siswa` (`nisn`, `nama_siswa`, `jk`, `tempat_lahir`, `tgl_lahir`, `alamat`, `no_telfon`, `kode_ta`, `tahun_keluar`, `kode_jurusan`, `kode_jenisspp`) VALUES
+('12', 'al', 'laki-laki', 'malang', '2019-10-23', 'malang', '09', '1', NULL, 'ak', 'normal');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_tahun_ajaran`
+--
+
+CREATE TABLE `tbl_tahun_ajaran` (
+  `kode_ta` int(15) NOT NULL,
+  `tahun_ajaran` varchar(15) NOT NULL,
+  `semester` varchar(10) NOT NULL,
+  `status` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tbl_tahun_ajaran`
+--
+
+INSERT INTO `tbl_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `semester`, `status`) VALUES
+(1, '2019/2020', 'genap', 'tidak aktif'),
+(2, '2019/2020', 'ganjil', 'aktif');
 
 --
 -- Indexes for dumped tables
@@ -221,7 +283,8 @@ ALTER TABLE `tbl_kelas`
 --
 ALTER TABLE `tbl_pembayaran`
   ADD PRIMARY KEY (`no_transaksi`),
-  ADD KEY `nisn` (`nisn`);
+  ADD KEY `nisn` (`nisn`),
+  ADD KEY `kode_ta` (`kode_ta`);
 
 --
 -- Indeks untuk tabel `tbl_pembayaran_spp`
@@ -230,7 +293,8 @@ ALTER TABLE `tbl_pembayaran_spp`
   ADD PRIMARY KEY (`no_transaksi`),
   ADD KEY `nisn` (`nisn`),
   ADD KEY `kode_kelas` (`kode_kelas`),
-  ADD KEY `kode_jenisspp` (`kode_jenisspp`);
+  ADD KEY `kode_jenisspp` (`kode_jenisspp`),
+  ADD KEY `kode_ta` (`kode_ta`);
 
 --
 -- Indeks untuk tabel `tbl_siswa`
@@ -238,7 +302,14 @@ ALTER TABLE `tbl_pembayaran_spp`
 ALTER TABLE `tbl_siswa`
   ADD PRIMARY KEY (`nisn`),
   ADD KEY `kode_jenis` (`kode_jenisspp`),
-  ADD KEY `kode_jurusan` (`kode_jurusan`);
+  ADD KEY `kode_jurusan` (`kode_jurusan`),
+  ADD KEY `kode_ta` (`kode_ta`);
+
+--
+-- Indeks untuk tabel `tbl_tahun_ajaran`
+--
+ALTER TABLE `tbl_tahun_ajaran`
+  ADD PRIMARY KEY (`kode_ta`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -248,7 +319,7 @@ ALTER TABLE `tbl_siswa`
 -- AUTO_INCREMENT untuk tabel `tbl_angsuran_dpp`
 --
 ALTER TABLE `tbl_angsuran_dpp`
-  MODIFY `no_transaksi` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_transaksi` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pembayaran`
@@ -278,12 +349,6 @@ ALTER TABLE `tbl_angsuran_dpp`
 ALTER TABLE `tbl_detail_pembayaran`
   ADD CONSTRAINT `tbl_detail_pembayaran_ibfk_1` FOREIGN KEY (`no_transaksi`) REFERENCES `tbl_pembayaran` (`no_transaksi`),
   ADD CONSTRAINT `tbl_detail_pembayaran_ibfk_2` FOREIGN KEY (`kode_jenispembayaran`) REFERENCES `tbl_jenis_pembayaran` (`kode_jenispembayaran`);
-
---
--- Ketidakleluasaan untuk tabel `tbl_dpp_siswa`
---
-ALTER TABLE `tbl_dpp_siswa`
-  ADD CONSTRAINT `tbl_dpp_siswa_ibfk_1` FOREIGN KEY (`nisn`) REFERENCES `tbl_siswa` (`nisn`);
 
 --
 -- Ketidakleluasaan untuk tabel `tbl_kelas`

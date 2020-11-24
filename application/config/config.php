@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
-defined('BASEPATH') OR exit('No direct script access allowed');
-=======
 defined('BASEPATH') or exit('No direct script access allowed');
->>>>>>> second commit
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +23,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-<<<<<<< HEAD
-$config['base_url'] = 'http://localhost/Pembayaran/';
-=======
-$config['base_url'] = 'http://localhost/smagripa_pembayaran1/';
->>>>>>> second commit
+
+$config['base_url'] = 'http://localhost/rev1/smagripa_pembayaran/';
 
 /*
 |--------------------------------------------------------------------------
@@ -60,11 +53,7 @@ $config['index_page'] = '';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-<<<<<<< HEAD
-$config['uri_protocol']	= 'REQUEST_URI';
-=======
 $config['uri_protocol']    = 'REQUEST_URI';
->>>>>>> second commit
 
 /*
 |--------------------------------------------------------------------------
@@ -88,12 +77,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-<<<<<<< HEAD
-$config['language']	= 'english';
-=======
 $config['language']    = 'english';
->>>>>>> second commit
-
 /*
 |--------------------------------------------------------------------------
 | Default Character Set
@@ -416,19 +400,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-<<<<<<< HEAD
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
-=======
 $config['cookie_prefix']    = '';
 $config['cookie_domain']    = '';
 $config['cookie_path']        = '/';
 $config['cookie_secure']    = FALSE;
 $config['cookie_httponly']     = FALSE;
->>>>>>> second commit
 
 /*
 |--------------------------------------------------------------------------

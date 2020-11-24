@@ -1,11 +1,10 @@
-
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Data Jurusan</h1>
+          <h1>Data Tahun Ajaran</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -21,16 +20,16 @@
   <!-- Main content -->
   <section class="content">
     <!-- NOTIFIKASI -->
-    <?php 
-    if ($this->session->flashdata('flash_tahunajaran')){ ?>
+    <?php
+    if ($this->session->flashdata('flash_tahunajaran')) { ?>
       <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h6>
-          <i class="icon fas fa-check"></i> 
-          Data Berhasil 
+          <i class="icon fas fa-check"></i>
+          Data Berhasil
           <strong>
             <?= $this->session->flashdata('flash_tahunajaran');   ?>
-          </strong> 
+          </strong>
         </h6>
       </div>
     <?php } ?>
@@ -53,7 +52,7 @@
                 <?= validation_errors(); ?>
                 <form action="<?= base_url() ?>DataTahunAjaran/validation_form" method="post" accept-charset="utf-8">
                   <div class="card-body">
-                    
+
                     <div class="form-group">
                       <label for="exampleInputPassword1">Tahun Ajaran</label>
                       <input type="text" class="form-control" id="exampleInputPassword1" name="thn_ajaran">
@@ -61,7 +60,7 @@
                     <div class="form-group">
                       <label for="exampleInputPassword1">Semester</label>
                       <select class="form-control" name="smt">
-                        <option>Pilih Semester</option>
+                        <option>--Pilih Semester--</option>
                         <option value="ganjil">Ganjil</option>
                         <option value="genap">Genap</option>
                       </select>
@@ -69,7 +68,7 @@
                     <div class="form-group">
                       <label for="exampleInputPassword1">Status</label>
                       <select class="form-control" name="stts">
-                        <option>Pilih Status</option>
+                        <option>--Pilih Status--</option>
                         <option value="aktif">Aktif</option>
                         <option value="tidak aktif">Tidak Aktif</option>
                       </select>
@@ -108,9 +107,9 @@
                 </tr>
               </thead>
               <tbody>
-                <?php 
-                $no=1;
-                foreach ($tahunajaran as $row){ ?>
+                <?php
+                $no = 1;
+                foreach ($tahunajaran as $row) { ?>
                   <tr>
                     <td><?= $no ?></td>
                     <td><?= $row->kode_ta ?></td>
@@ -124,9 +123,9 @@
                       </div>
                     </td>
                   </tr>
-                  <?php 
+                <?php
                   $no++;
-                } 
+                }
                 ?>
               </tbody>
             </table>

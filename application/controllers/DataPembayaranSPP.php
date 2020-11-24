@@ -1,48 +1,22 @@
-<<<<<<< HEAD
-<?php 
-=======
 <?php
->>>>>>> second commit
 
 /**
  * 
  */
 class DataPembayaranSPP extends CI_Controller
 {
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> second commit
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model("DataPembayaranSPP_Model");
 		$this->load->model("Siswa_Model");
-<<<<<<< HEAD
-		// $this->load->model("TahunAjaran_Model");
-		$this->load->model("Kelas_Model");
-		$this->load->model("Jenis_Spp_Model");
-		$this->load->
-=======
 		$this->load->model("Kelas_Model");
 		$this->load->model("Jenis_Spp_Model");
 		$this->load->library("form_validation");
->>>>>>> second commit
 	}
 
 	public function index()
 	{
-<<<<<<< HEAD
-		$data['siswa'] = $this->Siswa_Model->getAllData();
-		$this->load->view('templates/header');
-		$this->load->view('templates/sidebar');
-		$this->load->view('DataPembayaranSPP/index');
-		$this->load->view('templates/footer');
-	}
-
-	public function bayar(){
-=======
 		$data['dataSiswa'] = $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPP();
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
@@ -116,7 +90,6 @@ class DataPembayaranSPP extends CI_Controller
 
 	public function bayar()
 	{
->>>>>>> second commit
 		$data['siswa'] = $this->Siswa_Model->getAllData();
 		// $data['ThnAjar'] = $this->TahunAjaran_Model->getAllData();
 		$data['kelas'] = $this->Kelas_Model->getAllData();
@@ -129,17 +102,5 @@ class DataPembayaranSPP extends CI_Controller
 
 	public function tambah()
 	{
-<<<<<<< HEAD
-
-	}
-
-}
-
-
-
-
- ?>
-=======
 	}
 }
->>>>>>> second commit
