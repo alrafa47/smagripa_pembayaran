@@ -247,23 +247,40 @@
         <h4 class="modal-title">Detail Data Siswa</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <?php foreach ($detail_siswa as $row) : ?>
-          <p><?= $no ?></p>
-          <p><?= $row->nisn ?></p>
-          <p><?= $row->nama_siswa ?></p>
-          <p><?= $row->nominal_dpp ?></p>
-          <p><?= $row->jumlah_angsuran ?></p>
-          <p><?= $row->nominal_angsuran ?></p>
-          <p><?= $row->status ?></p>
-        <?php endforeach ?>
+          <<<<<<< HEAD </button> </div> <div class="modal-body">
+            <?php foreach ($detail_siswa as $row) : ?>
+              <p><?= $no ?></p>
+              <p><?= $row->nisn ?></p>
+              <p><?= $row->nama_siswa ?></p>
+              <p><?= $row->nominal_dpp ?></p>
+              <p><?= $row->jumlah_angsuran ?></p>
+              <p><?= $row->nominal_angsuran ?></p>
+              <p><?= $row->status ?></p>
+            <?php endforeach ?>
       </div>
     </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
+  =======
+  </button>
+</div>
+<div class="modal-body">
+  <?php foreach ($detail_siswa as $row) : ?>
+    <p><?= $no ?></p>
+    <p><?= $row->nisn ?></p>
+    <p><?= $row->nama_siswa ?></p>
+    <p><?= $row->nominal_dpp ?></p>
+    <p><?= $row->jumlah_angsuran ?></p>
+    <p><?= $row->nominal_angsuran ?></p>
+    <p><?= $row->status ?></p>
+  <?php endforeach ?>
+</div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+>>>>>>> new commit from ulva
 </div>
 <!-- /.modal -->
 <!-- end modal detail data -->

@@ -50,3 +50,8 @@ class Kelas_Model extends CI_Model
 	}
 
 }
+<<<<<<< HEAD
+=======
+
+?>
+>>>>>>> new commit from ulva

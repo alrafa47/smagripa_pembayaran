@@ -1,4 +1,3 @@
-
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -38,17 +37,37 @@
                       <input type="text" class="form-control disabled" name="kd_kelas" value="<?= $ubah['kode_kelas'] ?>" readonly>
                     </div>
                     <div class="form-group">
+                      <label>Kelas</label>
+                      <select class="form-control" name="kelas">
+                        <?php
+                        if ($ubah['kelas'] == 'X') {
+                          echo "<option value = 'X' selected>X</option>
+                          <option value ='XI'>XI</option>
+                          <option value ='XII'>XII</option>";
+                        } elseif ($ubah['kelas'] == 'X') {
+                          echo "<option value = 'X'>X</option>
+                          <option value ='XI' selected>XI</option>
+                          <option value ='XII'>XII</option>";
+                        } else {
+                          echo "<option value = 'X'>X</option>
+                          <option value ='XI'>XI</option>
+                          <option value ='XII' selected>XII</option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <div class="form-group">
                       <label for="exampleInputPassword1">Nama Jurusan</label>
                       <select class="form-control" name="kd_jur">
-                        <?php 
+                        <?php
                         foreach ($jurusan as $value) {
                           $selected = '';
                           if ($ubah['kode_jurusan'] == $value->kode_jurusan) {
                             $selected = 'selected';
                           }
-                          ?>
+                        ?>
                           <option value="<?php echo $value->kode_jurusan ?>" <?php echo $selected ?>><?php echo $value->nama_jurusan ?></option>
-                          <?php
+                        <?php
                         }
                         ?>
                       </select>
@@ -56,15 +75,15 @@
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nama Kelas</label>
                       <select class="form-control" name="nm_kls">
-                        <?php 
+                        <?php
                         foreach (range('A', 'D') as $value) {
                           $selected = '';
                           if ($ubah['nama_kelas'] == $value) {
                             $selected = 'selected';
                           }
-                          ?>
+                        ?>
                           <option value="<?php echo $value ?>" <?php echo $selected ?>><?php echo $value ?></option>
-                          <?php
+                        <?php
                         }
                         ?>
                       </select>

@@ -22,7 +22,7 @@ class DataJurusan extends CI_Controller
 	}
 
 	public function validation_form(){
-		$this->form_validation->set_rules("kd_jur", "Kode Jurusan", "required|is_unique[tbl_jurusan.kode_jurusan]|max_length[5]");
+		$this->form_validation->set_rules("kd_jur", "Kode Jurusan", "required|is_unique[tbl_jurusan.kode_jurusan]|max_length[20]");
 		$this->form_validation->set_rules("nm_jur", "Nama Jurusan", "required|is_unique[tbl_jurusan.nama_jurusan]");
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -45,7 +45,7 @@ class DataJurusan extends CI_Controller
 
 	public function ubah($kd)
 	{
-		$this->form_validation->set_rules("kd_jur", "Kode Jurusan", "required|max_length[5]");
+		$this->form_validation->set_rules("kd_jur", "Kode Jurusan", "required|max_length[20]");
 		$this->form_validation->set_rules("nm_jur", "Nama Jurusan", "required");
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -65,4 +65,3 @@ class DataJurusan extends CI_Controller
 
 
 }
-?>

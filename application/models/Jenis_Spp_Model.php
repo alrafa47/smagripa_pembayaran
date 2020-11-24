@@ -41,3 +41,7 @@ class Jenis_Spp_Model extends CI_Model
 		return $this->db->get_where('tbl_jenis_spp', ['kode_jenisspp' => $kode]) ->row_array(); 
 	}
 }
+<<<<<<< HEAD
+=======
+?>
+>>>>>>> new commit from ulva
