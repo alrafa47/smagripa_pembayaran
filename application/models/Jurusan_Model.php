@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * 
@@ -10,7 +10,7 @@ class Jurusan_Model extends CI_Model
 		return $this->db->get('tbl_jurusan')->result();
 	}
 
-	public function tambah_data( )
+	public function tambah_data()
 	{
 		$data = array(
 			'kode_jurusan' => $this->input->post('kd_jur', true),
@@ -20,7 +20,7 @@ class Jurusan_Model extends CI_Model
 		$this->db->insert('tbl_jurusan', $data);
 	}
 
-	public function ubah_data( )
+	public function ubah_data()
 	{
 		$data = array(
 			'nama_jurusan' => $this->input->post('nm_jur', true)
@@ -36,7 +36,6 @@ class Jurusan_Model extends CI_Model
 
 	public function detail_data($kode)
 	{
-		return $this->db->get_where('tbl_jurusan', ['kode_jurusan' => $kode]) ->row_array(); 
+		return $this->db->get_where('tbl_jurusan', ['kode_jurusan' => $kode])->row_array();
 	}
 }
-?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Nov 2020 pada 12.47
+-- Waktu pembuatan: 25 Nov 2020 pada 16.48
 -- Versi server: 10.4.16-MariaDB
 -- Versi PHP: 7.4.12
 
@@ -66,7 +66,7 @@ CREATE TABLE `tbl_dpp_siswa` (
 --
 
 INSERT INTO `tbl_dpp_siswa` (`nisn`, `nominal_dpp`, `jumlah_angsuran`, `nominal_angsuran`, `status`) VALUES
-('12', 100000, 2, 50000, 'belum lunas');
+('12', 100000, 1, 100000, '0');
 
 -- --------------------------------------------------------
 
@@ -107,8 +107,8 @@ CREATE TABLE `tbl_jenis_spp` (
 --
 
 INSERT INTO `tbl_jenis_spp` (`kode_jenisspp`, `nominal_jenis`, `kategori`, `tahun`) VALUES
-('normal', 50000, 'tingkat 2', ''),
-('rendah', 25000, 'tingkat 1', '');
+('normal', 50000, 'tingkat 2', '2022'),
+('rendah', 25000, 'tingkat 1', '2020');
 
 -- --------------------------------------------------------
 
@@ -147,8 +147,11 @@ CREATE TABLE `tbl_kelas` (
 --
 
 INSERT INTO `tbl_kelas` (`kode_kelas`, `kelas`, `kode_jurusan`, `nama_kelas`) VALUES
-('XakA', 'X', 'ak', 'A'),
-('XIakB', 'XI', 'ak', 'B');
+('XIakA', 'XI', 'ak', 'A'),
+('XIakB', 'XI', 'ak', 'B'),
+('XIIkantorB', 'XII', 'kantor', 'B'),
+('XIIkantorC', 'XII', 'kantor', 'C'),
+('XIkantorB', 'XI', 'kantor', 'B');
 
 -- --------------------------------------------------------
 
@@ -184,6 +187,20 @@ CREATE TABLE `tbl_pembayaran_spp` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tbl_pembayaran_ujian`
+--
+
+CREATE TABLE `tbl_pembayaran_ujian` (
+  `no_transaksi` int(20) NOT NULL,
+  `nisn` varchar(20) NOT NULL,
+  `kode_kelas` varchar(20) NOT NULL,
+  `kode_jenispembayaran` varchar(20) NOT NULL,
+  `tanggal` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tbl_siswa`
 --
 
@@ -206,6 +223,7 @@ CREATE TABLE `tbl_siswa` (
 --
 
 INSERT INTO `tbl_siswa` (`nisn`, `nama_siswa`, `jk`, `tempat_lahir`, `tgl_lahir`, `alamat`, `no_telfon`, `kode_ta`, `tahun_keluar`, `kode_jurusan`, `kode_jenisspp`) VALUES
+('1', 'ulva', 'laki-laki', 'a', '2019-10-24', 'a', '087654345', '1', NULL, 'ak', 'rendah'),
 ('12', 'al', 'laki-laki', 'malang', '2019-10-23', 'malang', '09', '1', NULL, 'ak', 'normal');
 
 -- --------------------------------------------------------
@@ -295,6 +313,15 @@ ALTER TABLE `tbl_pembayaran_spp`
   ADD KEY `kode_kelas` (`kode_kelas`),
   ADD KEY `kode_jenisspp` (`kode_jenisspp`),
   ADD KEY `kode_ta` (`kode_ta`);
+
+--
+-- Indeks untuk tabel `tbl_pembayaran_ujian`
+--
+ALTER TABLE `tbl_pembayaran_ujian`
+  ADD PRIMARY KEY (`no_transaksi`),
+  ADD KEY `nisn` (`nisn`),
+  ADD KEY `kode_jenis` (`kode_jenispembayaran`),
+  ADD KEY `kode_kelas` (`kode_kelas`);
 
 --
 -- Indeks untuk tabel `tbl_siswa`

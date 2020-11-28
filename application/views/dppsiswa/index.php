@@ -101,7 +101,7 @@
                             <?php
 
                             foreach ($tahunajaran as $row) { ?>
-                              <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
+                              <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran . $row->semester ?></option>
                             <?php } ?>
                           </select>
 
@@ -156,8 +156,8 @@
                           <label for="exampleInputPassword1">Status</label>
                           <select class="form-control" name="stts">
                             <option>--Pilih Status--</option>
-                            <option value="belum lunas">Belum Lunas</option>
-                            <option value="lunas">Lunas</option>
+                            <option value="0">Belum Lunas</option>
+                            <option value="1">Lunas</option>
                           </select>
                         </div>
                       </div>
@@ -213,9 +213,9 @@
                     <td><?= $row->status ?></td>
                     <td>
                       <div class="btn-group">
-                        <button type="button" class="btn btn-primary" class="view_data" data-toggle="modal" id="myModal" data-id="<?= $row->nisn ?>">Detail Data</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailsiswa" data-nisn="<?= $row->nisn ?>">Detail Siswa</button>
                         <a href="<?= base_url() ?>DataDPPSiswa/hapus/<?= $row->nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                        <a href="<?= base_url() ?>DataDPPSiswa/ubah/<?= $row->nisn ?>" class="btn btn-warning">update</a>
+                        <a href="<?= base_url() ?>DataDPPSiswa/ubah/<?= $row->nisn ?>" class="btn btn-warning">Update</a>
                       </div>
                     </td>
                   </tr>
@@ -240,47 +240,65 @@
 
 
 <!-- modal detail data-->
-<div class="modal fade" id="phoneModal">
+<div class="modal fade" id="detailsiswa">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Detail Data Siswa</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-          <<<<<<< HEAD </button> </div> <div class="modal-body">
-            <?php foreach ($detail_siswa as $row) : ?>
-              <p><?= $no ?></p>
-              <p><?= $row->nisn ?></p>
-              <p><?= $row->nama_siswa ?></p>
-              <p><?= $row->nominal_dpp ?></p>
-              <p><?= $row->jumlah_angsuran ?></p>
-              <p><?= $row->nominal_angsuran ?></p>
-              <p><?= $row->status ?></p>
-            <?php endforeach ?>
+        </button>
+      </div>
+      <div class="modal-body table-responsive">
+        <table class="table table-bordered no-margin">
+          <thead>
+            <tr>
+              <th>NISN</th>
+              <td id="nisn"></td>
+            </tr>
+            <tr>
+              <th>Nama Siswa</th>
+              <td id="nama_siswa"></td>
+            </tr>
+            <tr>
+              <th>Jenis Kelamin</th>
+              <td id="jk"></td>
+            </tr>
+            <tr>
+              <th>Tempat Lahir</th>
+              <td id="tempat_lahir"></td>
+            </tr>
+            <tr>
+              <th>Tanggal Lahir</th>
+              <td id="tgl_lahir"></td>
+            </tr>
+            <tr>
+              <th>Alamat</th>
+              <td id="alamat"></td>
+            </tr>
+            <tr>
+              <th>No Telp</th>
+              <td id="no_telfon"></td>
+            </tr>
+            <tr>
+              <th>Tahun Ajaran</th>
+              <td id="tahun_ajaran"></td>
+            <tr>
+              <th>Jurusan</th>
+              <td id="jurusan"></td>
+            </tr>
+            <tr>
+              <th>Jenis SPP</th>
+              <td id="jenis_spp"></td>
+            </tr>
+          </thead>
+        </table>
+
       </div>
     </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
-  =======
-  </button>
-</div>
-<div class="modal-body">
-  <?php foreach ($detail_siswa as $row) : ?>
-    <p><?= $no ?></p>
-    <p><?= $row->nisn ?></p>
-    <p><?= $row->nama_siswa ?></p>
-    <p><?= $row->nominal_dpp ?></p>
-    <p><?= $row->jumlah_angsuran ?></p>
-    <p><?= $row->nominal_angsuran ?></p>
-    <p><?= $row->status ?></p>
-  <?php endforeach ?>
-</div>
-</div>
-<!-- /.modal-content -->
-</div>
-<!-- /.modal-dialog -->
->>>>>>> new commit from ulva
 </div>
 <!-- /.modal -->
 <!-- end modal detail data -->

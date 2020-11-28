@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * 
@@ -21,21 +21,22 @@ class Kelas_Model extends CI_Model
 	public function tambah_data()
 	{
 		$data = array(
-			'kode_kelas' => $this->input->post('kelas').	$this->input->post('kd_jur').$this->input->post('nm_kelas'),
+			'kode_kelas' => $this->input->post('kelas') . $this->input->post('kd_jur') . $this->input->post('nm_kelas'),
 			'kelas' => $this->input->post('kelas'),
 			'kode_jurusan' => $this->input->post('kd_jur'),
 			'nama_kelas' => $this->input->post('nm_kelas')
 		);
 		$this->db->insert('tbl_kelas', $data);
 	}
-	public function ubah_data( )
+	public function ubah_data()
 	{
 		$data = array(
+			'kode_kelas' => $this->input->post('kelas') . $this->input->post('kd_jur') . $this->input->post('nm_kelas'),
 			'kelas' => $this->input->post('kelas'),
 			'kode_jurusan' => $this->input->post('kd_jur'),
 			'nama_kelas' => $this->input->post('nm_kelas')
 		);
-		$this->db->where('kode_kelas', $this->input->post('kd_kls', true));
+		$this->db->where('kode_kelas', $this->input->post('kd_kelas', true));
 		$this->db->update('tbl_kelas', $data);
 	}
 
@@ -46,12 +47,6 @@ class Kelas_Model extends CI_Model
 
 	public function detail_data($kd)
 	{
-		return $this->db->get_where('tbl_kelas', ['kode_kelas' => $kd]) ->row_array(); 
+		return $this->db->get_where('tbl_kelas', ['kode_kelas' => $kd])->row_array();
 	}
-
 }
-<<<<<<< HEAD
-=======
-
-?>
->>>>>>> new commit from ulva

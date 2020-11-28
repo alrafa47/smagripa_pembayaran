@@ -43,4 +43,3 @@ class Jenis_Pembayaran_Model extends CI_Model
 		return $this->db->get_where('tbl_jenis_pembayaran', ['kode_jenispembayaran' => $kode]) ->row_array(); 
 	}
 }
-?>

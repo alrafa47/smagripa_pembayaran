@@ -23,11 +23,12 @@ class DataJenisSpp extends CI_Controller
 
 	public function validation_form()
 	{
-		// $this->form_validation->set_rules("kode_jenisspp", "Kode Jenis SPP", "required|is_unique[tbl_jenis_spp.kode_jenisspp]|max_length[20]");
-		$this->form_validation->set_rules("nominal_jenis", "Nominal Jenis", "required|is_unique[tbl_jenis_spp.nominal_jenis]");
-		$this->form_validation->set_rules("kategori", "Kategori", "required|is_unique[tbl_jenis_spp.kategori]");
 
-		if ($this->form_validation->run() == FALSE) {
+		$this->form_validation->set_rules("nominal_jenis", "Nominal Jenis", "required|is_unique[tbl_jenis_spp.nominal_jenis]");
+		$this->form_validation->set_rules("kategori", "Kategori", "callback_check_select_kategori");
+		$this->form_validation->set_rules("tahun", "Tahun", "required|is_unique[tbl_jenis_spp.tahun]");
+
+		if (!$this->form_validation->run()) {
 			$this->index();
 		} else {
 			$this->Jenis_Spp_Model->tambah_data();
@@ -35,7 +36,15 @@ class DataJenisSpp extends CI_Controller
 			redirect('DataJenisSpp');
 		}
 	}
-
+	public function check_select_kategori()
+	{
+		if ($this->input->post('kategori') == '--Pilih Kategori SPP--') {
+			$this->form_validation->set_message('check_select_kategori', 'pilih KATEGORI yang benar!!!!!!');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
 	public function hapus($kd)
 	{
 		$this->Jenis_Spp_Model->hapus_data($kd);
@@ -48,6 +57,7 @@ class DataJenisSpp extends CI_Controller
 		$this->form_validation->set_rules("kode_jenisspp", "Kode Jenis SPP", "required|max_length[20]");
 		$this->form_validation->set_rules("nominal_jenis", "Nominal Jenis", "required");
 		$this->form_validation->set_rules("kategori", "Kategori", "required");
+		$this->form_validation->set_rules("tahun", "tahun", "required");
 
 		if ($this->form_validation->run() == FALSE) {
 			$data['ubah'] = $this->Jenis_Spp_Model->detail_data($kd);

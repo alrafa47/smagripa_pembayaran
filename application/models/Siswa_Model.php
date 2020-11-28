@@ -55,4 +55,16 @@ class Siswa_Model extends CI_Model
 	{
 		return $this->db->get_where('tbl_siswa', ['nisn' => $kode])->row_array();
 	}
+
+	// menampilkan data siswa join data spp dan data jurusan berdasarakan nis
+	public function getDataSiswaJoinSPPjurusanByNIS($nisn)
+	{
+		$this->db->select("*");
+		$this->db->from("tbl_siswa");
+		$this->db->join("tbl_jenis_spp", "tbl_siswa.kode_jenisspp = tbl_jenis_spp.kode_jenisspp");
+		$this->db->join("tbl_jurusan", "tbl_siswa.kode_jurusan = tbl_jurusan.kode_jurusan");
+		$this->db->join("tbl_tahun_ajaran", "tbl_siswa.kode_ta = tbl_tahun_ajaran.kode_ta");
+		$this->db->where("tbl_siswa.nisn", $nisn);
+		return $this->db->get()->row();
+	}
 }

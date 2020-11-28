@@ -44,14 +44,14 @@
                           echo "<option value = 'X' selected>X</option>
                           <option value ='XI'>XI</option>
                           <option value ='XII'>XII</option>";
-                        } elseif ($ubah['kelas'] == 'X') {
+                        } elseif ($ubah['kelas'] == 'XI') {
                           echo "<option value = 'X'>X</option>
-                          <option value ='XI' selected>XI</option>
-                          <option value ='XII'>XII</option>";
+                          <option value ='XI' selected> XI </option>
+                          <option value ='XII'> XII </option>";
                         } else {
                           echo "<option value = 'X'>X</option>
                           <option value ='XI'>XI</option>
-                          <option value ='XII' selected>XII</option>";
+                          <option value ='XII' selected> XII </option>";
                         }
                         ?>
                       </select>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nama Kelas</label>
-                      <select class="form-control" name="nm_kls">
+                      <select class="form-control" name="nm_kelas">
                         <?php
                         foreach (range('A', 'D') as $value) {
                           $selected = '';
