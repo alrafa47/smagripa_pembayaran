@@ -120,10 +120,8 @@
         });
         // modal pembayaran SPP
         $('#bayarSPP').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var nisn = button.data('nisn') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var button = $(event.relatedTarget)
+            var nisn = button.data('nisn')
             var modal = $(this)
             $.ajax({
                 type: 'post',
@@ -133,6 +131,7 @@
                 },
                 success: function(data) {
                     var dataSiswa = JSON.parse(data);
+                    console.log(dataSiswa);
                     modal.find('#dataNISN').text(dataSiswa.nisn)
                     modal.find('#dataNama').text(dataSiswa.nama_siswa)
                     modal.find('#dataJurusan').text(dataSiswa.kode_jurusan)

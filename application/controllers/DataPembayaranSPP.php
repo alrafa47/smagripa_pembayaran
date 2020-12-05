@@ -34,17 +34,20 @@ class DataPembayaranSPP extends CI_Controller
 		$data['kode_jurusan'] = $result->kode_jurusan;
 		$data['kategori'] = $result->kategori;
 		$data['nominal_jenis'] = $result->nominal_jenis;
-		$data['list_tagihan'] = $this->listTagihan($nisn, $result->tahun_masuk, $result->tahun_keluar);
+		$data['list_tagihan'] = $this->listTagihan($nisn, $result->kode_ta, $result->tahun_keluar);
 		echo json_encode($data);
 	}
-
+	/* 
+	* membuat form untuk list tagihan bulan apa saja yg sudah dan belum di bayar
+	*/
 	public function listTagihan($nisn, $start, $end)
 	{
 		$semesterGanjil = [7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'];
 		$semesterGenap = [1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni'];
 		$listTagihan  = $this->DataPembayaranSPP_Model->getTagihanSPP($start, $end);
 		$listPembayaran  = $this->DataPembayaranSPP_Model->getDataPembayaranSPP($nisn);
-		$html = '<div class="col-12">';
+		$html = "<form id='formSPP' method='POST' action='" . base_url() . "DataPembayaranSPP/bayarSPP/$nisn'>";
+		$html .= '<div class="col-12">';
 		foreach ($listTagihan as $rowTagihan) {
 			$html .= '<table class="table table-bordered">';
 			$html .= '<tr>';
@@ -57,7 +60,7 @@ class DataPembayaranSPP extends CI_Controller
 			foreach ($semesterGanjil as $key => $value) {
 				if (is_array($listPembayaran) && in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
 					$html .= '<td >';
-					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked><label class="form-check-label">' . $value . '</label></div>';
+					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
 					$html .= '</td>';
 				} else {
 					$html .= '<td >';
@@ -85,6 +88,7 @@ class DataPembayaranSPP extends CI_Controller
 			$html .= '</table>';
 		}
 		$html .= '</div>';
+		$html .= '</form>';
 		return $html;
 	}
 
@@ -100,7 +104,8 @@ class DataPembayaranSPP extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function tambah()
+	public function bayarSPP($nisn)
 	{
+		$this->input->post('chkBulan');
 	}
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * 
@@ -10,7 +10,7 @@ class Jenis_Spp_Model extends CI_Model
 		return $this->db->get('tbl_jenis_spp')->result();
 	}
 
-	public function tambah_data( )
+	public function tambah_data()
 	{
 		$data = array(
 			'kode_jenisspp' => $this->input->post('kode_jenisspp', true),
@@ -21,7 +21,7 @@ class Jenis_Spp_Model extends CI_Model
 		$this->db->insert('tbl_jenis_spp', $data);
 	}
 
-	public function ubah_data( )
+	public function ubah_data()
 	{
 		$data = array(
 			'nominal_jenis' => $this->input->post('nominal_jenis', true),
@@ -38,10 +38,6 @@ class Jenis_Spp_Model extends CI_Model
 
 	public function detail_data($kode)
 	{
-		return $this->db->get_where('tbl_jenis_spp', ['kode_jenisspp' => $kode]) ->row_array(); 
+		return $this->db->get_where('tbl_jenis_spp', ['kode_jenisspp' => $kode])->row_array();
 	}
 }
-<<<<<<< HEAD
-=======
-?>
->>>>>>> new commit from ulva

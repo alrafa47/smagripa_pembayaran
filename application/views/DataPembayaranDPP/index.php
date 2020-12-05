@@ -78,20 +78,14 @@
                           <input type="text" class="form-control" name="nominalAngsuran" id="nominalAngsuran" readonly>
                         </div>
                       </div>
-
                     </div>
                     <div class="row col-12">
-
                       <div id="DetailPembaryaran">
                       </div>
                     </div>
-
                     <div class="form-group">
                       <input type="submit" id="btnSaveAngsuran" name="save" class="btn btn-primary" value="Save" disabled>
                     </div>
-
-
-
                   </div>
                   <!-- /.card-body -->
                 </form>
@@ -107,10 +101,6 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-
-
-
-
     <!-- list data -->
     <div class="row">
       <div class="col-12">
@@ -143,7 +133,8 @@
                     <td><?= $row->nominal_angsuran ?></td>
                     <td><?= ($row->status == 0) ? 'Belum Lunas' : 'Lunas'; ?></td>
                     <td>
-                      <a href="<?= base_url() ?>DataPembayaran/hapus/<?= $row->nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
+                      <a href="<?= base_url() ?>DataPembayaranDPP/tampilUbah/<?= $row->nisn ?>" class="btn btn-warning">Ubah Data DPP</a>
+                      <a href="<?= base_url() ?>DataPembayaranDPP/detailTransaksi/<?= $row->nisn ?>" class="btn btn-primary">Detail Transaksi</a>
                     </td>
                   </tr>
                 <?php

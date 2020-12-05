@@ -16,6 +16,22 @@ class DataPembayaranDPP_Model extends CI_Model
         return ($query->num_rows()) ? $query->result() : false;
     }
 
+    /* 
+        *@description mengambil data pada tbl angsuran dpp
+    */
+    public function getDataAngsuranBynisn($nisn)
+    {
+        return $this->db->get_where('tbl_angsuran_dpp', ['nisn' => $nisn])->result();
+    }
+
+    /*  
+        hapus angsuran by no_transaksi
+    */
+    public function hapusAngsuran($no_transaksi)
+    {
+        return $this->db->delete('tbl_angsuran_dpp', ['no_transaksi' => $no_transaksi]);
+    }
+
     public function insertData($nisn, $nominal, $tanggal, $angsuran)
     {
         foreach ($angsuran as $value) {

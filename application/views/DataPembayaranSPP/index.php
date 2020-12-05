@@ -130,14 +130,11 @@
             </td>
           </tr>
         </table>
-        <form method="POST" action="<?= base_url() ?>DataPembayaranSPP/bayarSPP">
-          <div id="dataDaftarTagihan"></div>
-        </form>
-
+        <div id="dataDaftarTagihan"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button form="formSPP" type="submit" class="btn btn-primary">Simpan Pembayaran</button>
       </div>
     </div>
   </div>
