@@ -18,6 +18,15 @@ class DPPSiswa_Model extends CI_Model
 		$this->db->join('tbl_dpp_siswa', 'tbl_siswa.nisn = tbl_dpp_siswa.nisn');
 		return $this->db->get()->result();
 	}
+	public function getDataJoinDataSiswaByNisn($nisn)
+	{
+		$this->db->select('tbl_siswa.nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_dpp_siswa.nominal_dpp, tbl_dpp_siswa.jumlah_angsuran, tbl_dpp_siswa.nominal_angsuran, status');
+		$this->db->from('tbl_siswa');
+		$this->db->join('tbl_jurusan', 'tbl_siswa.kode_jurusan = tbl_jurusan.kode_jurusan');
+		$this->db->join('tbl_dpp_siswa', 'tbl_siswa.nisn = tbl_dpp_siswa.nisn');
+		$this->db->where('tbl_dpp_siswa.nisn', $nisn);
+		return $this->db->get()->row();
+	}
 
 	public function tambah_data()
 	{
@@ -64,9 +73,13 @@ class DPPSiswa_Model extends CI_Model
 		return $this->db->get()->row();
 	}
 
-	public function pelunasanDPP($nisn)
+	/* 
+	* function perngganti status lunas dan belum
+	* 1 = lunas, 0 = belum
+	 */
+	public function pelunasanDPP($nisn, $status)
 	{
-		$this->db->set('status', 1);
+		$this->db->set('status', $status);
 		$this->db->where('nisn', $nisn);
 		$this->db->update('tbl_dpp_siswa');
 	}
