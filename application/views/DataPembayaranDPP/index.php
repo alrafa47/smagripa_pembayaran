@@ -133,7 +133,6 @@
                     <td><?= $row->nominal_angsuran ?></td>
                     <td><?= ($row->status == 0) ? 'Belum Lunas' : 'Lunas'; ?></td>
                     <td>
-                      <a href="<?= base_url() ?>DataPembayaranDPP/tampilUbah/<?= $row->nisn ?>" class="btn btn-warning">Ubah Data DPP</a>
                       <a href="<?= base_url() ?>DataPembayaranDPP/detailTransaksi/<?= $row->nisn ?>" class="btn btn-primary">Detail Transaksi</a>
                     </td>
                   </tr>
