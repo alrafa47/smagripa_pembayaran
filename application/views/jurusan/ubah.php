@@ -1,4 +1,3 @@
-Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -39,7 +38,7 @@ Content Wrapper. Contains page content -->
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nama Jurusan</label>
-                      <input type="text" class="form-control"name="nm_jur" value="<?= $ubah['nama_jurusan'] ?>">
+                      <input type="text" class="form-control" name="nm_jur" value="<?= $ubah['nama_jurusan'] ?>">
                     </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>

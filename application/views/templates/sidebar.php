@@ -56,15 +56,6 @@
             </p>
           </a>
         </li>
-        <!-- Data DPPSiswa-->
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataDPPSiswa" class="nav-link">
-            <i class="fas fa-list"></i>
-            <p>
-              Data DPP Siswa
-            </p>
-          </a>
-        </li>
         <!-- Jenis SPP -->
         <li class="nav-item">
           <a href="<?= base_url() ?>DataJenisSPP" class="nav-link">
@@ -74,6 +65,16 @@
             </p>
           </a>
         </li>
+        <!-- Data DPPSiswa-->
+        <li class="nav-item">
+          <a href="<?= base_url() ?>DataDPPSiswa" class="nav-link">
+            <i class="fas fa-list"></i>
+            <p>
+              Data Siswa
+            </p>
+          </a>
+        </li>
+
 
         <li class="nav-item">
           <a href="<?= base_url() ?>DataJenisPembayaran" class="nav-link">
@@ -87,7 +88,7 @@
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="fas fa-dollar-sign"></i>
-            <p> Pembayaran <i class="right fas fa-angle-left"></i></p>
+            <p> Transaksi Pembayaran <i class="right fas fa-angle-left"></i></p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">

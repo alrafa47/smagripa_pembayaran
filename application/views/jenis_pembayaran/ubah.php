@@ -1,4 +1,3 @@
-Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -39,15 +38,15 @@ Content Wrapper. Contains page content -->
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nama Pembayaran</label>
-                      <input type="text" class="form-control"name="nama_pembayaran" value="<?= $ubah['nama_pembayaran'] ?>">
+                      <input type="text" class="form-control" name="nama_pembayaran" value="<?= $ubah['nama_pembayaran'] ?>">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nominal Pembayaran</label>
-                      <input type="text" class="form-control"name="nominal" value="<?= $ubah['nominal'] ?>">
+                      <input type="text" class="form-control" name="nominal" value="<?= $ubah['nominal'] ?>">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Tahun</label>
-                      <input type="text" class="form-control"name="tahun" value="<?= $ubah['tahun'] ?>">
+                      <input type="text" class="form-control" name="tahun" value="<?= $ubah['tahun'] ?>">
                     </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>

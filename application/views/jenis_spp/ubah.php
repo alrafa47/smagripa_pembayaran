@@ -1,4 +1,3 @@
-Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -61,7 +60,10 @@ Content Wrapper. Contains page content -->
                         ?>
                       </select>
                     </div>
-
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Tahun</label>
+                      <input type="text" class="form-control disabled" name="tahun" value="<?= $ubah['tahun'] ?>">
+                    </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>
                   <!-- /.card-body -->

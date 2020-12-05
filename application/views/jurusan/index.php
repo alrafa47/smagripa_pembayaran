@@ -1,4 +1,3 @@
-Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -21,16 +20,16 @@ Content Wrapper. Contains page content -->
   <!-- Main content -->
   <section class="content">
     <!-- NOTIFIKASI -->
-    <?php 
-    if ($this->session->flashdata('flash_jurusan')){ ?>
+    <?php
+    if ($this->session->flashdata('flash_jurusan')) { ?>
       <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h6>
-          <i class="icon fas fa-check"></i> 
-          Data Berhasil 
+          <i class="icon fas fa-check"></i>
+          Data Berhasil
           <strong>
             <?= $this->session->flashdata('flash_jurusan');   ?>
-          </strong> 
+          </strong>
         </h6>
       </div>
     <?php } ?>
@@ -93,9 +92,9 @@ Content Wrapper. Contains page content -->
                 </tr>
               </thead>
               <tbody>
-                <?php 
-                $no=1;
-                foreach ($jurusan as $row){ ?>
+                <?php
+                $no = 1;
+                foreach ($jurusan as $row) { ?>
                   <tr>
                     <td><?= $no ?></td>
                     <td><?= $row->kode_jurusan ?></td>
@@ -107,9 +106,9 @@ Content Wrapper. Contains page content -->
                       </div>
                     </td>
                   </tr>
-                  <?php 
+                <?php
                   $no++;
-                } 
+                }
                 ?>
               </tbody>
             </table>

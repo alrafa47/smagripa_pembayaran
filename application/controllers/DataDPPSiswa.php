@@ -19,6 +19,7 @@ class DataDPPSiswa extends CI_Controller
 	function index()
 	{
 		$data['dppsiswa'] = $this->DPPSiswa_Model->getAllData();
+		$data['dppsiswa1'] = $this->Siswa_Model->getAllData();
 		$data['jenis_spp'] = $this->Jenis_Spp_Model->getAllData();
 		$data['jurusan'] = $this->Jurusan_Model->getAllData();
 		$data['tahunajaran'] = $this->TahunAjaran_Model->getAllData();
@@ -143,14 +144,15 @@ class DataDPPSiswa extends CI_Controller
 		$this->form_validation->set_rules("tgl_lahir", "Tanggal Lahir", "required");
 		$this->form_validation->set_rules("almat", "Alamat", "required");
 		$this->form_validation->set_rules("telp_siswa", "Telp Siswa", "required");
-		$this->form_validation->set_rules("kode_ta", "Kode TA", "required");
+		$this->form_validation->set_rules("kd_ta", "Kode TA", "required");
 		// $this->form_validation->set_rules("tahun_keluar", "Tahun keluar", "required");
-		// $this->form_validation->set_rules("jurusan", "Jurusan", "required");
-		// $this->form_validation->set_rules("jenis_spp", "Jenis SPP", "required");
+		$this->form_validation->set_rules("jurusan", "Jurusan", "required");
+		$this->form_validation->set_rules("jenis_spp", "Jenis SPP", "required");
 
 
 		if ($this->form_validation->run() == FALSE) {
 			$data['ubah'] = $this->DPPSiswa_Model->detail_data($kd);
+			$data['ubah1'] = $this->Siswa_Model->detail_data($kd);
 			$data['tahunajaran'] = $this->TahunAjaran_Model->getAllData();
 			$data['jurusan'] = $this->Jurusan_Model->getAllData();
 			$data['jenis_spp'] = $this->Jenis_Spp_Model->getAllData();
@@ -160,6 +162,7 @@ class DataDPPSiswa extends CI_Controller
 			$this->load->view('templates/footer');
 		} else {
 			$this->DPPSiswa_Model->ubah_data();
+			$this->Siswa_Model->ubah_data();
 			$this->session->set_flashdata('flash_dppsiswa', 'DiUbah');
 			redirect('DataDPPSiswa');
 		}

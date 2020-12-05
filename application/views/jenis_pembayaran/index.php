@@ -1,4 +1,3 @@
-Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -21,16 +20,16 @@ Content Wrapper. Contains page content -->
   <!-- Main content -->
   <section class="content">
     <!-- NOTIFIKASI -->
-    <?php 
-    if ($this->session->flashdata('flash_jenis_pembayaran')){ ?>
+    <?php
+    if ($this->session->flashdata('flash_jenis_pembayaran')) { ?>
       <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h6>
-          <i class="icon fas fa-check"></i> 
-          Data Berhasil 
+          <i class="icon fas fa-check"></i>
+          Data Berhasil
           <strong>
             <?= $this->session->flashdata('flash_jenis_pembayaran');   ?>
-          </strong> 
+          </strong>
         </h6>
       </div>
     <?php } ?>
@@ -103,25 +102,25 @@ Content Wrapper. Contains page content -->
                 </tr>
               </thead>
               <tbody>
-                <?php 
-                $no=1;
-                foreach ($jenis_pembayaran as $row){ ?>
+                <?php
+                $no = 1;
+                foreach ($jenis_pembayaran as $row) { ?>
                   <tr>
                     <td><?= $no ?></td>
-                    <td><?= $row->kode_jenispembayaran?></td>
-                    <td><?= $row->nama_pembayaran?></td>
+                    <td><?= $row->kode_jenispembayaran ?></td>
+                    <td><?= $row->nama_pembayaran ?></td>
                     <td><?= $row->nominal ?></td>
                     <td><?= $row->tahun ?></td>
                     <td>
                       <div class="btn-group">
                         <a href="<?= base_url() ?>DataJenisPembayaran/hapus/<?= $row->kode_jenispembayaran ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a>
-                        <a href="<?= base_url() ?>DataJenisPembayaran/ubah/<?= $row->kode_jenispembayaran?>" class="btn btn-warning">update</a>
+                        <a href="<?= base_url() ?>DataJenisPembayaran/ubah/<?= $row->kode_jenispembayaran ?>" class="btn btn-warning">update</a>
                       </div>
                     </td>
                   </tr>
-                  <?php 
+                <?php
                   $no++;
-                } 
+                }
                 ?>
               </tbody>
             </table>

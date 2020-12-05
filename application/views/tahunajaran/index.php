@@ -114,8 +114,9 @@
                     <td><?= $no ?></td>
                     <td><?= $row->kode_ta ?></td>
                     <td><?= $row->tahun_ajaran ?></td>
-                    <td><?= $row->semester ?></td>
+
                     <td><?= $row->status ?></td>
+                    <td><?= $row->semester ?></td>
                     <td>
                       <div class="btn-group">
                         <a href="<?= base_url() ?>DataTahunAjaran/hapus/<?= $row->kode_ta ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>

@@ -142,6 +142,35 @@
                 }
             })
         })
+        // modal detail siswa
+        $('#detailsiswa').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var nisn = button.data('nisn') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            $.ajax({
+                type: 'post',
+                url: '<?= base_url() ?>DataSiswa/tampildata',
+                data: {
+                    'nisn': nisn
+                },
+                success: function(data) {
+                    var dataSiswa = JSON.parse(data);
+                    modal.find('#nisn').text(dataSiswa.nisn)
+                    modal.find('#nama_siswa').text(dataSiswa.nama_siswa)
+                    modal.find('#jk').text(dataSiswa.jk)
+                    modal.find('#tempat_lahir').text(dataSiswa.tempat_lahir)
+                    modal.find('#tgl_lahir').text(dataSiswa.tgl_lahir)
+                    modal.find('#alamat').text(dataSiswa.alamat)
+                    modal.find('#no_telfon').text(dataSiswa.no_telfon)
+                    modal.find('#tahun_ajaran').text(dataSiswa.tahun_ajaran)
+                    modal.find('#jurusan').text(dataSiswa.jurusan)
+                    modal.find('#jenis_spp').text(dataSiswa.jenis_spp)
+                    console.log(dataSiswa)
+                }
+            })
+        })
 
     });
 </script>

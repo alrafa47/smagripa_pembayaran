@@ -43,8 +43,8 @@
         <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">User</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <!-- <li class="nav-item d-none d-sm-inline-block">
           <a href="<?= base_url() ?>DataPembayaranSPP/bayar" class="nav-link">Bayar</a>
-        </li>
+        </li> -->
       </ul>
     </nav>

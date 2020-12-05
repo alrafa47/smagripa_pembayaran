@@ -69,4 +69,3 @@ class DataJenisPembayaran extends CI_Controller
 
 
 }
-?>

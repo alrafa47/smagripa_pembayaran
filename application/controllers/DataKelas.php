@@ -29,11 +29,45 @@ class DataKelas extends CI_Controller
 
 	public function validation_form()
 	{
-		$this->Kelas_Model->tambah_data();
-		$this->session->set_flashdata('flash_kelas', 'Disimpan');
-		redirect('DataKelas');
-	}
+		$this->form_validation->set_rules("kelas", "Kelas", "callback_check_select_kelas");
+		$this->form_validation->set_rules("kode_jurusan", "Kode jurusan", "callback_check_select_jurusan");
+		$this->form_validation->set_rules("nama_kelas", "Nama Kelas", "callback_check_select_nama_kelas");
 
+		if (!$this->form_validation->run()) {
+			$this->index();
+		} else {
+			$this->Kelas_Model->tambah_data();
+			$this->session->set_flashdata('flash_kelas', 'Disimpan');
+			redirect('DataKelas');
+		}
+	}
+	public function check_select_kelas()
+	{
+		if ($this->input->post('kelas') == '--Pilih Kelas--') {
+			$this->form_validation->set_message('check_select_kelas', 'pilih KELAS yang benar!!!!!!');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+	public function check_select_jurusan()
+	{
+		if ($this->input->post('kd_jur') == '--Pilih Jurusan--') {
+			$this->form_validation->set_message('check_select_jurusan', 'pilih JURUSAN yang benar!!!!!!');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+	public function check_select_nama_kelas()
+	{
+		if ($this->input->post('nm_kelas') == '--Pilih Nama Kelas--') {
+			$this->form_validation->set_message('check_select_nama_kelas', 'pilih NAMA KELAS yang benar!!!!!!');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
 	public function hapus($kd)
 	{
 		$this->Kelas_Model->hapus_data($kd);
@@ -43,9 +77,10 @@ class DataKelas extends CI_Controller
 
 	public function ubah($id)
 	{
+		$this->form_validation->set_rules("kd_kls", "Kode Kelas", "max_length[10]");
 		$this->form_validation->set_rules("kelas", "Kelas", "required|max_length[5]");
 		$this->form_validation->set_rules("kd_jur", "Nama Jurusan", "required");
-		$this->form_validation->set_rules("nm_kls", "Nama Kelas", "required");
+		$this->form_validation->set_rules("nm_kelas", "Nama Kelas", "required");
 		if ($this->form_validation->run() == FALSE) {
 			$data['jurusan'] = $this->Jurusan_Model->getAllData();
 			$data['ubah'] = $this->Kelas_Model->detail_data($id);
@@ -60,4 +95,3 @@ class DataKelas extends CI_Controller
 		}
 	}
 }
-?>

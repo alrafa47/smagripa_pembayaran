@@ -1,4 +1,3 @@
-Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -57,9 +56,9 @@ Content Wrapper. Contains page content -->
                       <label>Kelas</label>
                       <select class="form-control" name="kelas">
                         <option>--Pilih Kelas--</option>
-                        <option value="X">X</option>
-                        <option value="XI">XI</option>
-                        <option value="XII">XII</option>
+                        <option value="X" <?php echo  set_select('kelas', 'X'); ?>>X</option>
+                        <option value="XI" <?php echo  set_select('kelas', 'XI'); ?>>XI </option>
+                        <option value="XII" <?php echo  set_select('kelas', 'XII'); ?>> XII</option>
                       </select>
                     </div>
 

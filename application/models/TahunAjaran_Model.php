@@ -51,4 +51,3 @@ class TahunAjaran_Model extends CI_Model
 		return $this->db->get_where('tbl_tahun_ajaran', ['kode_ta' => $kode]) ->row_array(); 
 	}
 }
-?>

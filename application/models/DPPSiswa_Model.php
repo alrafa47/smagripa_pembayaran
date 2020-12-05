@@ -51,7 +51,7 @@ class DPPSiswa_Model extends CI_Model
 
 	public function detail_data($kode)
 	{
-		return $this->db->get_where('tbl_dpp_siswa', ['nisn' => $kode])->row();
+		return $this->db->get_where('tbl_dpp_siswa', ['nisn' => $kode])->row_array();
 	}
 
 	public function get_detail_siswa($id)

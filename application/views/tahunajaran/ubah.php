@@ -1,4 +1,3 @@
-
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -39,36 +38,36 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Tahun Ajaran</label>
-                      <input type="text" class="form-control"name="thn_ajaran" value="<?= $ubah['tahun_ajaran'] ?>">
+                      <input type="text" class="form-control" name="thn_ajaran" value="<?= $ubah['tahun_ajaran'] ?>">
                     </div>
 
                     <div class="form-group">
                       <label for="exampleInputPassword1">Semester</label>
                       <select class="form-control" name="smt">
-                        <?php 
+                        <?php
                         if ($ubah['semester'] == 'ganjil') {
                           echo "<option value = 'ganjil' selected>Ganjil</option>
                           <option value ='genap'>Genap</option>";
-                        }else{
+                        } else {
                           echo "<option value = 'ganjil'>Ganjil</option>
                           <option value ='genap' selected>Genap</option>";
                         }
-                        ?>                       
+                        ?>
                       </select>
 
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Status</label>
                       <select class="form-control" name="stts">
-                      <?php 
+                        <?php
                         if ($ubah['status'] == 'aktif') {
                           echo "<option value = 'aktif' selected>Aktif</option>
                           <option value ='tidak aktif'>Tidak Aktif</option>";
-                        }else{
+                        } else {
                           echo "<option value = 'aktif'>Aktif</option>
                           <option value ='tidak aktif' selected>Tidak Aktif</option>";
                         }
-                        ?>                       
+                        ?>
                       </select>
                     </div>
 
@@ -76,20 +75,20 @@
                       <input type="submit" name="save" class="btn btn-primary" value="Save">
                     </div>
                     <!-- /.card-body -->
-                  </form>
-                </div>
-                <!-- /.col -->
+                </form>
               </div>
-              <!-- /.row -->
+              <!-- /.col -->
             </div>
-            <!-- ./card-body -->
+            <!-- /.row -->
           </div>
-          <!-- /.card -->
+          <!-- ./card-body -->
         </div>
-        <!-- /.col -->
+        <!-- /.card -->
       </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
 <!-- /.content-wrapper
