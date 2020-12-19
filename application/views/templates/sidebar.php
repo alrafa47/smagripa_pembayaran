@@ -130,7 +130,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url() ?>" class="nav-link">
+              <a href="<?= base_url() ?>DataLaporan" class="nav-link">
                 <i class="fas fa-hand-holding-usd"></i>
                 Laporan DPP
                 </p>

@@ -63,7 +63,7 @@
                     <td><?= $row->kategori ?></td>
                     <td><?= $row->nominal_jenis ?></td>
                     <td>
-                      <!-- <a href="<?= base_url() ?>DataPembayaranSPP/bayar/<?= $row->nisn ?>" class="btn btn-warning">Bayar</a> -->
+                      <a href="<?= base_url() ?>DataPembayaranSPP/bayar/<?= $row->nisn ?>" class="btn btn-warning">Bayar</a>
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bayarSPP" data-nisn="<?= $row->nisn ?>">Bayar SPP</button>
                     </td>

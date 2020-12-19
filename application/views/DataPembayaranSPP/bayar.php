@@ -109,14 +109,11 @@
                          <label>Bulan Pembayaran</label>
                          <div class="row">
                            <?php
-                            $tahun = 2;
+                            $tahun = 1;
                             $bulan = array();
                             switch ($tahun) {
                               case 1:
-                                $bulan = array('januari', 'februari', 'maret', 'april', 'mei', 'juni');
-                                break;
-                              case 2:
-                                $bulan = array('juli', 'agustus', 'september', 'oktober', 'november', 'desember');
+                                $bulan = array('januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember');
                                 break;
                             }
                             $no = 1;
@@ -128,7 +125,6 @@
                                  <label for="customCheckbox<?= $no ?>" class="custom-control-label"><?= $bln ?></label>
                                </div>
                              </div>
-
                            <?php
                               $no++;
                             endforeach

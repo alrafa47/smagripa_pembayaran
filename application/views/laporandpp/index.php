@@ -23,18 +23,36 @@
             <div class="card">
                 <!-- card-body -->
                 <div class="card-body">
-                    <form action="<?= base_url('DataLaporan') ?>" method="GET">
-                        <select class="form-control" name="jurusan">
-                            <option value='lihat_semua'>lihat Semua</option>
-                            <?php
-                            foreach ($jurusan as $valueJurusan) {
-                                echo "<option value='$valueJurusan->kode_jurusan'>$valueJurusan->nama_jurusan</option>";
-                            }
-                            ?>
-                        </select>
-                        <button type="submit">Lihat</button>
-                    </form>
-                    <a href="<?= base_url('DataLaporan/export/') . $this->input->get('jurusan') ?>" class="btn btn-warning">Export</a>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <form action="<?= base_url('DataLaporan') ?>" method="GET">
+                                    <select class="form-control" name="jurusan">
+                                        <option value='lihat_semua'>lihat Semua</option>
+                                        <?php
+                                        foreach ($jurusan as $valueJurusan) {
+                                            echo "<option value='$valueJurusan->kode_jurusan'>$valueJurusan->nama_jurusan</option>";
+                                        }
+                                        ?>
+
+                                    </select>
+                                    <div><button type="submit" class="btn btn-danger">Lihat</button></div>
+
+                                </form>
+                            </div>
+                            <a href="<?= base_url('DataLaporan/export/') . $this->input->get('jurusan') ?>" class="btn btn-warning">Export</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <!-- card-body -->
+                <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>

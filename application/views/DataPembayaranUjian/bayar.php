@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Data spp Siswa</h1>
+                    <h1>Data Pembayaran Ujian</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -37,16 +37,99 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <!-- card-body -->
-                    <div class="card-body">
-                        <table>
-                            <tr>
-                                <td></td>
-                            </tr>
-
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
+                    <?php $nisn = $this->uri->segment(3) ?>
+                    <form action="<?= base_url('DataPembayaranUjian/tambahData/') . $nisn ?>">
+                        <!-- card-body -->
+                        <?php foreach ($tahunAjaran as  $valueTahunAjaran) : ?>
+                            <div class="card-body">
+                                <table class="table table-bordered table-striped">
+                                    <tr>
+                                        <td colspan="3"><?= $valueTahunAjaran->tahun_ajaran ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>+</td>
+                                        <td>UTS</td>
+                                        <td>UAS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Semester 1</td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $valueTahunAjaran->kode_ta - 1 ?>" name="uts[]">
+                                                <label for="customCheckbox" class="custom-control-label"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $valueTahunAjaran->kode_ta - 1 ?>" name="uas[]">
+                                                <label for="customCheckbox" class="custom-control-label"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Semester 2</td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $valueTahunAjaran->kode_ta - 2 ?>" name="uts[]">
+                                                <label for="customCheckbox" class="custom-control-label"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $valueTahunAjaran->kode_ta - 2 ?>" name="uas[]">
+                                                <label for="customCheckbox" class="custom-control-label"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        <?php endforeach; ?>
+                        <!-- /.card-body -->
+                        <!-- card-body -->
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <td colspan="6">UNBK</td>
+                                </tr>
+                                <tr>
+                                    <?php
+                                    $bulan1 = array('juli', 'agustus', 'september', 'oktober', 'november', 'desember');
+                                    foreach ($bulan1 as $bln) :
+                                    ?>
+                                        <td>
+                                            <div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $bln ?>" name="unbk[]">
+                                                    <label for="customCheckbox" class="custom-control-label"><?= $bln ?></label>
+                                                </div>
+                                            </div>
+                                        <?php
+                                    endforeach
+                                        ?>
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <?php
+                                    $bulan = array('januari', 'februari', 'maret', 'april', 'mei', 'juni');
+                                    foreach ($bulan as $bln) :
+                                    ?>
+                                        <td>
+                                            <div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $bln ?>" name="unbk[]">
+                                                    <label for="customCheckbox" class="custom-control-label"><?= $bln ?></label>
+                                                </div>
+                                            </div>
+                                        <?php
+                                    endforeach
+                                        ?>
+                                        </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                    </form>
                 </div>
                 <!-- /.card -->
             </div>
