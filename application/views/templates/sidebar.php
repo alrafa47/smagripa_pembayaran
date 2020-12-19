@@ -107,7 +107,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url() ?>DataGuru" class="nav-link">
+              <a href="<?= base_url() ?>DataPembayaranUjian" class="nav-link">
                 <i class="fas fa-hand-holding-usd"></i>
                 <p>Pembayaran Ujian</p>
               </a>

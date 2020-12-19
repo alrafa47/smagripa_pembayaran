@@ -5,9 +5,28 @@
  */
 class TahunAjaran_Model extends CI_Model
 {
+	public $tahunAjaranAktif;
+	public function __construct()
+	{
+		$taAktif = $this->db->get_where('tbl_tahun_ajaran', ['status' => 'aktif'])->row();
+		$this->tahunAjaranAktif = $taAktif->kode_ta;
+	}
 	public function getAllData()
 	{
 		return $this->db->get('tbl_tahun_ajaran')->result();
+	}
+
+	public function getTagihan($start, $end = 0)
+	{
+		$this->db->select('kode_ta, tahun_ajaran');
+		$this->db->from('tbl_tahun_ajaran');
+		$this->db->where('kode_ta >=', $start);
+		if ($end != null) {
+			$this->db->where('kode_ta <=', $end);
+		} else {
+			$this->db->where('kode_ta <=', $this->tahunAjaranAktif);
+		}
+		return $this->db->get()->result();
 	}
 
 	public function tambah_data()
