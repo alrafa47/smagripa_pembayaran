@@ -85,53 +85,55 @@
     </div>
     <!-- /.row -->
     <!-- list data -->
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <!-- card-body -->
-          <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Kode Jenis Pembayaran</th>
-                  <th>Nama Pembayaran</th>
-                  <th>Nominal Jenis</th>
-                  <th>Tahun</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($jenis_pembayaran as $row) { ?>
+    <?= validation_errors(); ?>
+    <form action="<?= base_url() ?>DataPembayaranSPP/validation_form" method="post" accept-charset="utf-8">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- card-body -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->kode_jenispembayaran ?></td>
-                    <td><?= $row->nama_pembayaran ?></td>
-                    <td><?= $row->nominal ?></td>
-                    <td><?= $row->tahun ?></td>
-                    <td>
-                      <div class="btn-group">
-                        <a href="<?= base_url() ?>DataJenisPembayaran/hapus/<?= $row->kode_jenispembayaran ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a>
-                        <a href="<?= base_url() ?>DataJenisPembayaran/ubah/<?= $row->kode_jenispembayaran ?>" class="btn btn-warning">update</a>
-                      </div>
-                    </td>
+                    <th>No</th>
+                    <th>Kode Jenis Pembayaran</th>
+                    <th>Nama Pembayaran</th>
+                    <th>Nominal Jenis</th>
+                    <th>Tahun</th>
+                    <th>Action</th>
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($jenis_pembayaran as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->kode_jenispembayaran ?></td>
+                      <td><?= $row->nama_pembayaran ?></td>
+                      <td><?= $row->nominal ?></td>
+                      <td><?= $row->tahun ?></td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="<?= base_url() ?>DataJenisPembayaran/hapus/<?= $row->kode_jenispembayaran ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a>
+                          <a href="<?= base_url() ?>DataJenisPembayaran/ubah/<?= $row->kode_jenispembayaran ?>" class="btn btn-warning">update</a>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
           </div>
-          <!-- /.card-body -->
+          <!-- /.card -->
         </div>
-        <!-- /.card -->
+        <!-- /.col -->
       </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
+      <!-- /.row -->
   </section>
   <!-- /.content -->
 </div>

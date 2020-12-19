@@ -18,6 +18,7 @@ class DataPembayaranSPP extends CI_Controller
 	public function index()
 	{
 		$data['dataSiswa'] = $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPP();
+		$data['kelas'] = $this->Kelas_Model->getAllData();
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('DataPembayaranSPP/index', $data);
@@ -32,6 +33,14 @@ class DataPembayaranSPP extends CI_Controller
 		$data['nisn'] = $result->nisn;
 		$data['nama_siswa'] = $result->nama_siswa;
 		$data['kode_jurusan'] = $result->kode_jurusan;
+		$dataKelas =  $this->Kelas_Model->getAllData($result->kode_jurusan);
+		$html = '<select class="form-control" name="kelas">';
+		$html = '<option>--Pilih Kelas--</option>';
+		foreach ($dataKelas as $valueKelas) {
+			$html .= '<option value="$valueKelas->kode_kelas">' . $valueKelas->kode_kelas . '</option>';
+		}
+		$html .= '</select>';
+		$data['selectKelas'] = $html;
 		$data['kategori'] = $result->kategori;
 		$data['nominal_jenis'] = $result->nominal_jenis;
 		$data['list_tagihan'] = $this->listTagihan($nisn, $result->kode_ta, $result->tahun_keluar);
@@ -107,5 +116,15 @@ class DataPembayaranSPP extends CI_Controller
 	public function bayarSPP($nisn)
 	{
 		$this->input->post('chkBulan');
+	}
+	public function insertData()
+	{
+		$dataNISN = $this->input->post('dataNISN');
+		$kelas = $this->input->post('kelas');
+		$bulan = $this->input->post('bulan');
+		$nominal = $this->input->post('nominal');
+		$this->DataPembayaranSPP_Model->insertData($dataNISN, $kelas, date('Y/m/d'), $bulan, $nominal);
+		$this->session->set_flashdata('flash_dataPembayaranSPP', 'berhasil');
+		redirect('DataPembayaranSPP');
 	}
 }

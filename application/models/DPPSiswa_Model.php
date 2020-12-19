@@ -10,12 +10,15 @@ class DPPSiswa_Model extends CI_Model
 		return $this->db->get('tbl_dpp_siswa')->result();
 	}
 
-	public function getAllDataJoinDataSiswa()
+	public function getAllDataJoinDataSiswa($jurusan = null)
 	{
 		$this->db->select('tbl_siswa.nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_dpp_siswa.nominal_dpp, tbl_dpp_siswa.jumlah_angsuran, tbl_dpp_siswa.nominal_angsuran, status');
 		$this->db->from('tbl_siswa');
 		$this->db->join('tbl_jurusan', 'tbl_siswa.kode_jurusan = tbl_jurusan.kode_jurusan');
 		$this->db->join('tbl_dpp_siswa', 'tbl_siswa.nisn = tbl_dpp_siswa.nisn');
+		if ($jurusan != null) {
+			$this->db->where('tbl_siswa.kode_jurusan', $jurusan);
+		}
 		return $this->db->get()->result();
 	}
 	public function getDataJoinDataSiswaByNisn($nisn)
@@ -91,5 +94,13 @@ class DPPSiswa_Model extends CI_Model
 		$this->db->join('tbl_siswa', 'tbl_siswa.nisn = tbl_dpp_siswa.nisn');
 		$this->db->where('status', '0');
 		return $this->db->get()->result();
+	}
+	//Menampilkan modal dpp
+	public function getDPP($nisn)
+	{
+		$this->db->select("*");
+		$this->db->from("tbl_dpp_siswa");
+		$this->db->where("nisn", $nisn);
+		return $this->db->get()->row();
 	}
 }

@@ -41,7 +41,7 @@
                       <input type="text" class="form-control" name="thn_ajaran" value="<?= $ubah['tahun_ajaran'] ?>">
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputPassword1">Semester</label>
                       <select class="form-control" name="smt">
                         <?php
@@ -55,7 +55,7 @@
                         ?>
                       </select>
 
-                    </div>
+                    </div> -->
                     <div class="form-group">
                       <label for="exampleInputPassword1">Status</label>
                       <select class="form-control" name="stts">

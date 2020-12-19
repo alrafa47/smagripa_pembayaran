@@ -62,7 +62,7 @@
                           </select>
                         </div>
                         <div class="form-group">
-                          <label>Jurusan/Kelas</label>
+                          <label>Jurusan</label>
                           <input type="text" id="jurusan_kelas" class="form-control" readonly>
                         </div>
                         <div class="form-group">

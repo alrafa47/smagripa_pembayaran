@@ -25,13 +25,13 @@ class DataTahunAjaran extends CI_Controller
 	{
 		// $this->form_validation->set_rules("kd_ta", "Kode Tahun Ajaran", "required|is_unique[tbl_tahun_ajaran.kode_ta]|max_length[5]");
 		$this->form_validation->set_rules("thn_ajaran", "Tahun Ajaran", "required");
-		$this->form_validation->set_rules("smt", "Semester", "callback_check_select_semester");
+		// $this->form_validation->set_rules("smt", "Semester", "callback_check_select_semester");
 		$this->form_validation->set_rules("stts", "Status", "callback_check_select_status");
 
 		if (!$this->form_validation->run()) {
 			$this->index();
 		} else {
-			$this->Kelas_Model->tambah_data();
+			$this->TahunAjaran_Model->tambah_data();
 			$this->session->set_flashdata('flash_tahunajaran', 'Disimpan');
 			redirect('DataTahunAjaran');
 		}
@@ -66,7 +66,7 @@ class DataTahunAjaran extends CI_Controller
 	{
 		// $this->form_validation->set_rules("kd_ta", "Kode Tahun Ajaran", "required|max_length[5]");
 		$this->form_validation->set_rules("thn_ajaran", "Tahun Ajaran", "required");
-		$this->form_validation->set_rules("smt", "Semester", "required");
+		// $this->form_validation->set_rules("smt", "Semester", "required");
 		$this->form_validation->set_rules("stts", "Status", "required");
 		if ($this->form_validation->run() == FALSE) {
 			$data['ubah'] = $this->TahunAjaran_Model->detail_data($kd);

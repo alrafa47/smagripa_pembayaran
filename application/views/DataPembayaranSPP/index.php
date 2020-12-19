@@ -32,6 +32,7 @@
         </h6>
       </div>
     <?php } ?>
+
     <!-- list data -->
     <div class="row">
       <div class="col-12">
@@ -62,6 +63,7 @@
                     <td><?= $row->kategori ?></td>
                     <td><?= $row->nominal_jenis ?></td>
                     <td>
+                      <!-- <a href="<?= base_url() ?>DataPembayaranSPP/bayar/<?= $row->nisn ?>" class="btn btn-warning">Bayar</a> -->
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bayarSPP" data-nisn="<?= $row->nisn ?>">Bayar SPP</button>
                     </td>
@@ -88,56 +90,65 @@
 
 <!-- modal detail data-->
 <!-- Modal -->
-<div class="modal fade " id="bayarSPP" tabindex="-1" aria-labelledby="bayarSPPLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="bayarSPPLabel">Pembayaran SPP</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="table tabel-bordered">
-          <tr>
-            <td>NISN</td>
-            <td>
-              <div id="dataNISN"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Nama</td>
-            <td>
-              <div id="dataNama"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Jurusan</td>
-            <td>
-              <div id="dataJurusan"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Jenis SPP</td>
-            <td>
-              <div id="dataJenisSPP"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Nominal SPP</td>
-            <td>
-              <div id="dataNominalSPP"></div>
-            </td>
-          </tr>
-        </table>
-        <div id="dataDaftarTagihan"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button form="formSPP" type="submit" class="btn btn-primary">Simpan Pembayaran</button>
+<form action="<?= base_url() ?>DataPembayaranSPP/insertData" method="post" accept-charset="utf-8">
+  <div class="modal fade " id="bayarSPP" tabindex="-1" aria-labelledby="bayarSPPLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bayarSPPLabel">Pembayaran SPP</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table tabel-bordered">
+            <tr>
+              <td>NISN</td>
+              <td>
+                <div id="dataNISN"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Nama</td>
+              <td>
+                <div id="dataNama"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Jurusan</td>
+              <td>
+                <div id="dataJurusan"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Jenis SPP</td>
+              <td>
+                <div id="dataJenisSPP"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Nominal SPP</td>
+              <td>
+                <div id="dataNominalSPP"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Kelas</td>
+              <td>
+                <div class="form-group">
+                  <div id="selectKelas"></div>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div id="dataDaftarTagihan"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button form="formSPP" type="submit" class="btn btn-primary">Simpan Pembayaran</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- /.modal -->
-<!-- end modal detail data -->
+  <!-- /.modal -->
+  <!-- end modal detail data -->

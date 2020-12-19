@@ -114,6 +114,36 @@
             </li>
           </ul>
         </li>
+        <!-- data laporan -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-dollar-sign"></i>
+            <p> Laporan Pembayaran <i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?= base_url() ?>" class="nav-link">
+                <i class="fas fa-hand-holding-usd"></i>
+                <p>
+                  Laporan SPP
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>" class="nav-link">
+                <i class="fas fa-hand-holding-usd"></i>
+                Laporan DPP
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>" class="nav-link">
+                <i class="fas fa-hand-holding-usd"></i>
+                <p>Laporan Ujian</p>
+              </a>
+            </li>
+          </ul>
+        </li>
 
     </nav>
     <!-- /.sidebar-menu -->

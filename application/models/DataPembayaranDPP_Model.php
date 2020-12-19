@@ -44,9 +44,6 @@ class DataPembayaranDPP_Model extends CI_Model
             $this->db->insert('tbl_angsuran_dpp', $data);
         }
     }
-
-
-
     public function deleteData($no_transaksi)
     {
         $this->db->query('SELECT * from tbl_angsuran_dpp where no_transaksi = "' . $no_transaksi . '"');

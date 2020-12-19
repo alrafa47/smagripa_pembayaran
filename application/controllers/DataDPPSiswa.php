@@ -126,6 +126,17 @@ class DataDPPSiswa extends CI_Controller
 		$this->session->set_flashdata('flash_dppsiswa', 'Dihapus');
 		redirect('DataDPPSiswa');
 	}
+	public function tampildata()
+	{
+		$nisn = $this->input->post('nisn');
+		$result = $this->DPPSiswa_Model->getDPP($nisn);
+		$data['nisn'] = $result->nisn;
+		$data['nominal_dpp'] = $result->nominal_dpp;
+		$data['jumlah_angsuran'] = $result->jumlah_angsuran;
+		$data['nominal_angsuran'] = $result->nominal_angsuran;
+		$data['status'] = $result->status;
+		echo json_encode($data);
+	}
 
 	public function ubah($kd)
 	{

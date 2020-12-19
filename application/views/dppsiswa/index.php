@@ -192,28 +192,28 @@
                 <tr>
                   <th>No</th>
                   <th>NISN</th>
-                  <!-- <th>Nama Siswa</th> -->
-                  <th>Nominal DPP</th>
-                  <th>Jumlah Angsuran</th>
-                  <th>Nominal Angsuran</th>
-                  <th>Status</th>
+                  <th>Nama Siswa</th>
+                  <th>Jenis Kelamin</th>
+                  <th>No Telp</th>
+                  <th>Jurusan</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($dppsiswa as $row) { ?>
+                foreach ($dppsiswa1 as $row) { ?>
                   <tr>
                     <td><?= $no ?></td>
                     <td><?= $row->nisn ?></td>
-                    <td><?= $row->nominal_dpp ?></td>
-                    <td><?= $row->jumlah_angsuran ?></td>
-                    <td><?= $row->nominal_angsuran ?></td>
-                    <td><?= $row->status ?></td>
+                    <td><?= $row->nama_siswa ?></td>
+                    <td><?= $row->jk ?></td>
+                    <td><?= $row->no_telfon ?></td>
+                    <td><?= $row->kode_jurusan ?></td>
                     <td>
                       <div class="btn-group">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailsiswa" data-nisn="<?= $row->nisn ?>">Detail Siswa</button>
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#detailDPP" data-nisn="<?= $row->nisn ?>">Detail DPP</button>
                         <a href="<?= base_url() ?>DataDPPSiswa/hapus/<?= $row->nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
                         <a href="<?= base_url() ?>DataDPPSiswa/ubah/<?= $row->nisn ?>" class="btn btn-warning">Update</a>
                       </div>
@@ -239,7 +239,7 @@
 <!-- /.content-wrapper -->
 
 
-<!-- modal detail data-->
+<!-- modal detail siswa-->
 <div class="modal fade" id="detailsiswa">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -301,4 +301,48 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<!-- end modal detail data -->
+<!-- end modal detail siswa -->
+
+<!-- modal detail dpp-->
+<div class="modal fade" id="detailDPP">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Detail Data DPP</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body table-responsive">
+        <table class="table table-bordered no-margin">
+          <thead>
+            <tr>
+              <th>NISN</th>
+              <td id="nisn"></td>
+            </tr>
+            <tr>
+              <th>Nominal DPP</th>
+              <td id="nominal_dpp"></td>
+            </tr>
+            <tr>
+              <th>Jumlah Angsuran</th>
+              <td id="jumlah_angsuran"></td>
+            </tr>
+            <tr>
+              <th>Nominal Angsuran</th>
+              <td id="nominal_angsuran"></td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td id="status"></td>
+            </tr>
+
+          </thead>
+        </table>
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

@@ -25,9 +25,9 @@ class DataPembayaranSPP_Model extends CI_Model
     {
         $this->db->select('kode_ta, tahun_ajaran');
         $this->db->from('tbl_tahun_ajaran');
-        $this->db->where('status', 'aktif');
+        // $this->db->where('status', 'aktif');
         $this->db->where('kode_ta >=', $start);
-        if ($end != 0) {
+        if ($end != null) {
             $this->db->where('kode_ta <=', $end);
         }
         return $this->db->get()->result();
@@ -43,6 +43,19 @@ class DataPembayaranSPP_Model extends CI_Model
             return $data;
         } else {
             return false;
+        }
+    }
+    public function insertData($nisn, $kelas, $tanggal, $bulan, $nominal)
+    {
+        foreach ($bulan as $value) {
+            $data = [
+                'nisn' => $nisn,
+                'kelas' => $kelas,
+                'tanggal' => $tanggal,
+                'bulan' => $bulan,
+                'nominal' => $nominal,
+            ];
+            $this->db->insert('tbl_pembayaran_spp', $data);
         }
     }
 

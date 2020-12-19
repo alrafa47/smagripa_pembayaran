@@ -137,6 +137,7 @@
                     modal.find('#dataJurusan').text(dataSiswa.kode_jurusan)
                     modal.find('#dataJenisSPP').text(dataSiswa.kategori)
                     modal.find('#dataNominalSPP').text('Rp. ' + dataSiswa.nominal_jenis)
+                    modal.find('#selectKelas').html(dataSiswa.selectKelas)
                     modal.find('#dataDaftarTagihan').html(dataSiswa.list_tagihan)
                 }
             })
@@ -167,6 +168,30 @@
                     modal.find('#jurusan').text(dataSiswa.jurusan)
                     modal.find('#jenis_spp').text(dataSiswa.jenis_spp)
                     console.log(dataSiswa)
+                }
+            })
+        })
+
+
+        // modal detail DPP
+        $('#detailDPP').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var nisn = button.data('nisn') // Extract info from data-* attributes
+            var modal = $(this)
+            $.ajax({
+                type: 'post',
+                url: '<?= base_url() ?>DataDPPSiswa/tampildata',
+                data: {
+                    'nisn': nisn
+                },
+                success: function(data) {
+                    var dataDPPSiswa = JSON.parse(data);
+                    modal.find('#nisn').text(dataDPPSiswa.nisn)
+                    modal.find('#nominal_dpp').text(dataDPPSiswa.nominal_dpp)
+                    modal.find('#jumlah_angsuran').text(dataDPPSiswa.jumlah_angsuran)
+                    modal.find('#nominal_angsuran').text(dataDPPSiswa.nominal_angsuran)
+                    modal.find('#status').text(dataDPPSiswa.status)
+                    console.log(dataDPPSiswa)
                 }
             })
         })

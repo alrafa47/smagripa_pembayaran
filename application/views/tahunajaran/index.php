@@ -57,14 +57,14 @@
                       <label for="exampleInputPassword1">Tahun Ajaran</label>
                       <input type="text" class="form-control" id="exampleInputPassword1" name="thn_ajaran">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputPassword1">Semester</label>
                       <select class="form-control" name="smt">
                         <option>--Pilih Semester--</option>
                         <option value="ganjil">Ganjil</option>
                         <option value="genap">Genap</option>
                       </select>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                       <label for="exampleInputPassword1">Status</label>
                       <select class="form-control" name="stts">
@@ -102,7 +102,7 @@
                   <th>Kode Tahun Ajaran</th>
                   <th>Tahun Ajaran</th>
                   <th>Status</th>
-                  <th>Semester</th>
+                  <!-- <th>Semester</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -114,9 +114,8 @@
                     <td><?= $no ?></td>
                     <td><?= $row->kode_ta ?></td>
                     <td><?= $row->tahun_ajaran ?></td>
-
                     <td><?= $row->status ?></td>
-                    <td><?= $row->semester ?></td>
+                    <!-- <td><?= $row->semester ?></td> -->
                     <td>
                       <div class="btn-group">
                         <a href="<?= base_url() ?>DataTahunAjaran/hapus/<?= $row->kode_ta ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
