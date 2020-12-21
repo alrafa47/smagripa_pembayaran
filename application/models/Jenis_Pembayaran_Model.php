@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * 
@@ -10,7 +10,7 @@ class Jenis_Pembayaran_Model extends CI_Model
 		return $this->db->get('tbl_jenis_pembayaran')->result();
 	}
 
-	public function tambah_data( )
+	public function tambah_data()
 	{
 		$data = array(
 			'kode_jenispembayaran' => $this->input->post('kode_jenispembayaran', true),
@@ -22,7 +22,7 @@ class Jenis_Pembayaran_Model extends CI_Model
 		$this->db->insert('tbl_jenis_pembayaran', $data);
 	}
 
-	public function ubah_data( )
+	public function ubah_data()
 	{
 		$data = array(
 			'nama_pembayaran' => $this->input->post('nama_pembayaran', true),
@@ -40,6 +40,6 @@ class Jenis_Pembayaran_Model extends CI_Model
 
 	public function detail_data($kode)
 	{
-		return $this->db->get_where('tbl_jenis_pembayaran', ['kode_jenispembayaran' => $kode]) ->row_array(); 
+		return $this->db->get_where('tbl_jenis_pembayaran', ['kode_jenispembayaran' => $kode])->row_array();
 	}
 }
