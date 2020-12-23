@@ -9,32 +9,32 @@ class DataLaporanSPP extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Siswa_Model');
         $this->load->model('Kelas_Model');
-        $this->load->model('DataPembayarannSPP_Model');
+        $this->load->model('DataPembayaranSPP_Model');
+        $this->load->model('TahunAjaran_Model');
         $this->load->library('form_validation');
     }
     function index()
     {
-        $kelas = $this->input->get('kelas');
-        $kelas = ($this->input->get('kelas') == 'lihat_semua') ? null : $kelas;
+        $ta = $this->input->get('ta');
+        $ta = ($this->input->get('ta') == 'lihat_semua') ? null : $ta;
         $data = [
-            'dataSiswa' => $this->Siswa_Model->getAllData(),
-            'dataAngsuran' => $this->DataPembayaranSPP_Model->getAllData(),
-            'kelas' => $this->Kelas_Model->getAllData()
+            
+            'dataspp' => $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPP(),
+            'tahunajaran' => $this->TahunAjaran_Model->getAllData()
         ];
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
-        $this->load->view('laporandpp/index', $data);
+        $this->load->view('laporanspp/index', $data);
         $this->load->view('templates/footer');
     }
 
-    public function export($jurusan = null)
+    public function export($ta = null)
     {
-        $jurusan = ($jurusan == 'lihat_semua') ? null : $jurusan;
+
         $data = [
-            'dataSiswa' => $this->DPPSiswa_Model->getAllDataJoinDataSiswa($jurusan),
-            'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData()
+            'dataSiswa' => $this->DPPSiswa_Model->getAllData(),
+            'dataBayar' => $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPP()
         ];
         $this->load->view('laporandpp/export', $data);
     }

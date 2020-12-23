@@ -5,6 +5,10 @@
  */
 class DataPembayaranSPP_Model extends CI_Model
 {
+    public function getAllData()
+    {
+        return $this->db->get('tbl_pembayaran_spp')->result();
+    }
     public function getDataSIswaJoinJenisSPP()
     {
         $this->db->select('tbl_siswa.*, tbl_jenis_spp.nominal_jenis, tbl_jenis_spp.kategori');
