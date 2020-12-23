@@ -195,6 +195,30 @@
                 }
             })
         })
+        <?php if ($this->uri->segment(1) == 'DataPembayaranUjian') { ?>
+            $('#pembayaran').change(function() {
+                let dataNisn = "<?= $this->uri->segment(3) ?>";
+                let ta = $('#tahunAjaran').val();
+                let jenisPembayaran = $(this).val();
+                if (ta != '-') {
+                    $.ajax({
+                        url: "<?= base_url('DataPembayaranUjian/JumlahPembayaran') ?>",
+                        type: 'POST',
+                        // dataType: 'json',
+                        data: {
+                            'nisn': dataNisn,
+                            'pembayaran': jenisPembayaran
+                        },
+                        success: function(response) {
+                            $('#dataPembayaran').html(JSON.parse(response));
+                        }
+                    });
+                } else {
+                    alert('pilih tahun ajaran');
+                    $(this).val('-')
+                }
+            });
+        <?php }  ?>
 
     });
 </script>

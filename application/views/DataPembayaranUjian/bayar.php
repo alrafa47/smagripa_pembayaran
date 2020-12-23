@@ -20,14 +20,14 @@
     <section class="content">
         <!-- NOTIFIKASI -->
         <?php
-        if ($this->session->flashdata('flash_siswa')) { ?>
+        if ($this->session->flashdata('flash_ujian')) { ?>
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h6>
                     <i class="icon fas fa-check"></i>
                     Data Berhasil
                     <strong>
-                        <?= $this->session->flashdata('flash_siswa');   ?>
+                        <?= $this->session->flashdata('flash_ujian');   ?>
                     </strong>
                 </h6>
             </div>
@@ -37,99 +37,40 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <?php $nisn = $this->uri->segment(3) ?>
-                    <form action="<?= base_url('DataPembayaranUjian/tambahData/') . $nisn ?>">
-                        <!-- card-body -->
-                        <?php foreach ($tahunAjaran as  $valueTahunAjaran) : ?>
-                            <div class="card-body">
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <td colspan="3"><?= $valueTahunAjaran->tahun_ajaran ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>+</td>
-                                        <td>UTS</td>
-                                        <td>UAS</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Semester 1</td>
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $valueTahunAjaran->kode_ta - 1 ?>" name="uts[]">
-                                                <label for="customCheckbox" class="custom-control-label"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $valueTahunAjaran->kode_ta - 1 ?>" name="uas[]">
-                                                <label for="customCheckbox" class="custom-control-label"></label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Semester 2</td>
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $valueTahunAjaran->kode_ta - 2 ?>" name="uts[]">
-                                                <label for="customCheckbox" class="custom-control-label"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $valueTahunAjaran->kode_ta - 2 ?>" name="uas[]">
-                                                <label for="customCheckbox" class="custom-control-label"></label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                    <div class="card-body">
+                        <?php $nisn = $this->uri->segment(3); ?>
+                        <form class="form" action="<?= base_url('DataPembayaranUjian/tambahData/') . $nisn ?>" method="POST">
+                            <div class="form-group">
+                                <label for="exampleInputFile">Kelas</label>
+                                <select class="form-control" name="kelas">
+                                    <option value="-">Pilih Kelas</option>
+                                    <?php foreach ($kelas as $valueTahunAJaran) : ?>
+                                        <option value="<?= $valueTahunAJaran->kode_kelas ?>"><?= "$valueTahunAJaran->kelas $valueTahunAJaran->nama_jurusan $valueTahunAJaran->nama_kelas" ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                        <?php endforeach; ?>
-                        <!-- /.card-body -->
-                        <!-- card-body -->
-                        <div class="card-body">
-                            <table class="table table-bordered table-striped">
-                                <tr>
-                                    <td colspan="6">UNBK</td>
-                                </tr>
-                                <tr>
-                                    <?php
-                                    $bulan1 = array('juli', 'agustus', 'september', 'oktober', 'november', 'desember');
-                                    foreach ($bulan1 as $bln) :
-                                    ?>
-                                        <td>
-                                            <div>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $bln ?>" name="unbk[]">
-                                                    <label for="customCheckbox" class="custom-control-label"><?= $bln ?></label>
-                                                </div>
-                                            </div>
-                                        <?php
-                                    endforeach
-                                        ?>
-                                        </td>
-                                </tr>
-                                <tr>
-                                    <?php
-                                    $bulan = array('januari', 'februari', 'maret', 'april', 'mei', 'juni');
-                                    foreach ($bulan as $bln) :
-                                    ?>
-                                        <td>
-                                            <div>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox" value="<?= $bln ?>" name="unbk[]">
-                                                    <label for="customCheckbox" class="custom-control-label"><?= $bln ?></label>
-                                                </div>
-                                            </div>
-                                        <?php
-                                    endforeach
-                                        ?>
-                                        </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                        <button type="submit" class="btn btn-primary float-right">Simpan</button>
-                    </form>
+                            <div class="form-group">
+                                <label for="exampleInputFile">Tahun Ajaran</label>
+                                <select class="form-control" name="tahunAjaran" id="tahunAjaran">
+                                    <option value="-">Pilih Tahun Ajaran</option>
+                                    <?php foreach ($tahunAjaran as $valueTahunAJaran) : ?>
+                                        <option value="<?= $valueTahunAJaran->kode_ta ?>"><?= $valueTahunAJaran->tahun_ajaran ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">Jenis Pembayaran</label>
+                                <select class="form-control" name="jenisPembayaran" id="pembayaran">
+                                    <option value="-">Pilih Pembayaran</option>
+                                    <?php foreach ($jenisPembayaran as $valueJenisPembayaran) : ?>
+                                        <option value="<?= $valueJenisPembayaran->kode_jenispembayaran ?>" data-harga="<?= $valueJenisPembayaran->nominal ?>"><?= $valueJenisPembayaran->nama_pembayaran ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div id="dataPembayaran"></div>
+                            <button class="mt-5 btn btn-primary float-right btn-lg" type="submit">Bayar</button>
+                        </form>
+                    </div>
                 </div>
                 <!-- /.card -->
             </div>

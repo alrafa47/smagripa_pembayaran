@@ -11,6 +11,8 @@ class DataPembayaranUjian extends CI_Controller
         $this->load->model("DataPembayaranUjian_Model");
         $this->load->model("TahunAjaran_Model");
         $this->load->model("Siswa_Model");
+        $this->load->model("Kelas_Model");
+        $this->load->model("Jenis_Pembayaran_Model");
         $this->load->library("form_validation");
     }
 
@@ -31,8 +33,10 @@ class DataPembayaranUjian extends CI_Controller
             $tahunAjaran = $this->TahunAjaran_Model->getTagihan($siswa['kode_ta'], $siswa['tahun_keluar']);
         }
         $data = [
+            'kelas' => $this->Kelas_Model->getAllData($siswa['kode_jurusan']),
             'siswa' => $siswa,
-            'tahunAjaran' => $tahunAjaran
+            'tahunAjaran' => $tahunAjaran,
+            'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData()
         ];
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
@@ -83,11 +87,42 @@ CREATE TABLE `tbl_jenis_pembayaran` (
     */
     public function tambahData($nisn)
     {
+        $jenisPembayaran = $this->input->post('jenisPembayaran');
+        $nominal = $this->Jenis_Pembayaran_Model->detail_data($jenisPembayaran)['nominal'];
+        $data = [
+            'nisn' => $nisn,
+            'kode_kelas' => $this->input->post('kelas'),
+            'tanggal' => date('Y/m/d'),
+            'kode_jenispembayaran' => $jenisPembayaran,
+            'nominal' => $nominal,
+            'kode_ta' => $this->input->post('tahunAjaran'),
+            'keterangan' => $this->input->post('pembayaran')
+        ];
+        $this->DataPembayaranUjian_Model->tambahData($data);
+        $this->session->set_flashdata('flash_ujian', 'Disimpan');
+        redirect('DataPembayaranUjian/bayar/' . $nisn);
+    }
 
-        $this->input->post('uts');
-        $this->input->post('uas');
-        $this->input->post('unbk');
-        $tanggal = date('Y/m/d');
-        // $this->
+    public function JumlahPembayaran()
+    {
+        $jenisPembayaran = $this->input->post('pembayaran');
+        $nisn = $this->input->post('nisn');
+        $html = '';
+        if ($jenisPembayaran != '-') {
+            $jenisPembayaran = $this->Jenis_Pembayaran_Model->detail_data($jenisPembayaran);
+            $row = 12 / $jenisPembayaran['jumlah_pembayaran'];
+            $html .= "<h5> Pembayaran " . $jenisPembayaran['nama_pembayaran'] . "</h5>";
+            $html .= "<div class='row'>";
+            for ($i = 1; $i <=  $jenisPembayaran['jumlah_pembayaran']; $i++) {
+                $html .= "<div class='col-" . $row . "'>";
+                $html .= "<div class='form-check'>";
+                $html .= "<input class='form-check-input' type='checkbox' value='$i' name='pembayaran[]'>";
+                $html .= "<label class='form-check-label'>ke-$i</label>";
+                $html .= "</div>";
+                $html .= "</div>";
+            }
+            $html .= "</div>";
+        }
+        echo json_encode($html);
     }
 }
