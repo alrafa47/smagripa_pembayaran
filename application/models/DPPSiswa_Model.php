@@ -10,7 +10,7 @@ class DPPSiswa_Model extends CI_Model
 		return $this->db->get('tbl_dpp_siswa')->result();
 	}
 
-	public function getAllDataJoinDataSiswa($jurusan = null)
+	public function getAllDataJoinDataSiswa($jurusan = null, $tahun_awal = null, $tahun_akhir = null)
 	{
 		$this->db->select('tbl_siswa.nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_dpp_siswa.nominal_dpp, tbl_dpp_siswa.jumlah_angsuran, tbl_dpp_siswa.nominal_angsuran, status');
 		$this->db->from('tbl_siswa');
@@ -18,6 +18,10 @@ class DPPSiswa_Model extends CI_Model
 		$this->db->join('tbl_dpp_siswa', 'tbl_siswa.nisn = tbl_dpp_siswa.nisn');
 		if ($jurusan != null) {
 			$this->db->where('tbl_siswa.kode_jurusan', $jurusan);
+		}
+		if ($tahun_awal != null && $tahun_akhir != null) {
+			$this->db->where('tbl_siswa.kode_ta >=', $tahun_awal);
+			$this->db->where('tbl_siswa.kode_ta <=', $tahun_akhir);
 		}
 		return $this->db->get()->result();
 	}

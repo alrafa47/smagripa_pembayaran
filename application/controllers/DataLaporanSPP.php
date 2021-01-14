@@ -16,12 +16,14 @@ class DataLaporanSPP extends CI_Controller
     }
     function index()
     {
-        $ta = $this->input->get('ta');
-        $ta = ($this->input->get('ta') == 'lihat_semua') ? null : $ta;
+        $kelas = ($this->input->get('kelas') == 'lihat_semua') ? null : $this->input->get('kelas');
+        $ta = ($this->input->get('ta') == 'lihat_semua') ? null : $this->input->get('ta');
         $data = [
-            
-            'dataspp' => $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPP(),
-            'tahunajaran' => $this->TahunAjaran_Model->getAllData()
+            'bulan' => [7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember', 1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni'],
+            'datasiswa' => $this->DataPembayaranSPP_Model->getDataPembayaranSiswa($ta, $kelas),
+            'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
+            // 'kelas' => $this->Kelas_Model->getAllDatabyKelas($kelas)
+            'kelas' => $this->Kelas_Model->getAllDatabyKelas()
         ];
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');

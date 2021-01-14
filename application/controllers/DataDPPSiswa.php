@@ -123,6 +123,7 @@ class DataDPPSiswa extends CI_Controller
 	public function hapus($kd)
 	{
 		$this->DPPSiswa_Model->hapus_data($kd);
+		$this->Siswa_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_dppsiswa', 'Dihapus');
 		redirect('DataDPPSiswa');
 	}

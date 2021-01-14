@@ -16,6 +16,17 @@ class Kelas_Model extends CI_Model
 		return $this->db->get()->result();
 	}
 
+	public function getAllDatabyKelas($kode_kelas = null)
+	{
+		$this->db->select('kode_kelas, kelas, tbl_jurusan.nama_jurusan, nama_kelas');
+		$this->db->from('tbl_kelas');
+		$this->db->join('tbl_jurusan', 'tbl_jurusan.kode_jurusan = tbl_kelas.kode_jurusan');
+		if ($kode_kelas != null) {
+			$this->db->where('tbl_kelas.kode_kelas', $kode_kelas);
+		}
+		return $this->db->get()->result();
+	}
+
 	public function getAllData_jurusan()
 	{
 		return $this->db->get('tbl_jurusan')->result();
@@ -24,7 +35,7 @@ class Kelas_Model extends CI_Model
 	public function tambah_data()
 	{
 		$data = array(
-			'kode_kelas' => $this->input->post('kelas') .	$this->input->post('kd_jur') . $this->input->post('nm_kelas'),
+			'kode_kelas' => $this->input->post('kelas') . "_" . $this->input->post('kd_jur') . "_" . $this->input->post('nm_kelas'),
 			'kelas' => $this->input->post('kelas'),
 			'kode_jurusan' => $this->input->post('kd_jur'),
 			'nama_kelas' => $this->input->post('nm_kelas')
@@ -34,7 +45,7 @@ class Kelas_Model extends CI_Model
 	public function ubah_data()
 	{
 		$data = array(
-			'kode_kelas' => $this->input->post('kelas') . $this->input->post('kd_jur') . $this->input->post('nm_kelas'),
+			'kode_kelas' => $this->input->post('kelas') . "_" . $this->input->post('kd_jur') . "_" . $this->input->post('nm_kelas'),
 			'kelas' => $this->input->post('kelas'),
 			'kode_jurusan' => $this->input->post('kd_jur'),
 			'nama_kelas' => $this->input->post('nm_kelas')

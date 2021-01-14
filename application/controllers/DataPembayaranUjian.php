@@ -13,6 +13,7 @@ class DataPembayaranUjian extends CI_Controller
         $this->load->model("Siswa_Model");
         $this->load->model("Kelas_Model");
         $this->load->model("Jenis_Pembayaran_Model");
+        $this->load->model("DataPembayaranSPP_Model");
         $this->load->library("form_validation");
     }
 
@@ -44,47 +45,6 @@ class DataPembayaranUjian extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-
-    /* 
-    CREATE TABLE `tbl_tahun_ajaran` (
-  `kode_ta` int(15) NOT NULL,
-  `tahun_ajaran` varchar(15) NOT NULL,
-  `semester` varchar(10) DEFAULT NULL,
-  `status` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `tbl_detail_pembayaran` (
-  `kode_jenispembayaran` varchar(20) NOT NULL,
-  `jumlah_ke` int(5) NOT NULL,
-  `no_transaksi` int(20) NOT NULL,
-  `sub_total` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `tbl_pembayaran` (
-  `no_transaksi` int(20) NOT NULL,
-  `nisn` varchar(20) NOT NULL,
-  `kode_ta` varchar(10) DEFAULT NULL,
-  `tanggal` date NOT NULL,
-  `total` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `tbl_jenis_pembayaran` (
-  `kode_jenispembayaran` varchar(20) NOT NULL,
-  `nama_pembayaran` varchar(20) NOT NULL,
-  `nominal` int(20) NOT NULL,
-  `tahun` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-    field :
-    id_pembayaran ujian
-    nisn
-    tanggal
-    jenis pembayaran
-    nominal
-    tahun ajaran
-    keterangan (semester : 1/2 : unbk : bulan ?)
-    */
     public function tambahData($nisn)
     {
         $jenisPembayaran = $this->input->post('jenisPembayaran');
@@ -109,6 +69,7 @@ CREATE TABLE `tbl_jenis_pembayaran` (
         $nisn = $this->input->post('nisn');
         $html = '';
         if ($jenisPembayaran != '-') {
+            $pembayaranSiswa = $this->DataPembayaranUjian_Model->pembayaranSiswa($nisn);
             $jenisPembayaran = $this->Jenis_Pembayaran_Model->detail_data($jenisPembayaran);
             $row = 12 / $jenisPembayaran['jumlah_pembayaran'];
             $html .= "<h5> Pembayaran " . $jenisPembayaran['nama_pembayaran'] . "</h5>";
@@ -124,5 +85,28 @@ CREATE TABLE `tbl_jenis_pembayaran` (
             $html .= "</div>";
         }
         echo json_encode($html);
+    }
+
+    public function detailTransaksi($nisn)
+    {
+        $result = $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPPByNISN($nisn);
+        $data = [
+            'nisn' => $nisn,
+            'nama_siswa' => $result->nama_siswa,
+            'tahunAjaran' => $this->DataPembayaranSPP_Model->getTagihanSPP($result->kode_ta, $result->tahun_keluar),
+            'pembayaranUjian' => $this->DataPembayaranUjian_Model->pembayaranSiswa($nisn)
+        ];
+
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar');
+        $this->load->view('DataPembayaranUjian/detailTransaksi', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function hapusDetailTransaksi($noTransaksi, $nisn)
+    {
+        $this->DataPembayaranUjian_Model->hapusTransaksi($noTransaksi);
+        $this->session->set_flashdata('flash_dataPembayaranUjian', 'dihapus');
+        redirect("DataPembayaranUjian/detailTransaksi/$nisn");
     }
 }

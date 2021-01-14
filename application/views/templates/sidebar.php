@@ -137,9 +137,15 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url() ?>" class="nav-link">
+              <a href="<?= base_url() ?>DataLaporanUjian" class="nav-link">
                 <i class="fas fa-hand-holding-usd"></i>
                 <p>Laporan Ujian</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>DataLaporanRekapan" class="nav-link">
+                <i class="fas fa-hand-holding-usd"></i>
+                <p>Rekapan Pembayaran</p>
               </a>
             </li>
           </ul>

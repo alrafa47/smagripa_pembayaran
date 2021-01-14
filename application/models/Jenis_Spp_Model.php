@@ -15,7 +15,8 @@ class Jenis_Spp_Model extends CI_Model
 		$data = array(
 			'kode_jenisspp' => $this->input->post('kode_jenisspp', true),
 			'nominal_jenis' => $this->input->post('nominal_jenis', true),
-			'kategori' => $this->input->post('kategori', true)
+			'kategori' => $this->input->post('kategori', true),
+			'tahun' => $this->input->post('tahun', true)
 		);
 
 		$this->db->insert('tbl_jenis_spp', $data);

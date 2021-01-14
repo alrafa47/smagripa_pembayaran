@@ -109,6 +109,7 @@
               <thead>
                 <tr>
                   <th>No</th>
+                  <th>Kode Kelas</th>
                   <th>kelas</th>
                   <th>Jurusan</th>
                   <th>Nama Kelas</th>
@@ -121,6 +122,7 @@
                 foreach ($kelas as $row) { ?>
                   <tr>
                     <td><?= $no ?></td>
+                    <td><?= $row->kode_kelas ?></td>
                     <td><?= $row->kelas ?></td>
                     <td><?= $row->nama_jurusan ?></td>
                     <td><?= $row->nama_kelas ?></td>

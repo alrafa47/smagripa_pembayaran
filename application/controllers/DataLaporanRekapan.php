@@ -4,13 +4,15 @@
 /**
  * 
  */
-class DataLaporan extends CI_Controller
+class DataLaporanRekapan extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('DPPSiswa_Model');
+        $this->load->model('Siswa_Model');
         $this->load->model('Jurusan_Model');
+        $this->load->model('DataPembayaranUjian_Model');
+        $this->load->model('DataPembayaranSPP_Model');
         $this->load->model('DataPembayaranDPP_Model');
         $this->load->model('TahunAjaran_Model');
         $this->load->library('form_validation');
@@ -24,14 +26,13 @@ class DataLaporan extends CI_Controller
 
 
         $data = [
-            'dataSiswa' => $this->DPPSiswa_Model->getAllDataJoinDataSiswa($jurusan, $tahun_awal, $tahun_akhir),
+            'dataSiswa' => $this->Siswa_Model->getAllData(),
             'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
-            'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData(),
             'jurusan' => $this->Jurusan_Model->getAllData()
         ];
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
-        $this->load->view('laporandpp/index', $data);
+        $this->load->view('laporanrekapan/index', $data);
         $this->load->view('templates/footer');
     }
 

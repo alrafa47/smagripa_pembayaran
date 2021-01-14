@@ -67,6 +67,7 @@
                         <option value="tingkat 1" <?php echo  set_select('kategori', 'tingkat 1'); ?>>Tingkat 1</option>
                         <option value="tingkat 2" <?php echo  set_select('kategori', 'tingkat 2'); ?>>Tingkat 2</option>
                         <option value="tingkat 3" <?php echo  set_select('kategori', 'tingkat 3'); ?>>Tingkat 3</option>
+
                       </select>
                     </div>
                     <div class="form-group">

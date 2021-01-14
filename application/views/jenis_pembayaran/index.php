@@ -68,6 +68,10 @@
                       <label for="exampleInputPassword1">Tahun Berlaku </label>
                       <input type="text" class="form-control" id="exampleInputPassword1" name="tahun">
                     </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Jumlah Pembayaran/Tahun </label>
+                      <input type="number" class="form-control" id="exampleInputPassword1" name="jumlah_pembayaran">
+                    </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>
                   <!-- /.card-body -->
@@ -100,6 +104,7 @@
                     <th>Nama Pembayaran</th>
                     <th>Nominal Jenis</th>
                     <th>Tahun</th>
+                    <th>Jumlah Pembayaran Pertahun</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -113,6 +118,7 @@
                       <td><?= $row->nama_pembayaran ?></td>
                       <td><?= $row->nominal ?></td>
                       <td><?= $row->tahun ?></td>
+                      <td><?= $row->jumlah_pembayaran ?></td>
                       <td>
                         <div class="btn-group">
                           <a href="<?= base_url() ?>DataJenisPembayaran/hapus/<?= $row->kode_jenispembayaran ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a>

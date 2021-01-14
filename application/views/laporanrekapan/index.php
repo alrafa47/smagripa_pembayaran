@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Laporan DPP</h1>
+                    <h1>Laporan Rekapan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data DPP</li>
+                        <li class="breadcrumb-item active">Data Rekapan Pembayaran</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <form action="<?= base_url('DataLaporan') ?>" method="GET">
+                                <form action="<?= base_url('DataLaporanRekapan') ?>" method="GET">
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="form-group">
@@ -85,47 +85,43 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>NISN</th>
-                                <th>Nama Siswa</th>
-                                <th>Jumlah DPP</th>
-                                <th>Nominal Angsuran</th>
-                                <th>Jumlah Angsuran</th>
-                                <th>Terbayar</th>
-                                <th>Belum Terbayar</th>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2">NISN</th>
+                                <th rowspan="2">Nama Siswa</th>
+                                <th rowspan="2">DPP</th>
+                                <th colspan="5">Kelas</th>
+                                <th rowspan="2">UNBK</th>
+                                <th rowspan="2">Action</th>
+                            </tr>
+                            <tr>
+                                <th>SPP</th>
+                                <th>UTS ganjil</th>
+                                <th>UTS genap</th>
+                                <th>UAS ganjil</th>
+                                <th>UAS genap</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $no = 1;
-                            function dataAngsuran($dataAngsuran, $nisn)
-                            {
-                                $jumlahTotalTerbayar = 0;
-                                foreach ($dataAngsuran as $valueAngsuran) {
-                                    if ($valueAngsuran->nisn == $nisn) {
-                                        $jumlahTotalTerbayar += $valueAngsuran->nominal_bayar;
-                                    }
-                                }
-                                return $jumlahTotalTerbayar;
-                            }
-                            foreach ($dataSiswa as $row) {
-                                $data = dataAngsuran($dataAngsuran, $row->nisn);
-                            ?>
+                            foreach ($dataSiswa as $row) { ?>
+
                                 <tr>
                                     <td><?= $no ?></td>
                                     <td><?= $row->nisn ?></td>
                                     <td><?= $row->nama_siswa ?></td>
-                                    <td><?= $row->nominal_dpp ?></td>
-                                    <td><?= $row->nominal_angsuran ?></td>
-                                    <td><?= $row->jumlah_angsuran ?></td>
-                                    <td><?= $data ?></td>
-                                    <td><?= $row->nominal_dpp - $data ?></td>
-                                    <!-- <td>
-                                        <div class="btn-group">
-                                            <a href="<?= base_url() ?>DataJurusan/hapus/<?= $row->kode_jurusan ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                                            <a href="<?= base_url() ?>DataJurusan/ubah/<?= $row->kode_jurusan ?>" class="btn btn-warning">update</a>
-                                        </div>
-                                    </td> -->
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <a href="<?= base_url() ?>DataLaporanRekapSiswa/detail/<?= $row->nisn ?>" class="btn btn-warning">detail</a>
+                                    </td>
+
                                 </tr>
                             <?php
                                 $no++;
