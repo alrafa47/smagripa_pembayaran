@@ -67,4 +67,16 @@ class Siswa_Model extends CI_Model
 		$this->db->where("tbl_siswa.nisn", $nisn);
 		return $this->db->get()->row();
 	}
+
+	public function getDataLaporanSPPSiswa($where)
+	{
+		$this->db->join("tbl_jenis_spp", "tbl_siswa.kode_jenisspp = tbl_jenis_spp.kode_jenisspp");
+		return $this->db->get_where('tbl_siswa', $where)->result();
+	}
+
+	public function getDataLaporanUjianSiswa($where)
+	{
+		// $this->db->join("tbl_jenis_spp", "tbl_siswa.kode_jenisspp = tbl_jenis_spp.kode_jenisspp");
+		return $this->db->get_where('tbl_siswa', $where)->result();
+	}
 }

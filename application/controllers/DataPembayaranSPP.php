@@ -33,47 +33,56 @@ class DataPembayaranSPP extends CI_Controller
 		$data['nisn'] = $result->nisn;
 		$data['nama_siswa'] = $result->nama_siswa;
 		$data['kode_jurusan'] = $result->kode_jurusan;
-		$dataKelas =  $this->Kelas_Model->getAllData($result->kode_jurusan);
-		$html = '<select class="form-control" name="kelas">';
-		$html = '<option>--Pilih Kelas--</option>';
-		foreach ($dataKelas as $valueKelas) {
-			$html .= '<option value="$valueKelas->kode_kelas">' . $valueKelas->kode_kelas . '</option>';
-		}
-		$html .= '</select>';
-		$data['selectKelas'] = $html;
+		// $dataKelas =  $this->Kelas_Model->getAllData($result->kode_jurusan);
+		// $html = '<select class="form-control" name="kelas">';
+		// foreach ($dataKelas as $valueKelas) {
+		// 	$html .= '<option value="' . $valueKelas->kode_kelas . '">' . $valueKelas->kode_kelas . '</option>';
+		// }
+		// $html .= '</select>';
+		// $data['selectKelas'] = $html;
 		$data['kategori'] = $result->kategori;
 		$data['nominal_jenis'] = $result->nominal_jenis;
-		$data['list_tagihan'] = $this->listTagihan($nisn, $result->kode_ta, $result->tahun_keluar);
+		$data['kode_jenis'] = $result->kode_jenisspp;
+		$data['listPembayaran']  = $this->DataPembayaranSPP_Model->getDataPembayaranSPP($nisn);
+		$data['list_tagihan'] = $this->listTagihan($nisn, $result->kode_ta, $result->tahun_keluar, $data['listPembayaran']);
 		echo json_encode($data);
 	}
 	/* 
 	* membuat form untuk list tagihan bulan apa saja yg sudah dan belum di bayar
 	*/
-	public function listTagihan($nisn, $start, $end)
+	public function listTagihan($nisn, $start, $end, $listPembayaran)
 	{
+		$dataKelasSiswa = $this->Siswa_Model->detail_data($nisn);
 		$semesterGanjil = [7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'];
 		$semesterGenap = [1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni'];
 		$listTagihan  = $this->DataPembayaranSPP_Model->getTagihanSPP($start, $end);
-		$listPembayaran  = $this->DataPembayaranSPP_Model->getDataPembayaranSPP($nisn);
 		$html = "<form id='formSPP' method='POST' action='" . base_url() . "DataPembayaranSPP/bayarSPP/$nisn'>";
-		$html .= '<div class="col-12">';
+		$html = '<div class="col-12">';
+		$no = 1;
 		foreach ($listTagihan as $rowTagihan) {
 			$html .= '<table class="table table-bordered">';
 			$html .= '<tr>';
-			$html .= '<td colspan="6">' . $rowTagihan->tahun_ajaran . '</td>';
+			$html .= '<td colspan="6">tahun Ajaran : ' . $rowTagihan->tahun_ajaran . ' , Kelas : ' . $dataKelasSiswa['kelas_' . $no] . '</td>';
 			$html .= '</tr>';
 			$html .= '<tr>';
 			$html .= '<tr>';
 			$html .= '<td colspan="6">Semester Ganjil</td>';
 			$html .= '</tr>';
+
 			foreach ($semesterGanjil as $key => $value) {
-				if (is_array($listPembayaran) && in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
-					$html .= '<td >';
-					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
-					$html .= '</td>';
+				if (isset($listPembayaran[$rowTagihan->kode_ta])) {
+					if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
+						$html .= '<td >';
+						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
+						$html .= '</td>';
+					} else {
+						$html .= '<td >';
+						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+						$html .= '</td>';
+					}
 				} else {
 					$html .= '<td >';
-					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
 					$html .= '</td>';
 				}
 			}
@@ -83,18 +92,25 @@ class DataPembayaranSPP extends CI_Controller
 			$html .= '</tr>';
 			$html .= '<tr>';
 			foreach ($semesterGenap as $key => $value) {
-				if (is_array($listPembayaran) && in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
-					$html .= '<td >';
-					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked><label class="form-check-label">' . $value . '</label></div>';
-					$html .= '</td>';
+				if (isset($listPembayaran[$rowTagihan->kode_ta])) {
+					if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
+						$html .= '<td >';
+						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
+						$html .= '</td>';
+					} else {
+						$html .= '<td >';
+						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+						$html .= '</td>';
+					}
 				} else {
 					$html .= '<td >';
-					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
 					$html .= '</td>';
 				}
 			}
 			$html .= '</tr>';
 			$html .= '</table>';
+			$no++;
 		}
 		$html .= '</div>';
 		$html .= '</form>';
@@ -113,18 +129,42 @@ class DataPembayaranSPP extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function bayarSPP($nisn)
-	{
-		$this->input->post('chkBulan');
-	}
 	public function insertData()
 	{
 		$dataNISN = $this->input->post('dataNISN');
-		$kelas = $this->input->post('kelas');
-		$bulan = $this->input->post('bulan');
+		$bulan = $this->input->post('chkBulan');
 		$nominal = $this->input->post('nominal');
-		$this->DataPembayaranSPP_Model->insertData($dataNISN, $kelas, date('Y/m/d'), $bulan, $nominal);
+		$jenisspp = $this->input->post('jenisspp');
+		foreach ($bulan as $value) {
+			$data = explode('-', $value);
+			$this->DataPembayaranSPP_Model->insertData($dataNISN, $data[1], date('Y/m/d'), $data[2], $data[0], $jenisspp, $nominal);
+		}
 		$this->session->set_flashdata('flash_dataPembayaranSPP', 'berhasil');
 		redirect('DataPembayaranSPP');
+	}
+
+	public function detailTransaksi($nisn)
+	{
+		$result = $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPPByNISN($nisn);
+		$data = [
+			'nisn' => $nisn,
+			'nama_siswa' => $result->nama_siswa,
+			'ganjil' => [7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'],
+			'genap' => [1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni'],
+			'tahunAjaran' => $this->DataPembayaranSPP_Model->getTagihanSPP($result->kode_ta, $result->tahun_keluar),
+			'pembayaran' => $this->DataPembayaranSPP_Model->DetailDataPembayaranSPP($nisn)
+		];
+
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('DataPembayaranSPP/detailTransaksi', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function hapusDetailTransaksi($noTransaksi, $nisn)
+	{
+		$this->DataPembayaranSPP_Model->hapusTransaksi($noTransaksi);
+		$this->session->set_flashdata('flash_dataPembayaranSPP', 'dihapus');
+		redirect("DataPembayaranSPP/detailTransaksi/$nisn");
 	}
 }

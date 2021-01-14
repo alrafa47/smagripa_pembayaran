@@ -30,17 +30,6 @@ header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
 <center>
     <h3>LAPORAN KEUANGAN DPP </h3>
 </center>
-<table>
-    <tr>
-        <td>ala</td>
-        <td>alal</td>
-    </tr>
-    <tr>
-        <td>123</td>
-        <td>123</td>
-    </tr>
-</table>
-<br>
 <table border="1">
     <thead>
         <tr>

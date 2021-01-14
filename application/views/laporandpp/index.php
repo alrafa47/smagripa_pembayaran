@@ -24,23 +24,52 @@
                 <!-- card-body -->
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <form action="<?= base_url('DataLaporan') ?>" method="GET">
-                                    <select class="form-control" name="jurusan">
-                                        <option value='lihat_semua'>lihat Semua</option>
-                                        <?php
-                                        foreach ($jurusan as $valueJurusan) {
-                                            echo "<option value='$valueJurusan->kode_jurusan'>$valueJurusan->nama_jurusan</option>";
-                                        }
-                                        ?>
-
-                                    </select>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label>Jurusan</label>
+                                                <select class="form-control" name="jurusan">
+                                                    <option value='lihat_semua'>lihat Semua</option>
+                                                    <?php
+                                                    foreach ($jurusan as $valueJurusan) {
+                                                        echo "<option value='$valueJurusan->kode_jurusan'>$valueJurusan->nama_jurusan</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label>Tahun ajaran Awal</label>
+                                                <select class="form-control" name="tahun_awal">
+                                                    <?php
+                                                    foreach ($dataTahunAjaran as $valueTahunAjaran) {
+                                                        echo "<option value='$valueTahunAjaran->kode_ta'>$valueTahunAjaran->tahun_ajaran</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label>Tahun Ajaran Akhir</label>
+                                                <select class="form-control" name="tahun_akhir">
+                                                    <?php
+                                                    foreach ($dataTahunAjaran as $valueTahunAjaran) {
+                                                        echo "<option value='$valueTahunAjaran->kode_ta'>$valueTahunAjaran->tahun_ajaran</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div><button type="submit" class="btn btn-danger">Lihat</button></div>
-
                                 </form>
                             </div>
-                            <a href="<?= base_url('DataLaporan/export/') . $this->input->get('jurusan') ?>" class="btn btn-warning">Export</a>
+                            <a href="<?= base_url('DataLaporan/export/') . $this->input->get('jurusan') . '/' . $this->input->get('tahun_awal') . '/' . $this->input->get('tahun_akhir') ?>" class="btn btn-warning">Export</a>
                         </div>
                     </div>
                 </div>

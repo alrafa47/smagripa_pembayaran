@@ -130,13 +130,17 @@
                     'nisn': nisn
                 },
                 success: function(data) {
+                    // alert(data);
                     var dataSiswa = JSON.parse(data);
                     console.log(dataSiswa);
                     modal.find('#dataNISN').text(dataSiswa.nisn)
+                    modal.find('#NIS').val(dataSiswa.nisn)
                     modal.find('#dataNama').text(dataSiswa.nama_siswa)
                     modal.find('#dataJurusan').text(dataSiswa.kode_jurusan)
                     modal.find('#dataJenisSPP').text(dataSiswa.kategori)
                     modal.find('#dataNominalSPP').text('Rp. ' + dataSiswa.nominal_jenis)
+                    modal.find('#jenisSpp').val(dataSiswa.kode_jenis)
+                    modal.find('#nominalspp').val(dataSiswa.nominal_jenis)
                     modal.find('#selectKelas').html(dataSiswa.selectKelas)
                     modal.find('#dataDaftarTagihan').html(dataSiswa.list_tagihan)
                 }
@@ -195,6 +199,8 @@
                 }
             })
         })
+
+
         <?php if ($this->uri->segment(1) == 'DataPembayaranUjian') { ?>
             $('#pembayaran').change(function() {
                 let dataNisn = "<?= $this->uri->segment(3) ?>";
@@ -217,6 +223,17 @@
                     alert('pilih tahun ajaran');
                     $(this).val('-')
                 }
+            });
+            $('#tahunAjaran').change(function() {
+                var result = $('#tahunAjaran option:selected').data('kelas').split('_');
+                var html = "";
+                if (result[0] == 'XII') {
+                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value ="uts">UTS</option><option value ="unbk">UNBK</option>';
+                } else {
+                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value = "uts">UTS</option>';
+                }
+                $('#pembayaran').html(html);
+                $('#pembayaran').removeAttr('disabled');
             });
         <?php }  ?>
 

@@ -62,6 +62,7 @@
                                         <td><?= $row->kode_ta ?></td>
                                         <td>
                                             <a href="<?= base_url() ?>DataPembayaranUjian/bayar/<?= $row->nisn ?>" class="btn btn-warning">Bayar</a>
+                                            <a href="<?= base_url() ?>DataPembayaranUjian/detailTransaksi/<?= $row->nisn ?>" class="btn btn-danger">Detail Transaksi</a>
                                         </td>
                                     </tr>
                                 <?php

@@ -48,6 +48,10 @@
                       <label for="exampleInputPassword1">Tahun</label>
                       <input type="text" class="form-control" name="tahun" value="<?= $ubah['tahun'] ?>">
                     </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Jumlah Pembayaran/Tahun</label>
+                      <input type="number" class="form-control" name="jumlah_pembayaran" value="<?= $ubah['jumlah_pembayaran'] ?>">
+                    </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>
                   <!-- /.card-body -->

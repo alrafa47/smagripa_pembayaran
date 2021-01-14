@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Data spp Siswa</h1>
+          <h1>DATA PEMBAYARAN SPP</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -20,14 +20,14 @@
   <section class="content">
     <!-- NOTIFIKASI -->
     <?php
-    if ($this->session->flashdata('flash_sppsiswa')) { ?>
+    if ($this->session->flashdata('flash_dataPembayaranSPP')) { ?>
       <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h6>
           <i class="icon fas fa-check"></i>
           Data Berhasil
           <strong>
-            <?= $this->session->flashdata('flash_sppsiswa');   ?>
+            <?= $this->session->flashdata('flash_dataPembayaranSPP');   ?>
           </strong>
         </h6>
       </div>
@@ -63,9 +63,9 @@
                     <td><?= $row->kategori ?></td>
                     <td><?= $row->nominal_jenis ?></td>
                     <td>
-                      <a href="<?= base_url() ?>DataPembayaranSPP/bayar/<?= $row->nisn ?>" class="btn btn-warning">Bayar</a>
-                      <!-- Button trigger modal -->
+
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bayarSPP" data-nisn="<?= $row->nisn ?>">Bayar SPP</button>
+                      <a href="<?= base_url() ?>DataPembayaranSPP/detailTransaksi/<?= $row->nisn ?>" class="btn btn-danger">Detail Transaksi</a>
                     </td>
                   </tr>
                 <?php
@@ -100,53 +100,59 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <table class="table tabel-bordered">
-            <tr>
-              <td>NISN</td>
-              <td>
-                <div id="dataNISN"></div>
-              </td>
-            </tr>
-            <tr>
-              <td>Nama</td>
-              <td>
-                <div id="dataNama"></div>
-              </td>
-            </tr>
-            <tr>
-              <td>Jurusan</td>
-              <td>
-                <div id="dataJurusan"></div>
-              </td>
-            </tr>
-            <tr>
-              <td>Jenis SPP</td>
-              <td>
-                <div id="dataJenisSPP"></div>
-              </td>
-            </tr>
-            <tr>
-              <td>Nominal SPP</td>
-              <td>
-                <div id="dataNominalSPP"></div>
-              </td>
-            </tr>
-            <tr>
-              <td>Kelas</td>
-              <td>
-                <div class="form-group">
-                  <div id="selectKelas"></div>
-                </div>
-              </td>
-            </tr>
-          </table>
-          <div id="dataDaftarTagihan"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button form="formSPP" type="submit" class="btn btn-primary">Simpan Pembayaran</button>
-        </div>
+        <form action="<?= base_url('DataPembayaran/insertData') ?>" method="post">
+          <div class="modal-body">
+            <table class="table tabel-bordered">
+              <tr>
+                <td>NISN</td>
+                <td>
+                  <div id="dataNISN"></div>
+                  <input type="hidden" id="NIS" value="" name="dataNISN">
+                </td>
+              </tr>
+              <tr>
+                <td>Nama</td>
+                <td>
+                  <div id="dataNama"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Jurusan</td>
+                <td>
+                  <div id="dataJurusan"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Jenis SPP</td>
+                <td>
+                  <div id="dataJenisSPP"></div>
+                  <input type="hidden" id="jenisSpp" value="" name="jenisspp">
+
+                </td>
+              </tr>
+              <tr>
+                <td>Nominal SPP</td>
+                <td>
+                  <div id="dataNominalSPP"></div>
+                  <input type="hidden" id="nominalspp" value="" name="nominal">
+                </td>
+              </tr>
+              <!-- <tr>
+                <td>Kelas</td>
+                <td>
+                  <div class="form-group">
+                    <div id="selectKelas"></div>
+                  </div>
+                </td>
+              </tr> -->
+            </table>
+            <div id="dataDaftarTagihan"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Simpan Pembayaran</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

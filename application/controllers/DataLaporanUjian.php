@@ -4,14 +4,15 @@
 /**
  * 
  */
-class DataLaporanSPP extends CI_Controller
+class DataLaporanUjian extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Kelas_Model');
         $this->load->model('Siswa_Model');
-        $this->load->model('DataPembayaranSPP_Model');
+        $this->load->model('Kelas_Model');
+        $this->load->model('Jenis_Pembayaran_Model');
+        $this->load->model('DataPembayaranUjian_Model');
         $this->load->model('TahunAjaran_Model');
         $this->load->library('form_validation');
     }
@@ -23,7 +24,7 @@ class DataLaporanSPP extends CI_Controller
             $ta = $this->input->get('ta');
             $kelas = $this->input->get('kelas');
             if ($this->input->get('ta') != null && $this->input->get('kelas') != null) {
-                $dataPembayaran = $this->DataPembayaranSPP_Model->getDataPembayaranSiswa($ta, $kelas);
+                $dataPembayaran = $this->DataPembayaranUjian_Model->getDataPembayaranSiswa($ta, $kelas);
                 $kelasSiswa = explode('_', $kelas);
                 switch ($kelasSiswa[0]) {
                     case 'X':
@@ -31,7 +32,7 @@ class DataLaporanSPP extends CI_Controller
                             'kode_ta' => $ta,
                             'kelas_1' => $kelas
                         ];
-                        $dataSiswa = $this->Siswa_Model->getDataLaporanSPPSiswa($data);
+                        $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
                         // print_r($data);
                         break;
                     case 'XI':
@@ -39,7 +40,7 @@ class DataLaporanSPP extends CI_Controller
                             'kode_ta' => $ta - 1,
                             'kelas_2' => $kelas
                         ];
-                        $dataSiswa = $this->Siswa_Model->getDataLaporanSPPSiswa($data);
+                        $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
                         // print_r($data);
                         break;
                     case 'XII':
@@ -47,33 +48,33 @@ class DataLaporanSPP extends CI_Controller
                             'kode_ta' => $ta - 2,
                             'kelas_3' => $kelas
                         ];
-                        $dataSiswa = $this->Siswa_Model->getDataLaporanSPPSiswa($data);
+                        $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
                         // print_r($data);
                         break;
                 }
             }
         }
-        // print_r($dataSiswa);
+
         $data = [
-            'bulan' => [7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember', 1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni'],
             'dataSiswa' => $dataSiswa,
             'dataPembayaran' => $dataPembayaran,
+            'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
             'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
+            'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData(),
             'kelas' => $this->Kelas_Model->getAllDatabyKelas()
         ];
-        // die;
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
-        $this->load->view('laporanspp/index', $data);
+        $this->load->view('laporanujian/index', $data);
         $this->load->view('templates/footer');
     }
 
-    public function export($ta = null)
+    public function export($jurusan = null, $tahun_awal, $tahun_akhir)
     {
-
+        $jurusan = ($jurusan == 'lihat_semua') ? null : $jurusan;
         $data = [
-            'dataSiswa' => $this->DPPSiswa_Model->getAllData(),
-            'dataBayar' => $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPP()
+            'dataSiswa' => $this->DPPSiswa_Model->getAllDataJoinDataSiswa($jurusan, $tahun_awal, $tahun_akhir),
+            'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData()
         ];
         $this->load->view('laporandpp/export', $data);
     }
