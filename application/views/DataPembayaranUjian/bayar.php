@@ -41,30 +41,23 @@
                         <?php $nisn = $this->uri->segment(3); ?>
                         <form class="form" action="<?= base_url('DataPembayaranUjian/tambahData/') . $nisn ?>" method="POST">
                             <div class="form-group">
-                                <label for="exampleInputFile">Kelas</label>
-                                <select class="form-control" name="kelas">
-                                    <option value="-">Pilih Kelas</option>
-                                    <?php foreach ($kelas as $valueTahunAJaran) : ?>
-                                        <option value="<?= $valueTahunAJaran->kode_kelas ?>"><?= "$valueTahunAJaran->kelas $valueTahunAJaran->nama_jurusan $valueTahunAJaran->nama_kelas" ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputFile">Tahun Ajaran</label>
+                                <label for="exampleInputFile">Tahun Ajaran :: Kelas</label>
                                 <select class="form-control" name="tahunAjaran" id="tahunAjaran">
                                     <option value="-">Pilih Tahun Ajaran</option>
-                                    <?php foreach ($tahunAjaran as $valueTahunAJaran) : ?>
-                                        <option value="<?= $valueTahunAJaran->kode_ta ?>"><?= $valueTahunAJaran->tahun_ajaran ?></option>
-                                    <?php endforeach; ?>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($tahunAjaran as $valueTahunAJaran) : ?>
+                                        <option value="<?= $valueTahunAJaran->kode_ta . '-' . $siswa['kelas_' . $no] ?>" data-kelas='<?= $siswa['kelas_' . $no] ?>'><?= $valueTahunAJaran->tahun_ajaran . '::' . $siswa['kelas_' . $no] ?></option>
+                                    <?php
+                                        $no++;
+                                    endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Jenis Pembayaran</label>
-                                <select class="form-control" name="jenisPembayaran" id="pembayaran">
+                                <select class="form-control" name="jenisPembayaran" id="pembayaran" disabled>
                                     <option value="-">Pilih Pembayaran</option>
-                                    <?php foreach ($jenisPembayaran as $valueJenisPembayaran) : ?>
-                                        <option value="<?= $valueJenisPembayaran->kode_jenispembayaran ?>" data-harga="<?= $valueJenisPembayaran->nominal ?>"><?= $valueJenisPembayaran->nama_pembayaran ?></option>
-                                    <?php endforeach; ?>
+                                    <div id="jenisPembayaran"></div>
                                 </select>
                             </div>
                             <div id="dataPembayaran"></div>

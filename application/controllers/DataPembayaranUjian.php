@@ -25,6 +25,7 @@ class DataPembayaranUjian extends CI_Controller
         $this->load->view('DataPembayaranUjian/index', $data);
         $this->load->view('templates/footer');
     }
+
     public function bayar($nisn)
     {
         $siswa = $this->Siswa_Model->detail_data($nisn);
@@ -49,16 +50,17 @@ class DataPembayaranUjian extends CI_Controller
     {
         $jenisPembayaran = $this->input->post('jenisPembayaran');
         $nominal = $this->Jenis_Pembayaran_Model->detail_data($jenisPembayaran)['nominal'];
-        $data = [
+        $data = explode('-', $this->input->post('tahunAjaran'));
+        $dataPembayaran = [
             'nisn' => $nisn,
-            'kode_kelas' => $this->input->post('kelas'),
+            'kode_kelas' => $data[1],
             'tanggal' => date('Y/m/d'),
             'kode_jenispembayaran' => $jenisPembayaran,
             'nominal' => $nominal,
-            'kode_ta' => $this->input->post('tahunAjaran'),
+            'kode_ta' => $data[0],
             'keterangan' => $this->input->post('pembayaran')
         ];
-        $this->DataPembayaranUjian_Model->tambahData($data);
+        $this->DataPembayaranUjian_Model->tambahData($dataPembayaran);
         $this->session->set_flashdata('flash_ujian', 'Disimpan');
         redirect('DataPembayaranUjian/bayar/' . $nisn);
     }
@@ -75,12 +77,22 @@ class DataPembayaranUjian extends CI_Controller
             $html .= "<h5> Pembayaran " . $jenisPembayaran['nama_pembayaran'] . "</h5>";
             $html .= "<div class='row'>";
             for ($i = 1; $i <=  $jenisPembayaran['jumlah_pembayaran']; $i++) {
-                $html .= "<div class='col-" . $row . "'>";
-                $html .= "<div class='form-check'>";
-                $html .= "<input class='form-check-input' type='checkbox' value='$i' name='pembayaran[]'>";
-                $html .= "<label class='form-check-label'>ke-$i</label>";
-                $html .= "</div>";
-                $html .= "</div>";
+                $pembayaranSiswa = $this->DataPembayaranUjian_Model->detailpembayaranSiswa($nisn, $this->input->post('pembayaran'), $i);
+                if (empty($pembayaranSiswa)) {
+                    $html .= "<div class='col-" . $row . "'>";
+                    $html .= "<div class='form-check'>";
+                    $html .= "<input class='form-check-input' type='checkbox' value='$i' name='pembayaran[]'>";
+                    $html .= "<label class='form-check-label'>ke-$i</label>";
+                    $html .= "</div>";
+                    $html .= "</div>";
+                } else {
+                    $html .= "<div class='col-" . $row . "'>";
+                    $html .= "<div class='form-check'>";
+                    $html .= "<input class='form-check-input' type='checkbox' checked disabled>";
+                    $html .= "<label class='form-check-label'>ke-$i</label>";
+                    $html .= "</div>";
+                    $html .= "</div>";
+                }
             }
             $html .= "</div>";
         }

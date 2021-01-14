@@ -199,7 +199,10 @@
                 }
             })
         })
-        <?php if ($this->uri->segment(1) == 'DataPembayaranUjian') { ?> $('#pembayaran').change(function() {
+
+
+        <?php if ($this->uri->segment(1) == 'DataPembayaranUjian') { ?>
+            $('#pembayaran').change(function() {
                 let dataNisn = "<?= $this->uri->segment(3) ?>";
                 let ta = $('#tahunAjaran').val();
                 let jenisPembayaran = $(this).val();
@@ -220,6 +223,17 @@
                     alert('pilih tahun ajaran');
                     $(this).val('-')
                 }
+            });
+            $('#tahunAjaran').change(function() {
+                var result = $('#tahunAjaran option:selected').data('kelas').split('_');
+                var html = "";
+                if (result[0] == 'XII') {
+                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value ="uts">UTS</option><option value ="unbk">UNBK</option>';
+                } else {
+                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value = "uts">UTS</option>';
+                }
+                $('#pembayaran').html(html);
+                $('#pembayaran').removeAttr('disabled');
             });
         <?php }  ?>
 

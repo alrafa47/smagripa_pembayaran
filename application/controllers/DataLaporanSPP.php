@@ -10,21 +10,58 @@ class DataLaporanSPP extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Kelas_Model');
+        $this->load->model('Siswa_Model');
         $this->load->model('DataPembayaranSPP_Model');
         $this->load->model('TahunAjaran_Model');
         $this->load->library('form_validation');
     }
     function index()
     {
-        $kelas = ($this->input->get('kelas') == 'lihat_semua') ? null : $this->input->get('kelas');
-        $ta = ($this->input->get('ta') == 'lihat_semua') ? null : $this->input->get('ta');
+        $dataPembayaran = [];
+        $dataSiswa = [];
+        if ($this->input->get('ta') != 'lihat_semua' && $this->input->get('kelas') != 'lihat_semua') {
+            $ta = $this->input->get('ta');
+            $kelas = $this->input->get('kelas');
+            if ($this->input->get('ta') != null && $this->input->get('kelas') != null) {
+                $dataPembayaran = $this->DataPembayaranSPP_Model->getDataPembayaranSiswa($ta, $kelas);
+                $kelasSiswa = explode('_', $kelas);
+                switch ($kelasSiswa[0]) {
+                    case 'X':
+                        $data = [
+                            'kode_ta' => $ta,
+                            'kelas_1' => $kelas
+                        ];
+                        $dataSiswa = $this->Siswa_Model->getDataLaporanSPPSiswa($data);
+                        // print_r($data);
+                        break;
+                    case 'XI':
+                        $data = [
+                            'kode_ta' => $ta - 1,
+                            'kelas_2' => $kelas
+                        ];
+                        $dataSiswa = $this->Siswa_Model->getDataLaporanSPPSiswa($data);
+                        // print_r($data);
+                        break;
+                    case 'XII':
+                        $data = [
+                            'kode_ta' => $ta - 2,
+                            'kelas_3' => $kelas
+                        ];
+                        $dataSiswa = $this->Siswa_Model->getDataLaporanSPPSiswa($data);
+                        // print_r($data);
+                        break;
+                }
+            }
+        }
+        // print_r($dataSiswa);
         $data = [
             'bulan' => [7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember', 1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni'],
-            'datasiswa' => $this->DataPembayaranSPP_Model->getDataPembayaranSiswa($ta, $kelas),
+            'dataSiswa' => $dataSiswa,
+            'dataPembayaran' => $dataPembayaran,
             'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
-            // 'kelas' => $this->Kelas_Model->getAllDatabyKelas($kelas)
             'kelas' => $this->Kelas_Model->getAllDatabyKelas()
         ];
+        // die;
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('laporanspp/index', $data);

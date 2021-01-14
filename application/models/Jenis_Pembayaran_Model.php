@@ -30,7 +30,10 @@ class Jenis_Pembayaran_Model extends CI_Model
 			'nominal' => $this->input->post('nominal', true),
 			'tahun' => $this->input->post('tahun', true),
 			'jumlah_pembayaran' => $this->input->post('jumlah_pembayaran', true)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
 		);
 		$this->db->where('kode_jenispembayaran', $this->input->post('kode_jenispembayaran', true));
 		$this->db->update('tbl_jenis_pembayaran', $data);

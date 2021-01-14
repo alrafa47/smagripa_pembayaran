@@ -35,7 +35,7 @@ class DataLaporan extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function export($jurusan = null, $tahun_awal, $tahun_akhir)
+    public function export($jurusan = null, $tahun_awal = null, $tahun_akhir = null)
     {
         $jurusan = ($jurusan == 'lihat_semua') ? null : $jurusan;
         $data = [

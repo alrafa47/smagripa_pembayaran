@@ -20,14 +20,14 @@
   <section class="content">
     <!-- NOTIFIKASI -->
     <?php
-    if ($this->session->flashdata('flash_sppsiswa')) { ?>
+    if ($this->session->flashdata('flash_dataPembayaranSPP')) { ?>
       <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h6>
           <i class="icon fas fa-check"></i>
           Data Berhasil
           <strong>
-            <?= $this->session->flashdata('flash_sppsiswa');   ?>
+            <?= $this->session->flashdata('flash_dataPembayaranSPP');   ?>
           </strong>
         </h6>
       </div>
@@ -137,14 +137,14 @@
                   <input type="hidden" id="nominalspp" value="" name="nominal">
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td>Kelas</td>
                 <td>
                   <div class="form-group">
                     <div id="selectKelas"></div>
                   </div>
                 </td>
-              </tr>
+              </tr> -->
             </table>
             <div id="dataDaftarTagihan"></div>
           </div>

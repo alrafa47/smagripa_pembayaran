@@ -24,6 +24,12 @@ class DataPembayaranDPP_Model extends CI_Model
         return $this->db->get_where('tbl_angsuran_dpp', ['nisn' => $nisn])->result();
     }
 
+    public function jumlahAngsuran($nisn)
+    {
+        $this->db->select_sum('nominal_bayar');
+        return $this->db->get_where('tbl_angsuran_dpp', ['nisn' => $nisn])->row();
+    }
+
     /*  
         hapus angsuran by no_transaksi
     */
