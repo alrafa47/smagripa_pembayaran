@@ -43,6 +43,14 @@
         <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">User</a>
         </li>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="<?= base_url('DataUser') ?>" class="nav-link">User</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="<?= base_url('Login/logout') ?>" class="nav-link">Log Out</a>
+          </li>
+        </ul>
         <!-- <li class="nav-item d-none d-sm-inline-block">
           <a href="<?= base_url() ?>DataPembayaranSPP/bayar" class="nav-link">Bayar</a>
         </li> -->

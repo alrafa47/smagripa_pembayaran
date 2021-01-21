@@ -4,6 +4,9 @@ class DataPembayaranDPP extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if (!$this->session->has_userdata('id_user')) {
+            redirect('Login');
+        }
         $this->load->model("DataPembayaranDPP_Model");
         $this->load->model("DPPSiswa_Model");
         $this->load->library("session");

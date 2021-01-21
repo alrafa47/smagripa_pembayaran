@@ -15,8 +15,6 @@ class DataPembayaranUjian_Model extends CI_Model
         return $this->db->get_where('tbl_pembayaran_ujian', ['nisn' => $nisn])->result();
     }
 
-<<<<<<< HEAD
-=======
     public function detailpembayaranSiswa($nisn, $jenisPembayaran, $keterangan)
     {
         return $this->db->get_where('tbl_pembayaran_ujian', ['nisn' => $nisn, 'kode_jenispembayaran' => $jenisPembayaran, 'keterangan' => $keterangan])->result();
@@ -39,7 +37,6 @@ class DataPembayaranUjian_Model extends CI_Model
         return $this->db->get('tbl_pembayaran_ujian')->result();
     }
 
->>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
     public function tambahData($data)
     {
         foreach ($data['keterangan'] as $value) {
@@ -52,8 +49,6 @@ class DataPembayaranUjian_Model extends CI_Model
     {
         $this->db->delete('tbl_pembayaran_ujian', ['no_transaksi' => $no_transaksi]);
     }
-<<<<<<< HEAD
-=======
 
     public function getDataPembayaranSiswa($ta, $kode_kelas)
     {
@@ -61,5 +56,4 @@ class DataPembayaranUjian_Model extends CI_Model
         $this->db->where('kode_ta', $ta);
         return $this->db->get('tbl_pembayaran_ujian')->result();
     }
->>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
 }

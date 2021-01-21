@@ -48,7 +48,7 @@
 
                                 </form>
                             </div>
-                            <a href="<?= base_url('DataLaporanSPP/export/') . $this->input->get('ta') ?>" class="btn btn-warning">Export</a>
+                            <a href="<?= base_url('DataLaporanSPP/export/') . $this->input->get('ta') . '/' . $this->input->get('kelas') ?>" class="btn btn-warning">Export</a>
                         </div>
                     </div>
                 </div>

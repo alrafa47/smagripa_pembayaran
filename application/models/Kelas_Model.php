@@ -35,11 +35,7 @@ class Kelas_Model extends CI_Model
 	public function tambah_data()
 	{
 		$data = array(
-<<<<<<< HEAD
 			'kode_kelas' => $this->input->post('kelas') . "_" . $this->input->post('kd_jur') . "_" . $this->input->post('nm_kelas'),
-=======
-			'kode_kelas' => $this->input->post('kelas') . $this->input->post('kd_jur') . $this->input->post('nm_kelas'),
->>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
 			'kelas' => $this->input->post('kelas'),
 			'kode_jurusan' => $this->input->post('kd_jur'),
 			'nama_kelas' => $this->input->post('nm_kelas')

@@ -20,11 +20,7 @@ class DataPembayaranSPP_Model extends CI_Model
         return $this->db->get('tbl_pembayaran_spp')->result();
     }
 
-<<<<<<< HEAD
-    public function getDataSIswaJoinJenisSPP()
-=======
     public function getDataSIswaJoinJenisSPP($id = null)
->>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
     {
         $this->db->select('tbl_siswa.*, tbl_jenis_spp.nominal_jenis, tbl_jenis_spp.kategori');
         $this->db->from('tbl_siswa');
@@ -50,26 +46,11 @@ class DataPembayaranSPP_Model extends CI_Model
         return $this->db->get()->result();
     }
 
-<<<<<<< HEAD
-    public function getDataPembayaranSiswa($kode_ta = null, $kode_kelas = null)
-    {
-        $this->db->select('tbl_siswa.*, tbl_jenis_spp.nominal_jenis, tbl_jenis_spp.kategori, tbl_pembayaran_spp.bulan, tbl_pembayaran_spp.kode_ta as ta_bayar');
-        $this->db->from('tbl_siswa');
-        $this->db->join('tbl_jenis_spp', 'tbl_siswa.kode_jenisspp = tbl_jenis_spp.kode_jenisspp');
-        $this->db->join('tbl_pembayaran_spp', 'tbl_siswa.nisn = tbl_pembayaran_spp.nisn', 'left');
-        if ($kode_ta != null && $kode_kelas != null) {
-            $this->db->where('tbl_pembayaran_spp.kode_kelas', $kode_kelas);
-            $this->db->or_where('tbl_siswa.kode_ta', $kode_ta);
-        }
-        $this->db->order_by('tbl_siswa.nisn', 'ASC');
-        return $this->db->get()->result();
-=======
     public function getJumlahPembayaran($nisn, $kelas)
     {
         $this->db->where('nisn', $nisn);
         $this->db->where('kode_kelas', $kelas);
         return $this->db->count_all_results('tbl_pembayaran_spp');
->>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
     }
 
     public function getDataSIswaJoinJenisSPPByNISN($nisn)

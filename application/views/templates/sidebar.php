@@ -29,6 +29,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>DataUser" class="nav-link">
+            <i class="fas fa-shield-alt"></i>
+            <p>
+              Data User
+            </p>
+          </a>
+        </li>
         <!-- Data Jurusan  -->
         <li class="nav-item">
           <a href="<?= base_url() ?>DataJurusan" class="nav-link">
@@ -148,6 +156,7 @@
                 <p>Rekapan Pembayaran</p>
               </a>
             </li>
+
           </ul>
         </li>
 

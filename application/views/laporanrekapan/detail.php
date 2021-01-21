@@ -4,26 +4,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <<<<<<< HEAD <h1>Laporan Rekapan Siswa</h1>
-                        <div class="card-body">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>NISN</th>
-                                        <th></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Nama Siswa</th>
-                                        <th></th>
-                                    </tr>
+                    <h1>Laporan Rekapan Siswa</h1>
 
-                                </thead>
-                            </table>
-                        </div>
                 </div>
                 <div class="col-sm-6">
-                    =======
-                    >>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
+
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item active">Data Rekapan Pembayaran Siswa</li>

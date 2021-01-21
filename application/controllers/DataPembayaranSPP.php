@@ -8,6 +8,9 @@ class DataPembayaranSPP extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		if (!$this->session->has_userdata('id_user')) {
+			redirect('Login');
+		}
 		$this->load->model("DataPembayaranSPP_Model");
 		$this->load->model("Siswa_Model");
 		$this->load->model("Kelas_Model");
@@ -140,7 +143,7 @@ class DataPembayaranSPP extends CI_Controller
 			$this->DataPembayaranSPP_Model->insertData($dataNISN, $data[1], date('Y/m/d'), $data[2], $data[0], $jenisspp, $nominal);
 		}
 		$this->session->set_flashdata('flash_dataPembayaranSPP', 'berhasil');
-		// redirect('DataPembayaranSPP');
+		redirect('DataPembayaranSPP');
 	}
 
 	public function detailTransaksi($nisn)

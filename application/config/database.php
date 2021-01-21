@@ -77,10 +77,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '103.27.206.196',
-	'username' => 'enterpr3_ulva',
-	'password' => 'mariyani260899',
-	'database' => 'enterpr3_pembayaran_sma',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'smeagripa_pembayaran',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

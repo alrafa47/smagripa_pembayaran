@@ -9,6 +9,9 @@ class DataLaporanUjian extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        // if (!$this->session->has_userdata('id_user')) {
+        //     redirect('Login');
+        // }
         $this->load->model('Siswa_Model');
         $this->load->model('Kelas_Model');
         $this->load->model('Jenis_Pembayaran_Model');
@@ -69,13 +72,48 @@ class DataLaporanUjian extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function export($jurusan = null, $tahun_awal, $tahun_akhir)
+    public function export($ta = null, $kelas = null)
     {
-        $jurusan = ($jurusan == 'lihat_semua') ? null : $jurusan;
+        $dataPembayaran = [];
+        $dataSiswa = [];
+
+        $dataPembayaran = $this->DataPembayaranUjian_Model->getDataPembayaranSiswa($ta, $kelas);
+        $kelasSiswa = explode('_', $kelas);
+        switch ($kelasSiswa[0]) {
+            case 'X':
+                $data = [
+                    'kode_ta' => $ta,
+                    'kelas_1' => $kelas
+                ];
+                $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
+                // print_r($data);
+                break;
+            case 'XI':
+                $data = [
+                    'kode_ta' => $ta - 1,
+                    'kelas_2' => $kelas
+                ];
+                $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
+                // print_r($data);
+                break;
+            case 'XII':
+                $data = [
+                    'kode_ta' => $ta - 2,
+                    'kelas_3' => $kelas
+                ];
+                $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
+                // print_r($data);
+                break;
+        }
+
         $data = [
-            'dataSiswa' => $this->DPPSiswa_Model->getAllDataJoinDataSiswa($jurusan, $tahun_awal, $tahun_akhir),
-            'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData()
+            'dataSiswa' => $dataSiswa,
+            'dataPembayaran' => $dataPembayaran,
+            'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
+            'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
+            'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData(),
+            'kelas' => $this->Kelas_Model->getAllDatabyKelas()
         ];
-        $this->load->view('laporandpp/export', $data);
+        $this->load->view('laporanujian/export', $data);
     }
 }

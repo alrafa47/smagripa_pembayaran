@@ -61,125 +61,76 @@
             <div class="card">
                 <!-- card-body -->
                 <div class="card-body">
-                    <<<<<<< HEAD <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">No</th>
-                                <th rowspan="2">NISN</th>
-                                <th rowspan="2">Nama Siswa</th>
-                                <th rowspan="2">DPP</th>
-                                <th colspan="5">Kelas</th>
-                                <th rowspan="2">UNBK</th>
-                                <th rowspan="2">Action</th>
-                            </tr>
-                            <tr>
-                                <th>SPP</th>
-                                <th>UTS ganjil</th>
-                                <th>UTS genap</th>
-                                <th>UAS ganjil</th>
-                                <th>UAS genap</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $no = 1;
-                            foreach ($dataSiswa as $row) { ?>
-
+                    <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td><?= $no ?></td>
-                                    <td><?= $row->nisn ?></td>
-                                    <td><?= $row->nama_siswa ?></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <a href="<?= base_url() ?>DataLaporanRekapSiswa/detail/<?= $row->nisn ?>" class="btn btn-warning">detail</a>
-                                    </td>
-
+                                    <th rowspan="2">No</th>
+                                    <th rowspan="2">NISN</th>
+                                    <th rowspan="2">Nama Siswa</th>
+                                    <th rowspan="2">DPP</th>
+                                    <th colspan="6">Kelas X</th>
+                                    <th colspan="6">Kelas XI</th>
+                                    <th colspan="6">Kelas XII</th>
+                                    <th rowspan="2">UNBK</th>
+                                    <th rowspan="2">Action</th>
                                 </tr>
-                            <?php
-                                $no++;
-                            }
-                            ?>
-                        </tbody>
-                        </table>
-                        =======
-                        <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th rowspan="2">No</th>
-                                        <th rowspan="2">NISN</th>
-                                        <th rowspan="2">Nama Siswa</th>
-                                        <th rowspan="2">DPP</th>
-                                        <th colspan="6">Kelas X</th>
-                                        <th colspan="6">Kelas XI</th>
-                                        <th colspan="6">Kelas XII</th>
-                                        <th rowspan="2">UNBK</th>
-                                        <th rowspan="2">Action</th>
-                                    </tr>
-                                    <tr>
-                                        <!-- X -->
-                                        <th>Kelas</th>
-                                        <th>SPP</th>
-                                        <th>UTS I</th>
-                                        <th>UAS I</th>
-                                        <th>UTS II</th>
-                                        <th>UAS II</th>
-                                        <!-- XI -->
-                                        <th>Kelas</th>
-                                        <th>SPP</th>
-                                        <th>UTS I</th>
-                                        <th>UAS I</th>
-                                        <th>UTS II</th>
-                                        <th>UAS II</th>
-                                        <!-- XII -->
-                                        <th>Kelas</th>
-                                        <th>SPP</th>
-                                        <th>UTS I</th>
-                                        <th>UAS I</th>
-                                        <th>UTS II</th>
-                                        <th>UAS II</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 1;
-                                    // print_r($dataSiswa);
-                                    foreach ($dataSiswa as $row) { ?>
+                                <tr>
+                                    <!-- X -->
+                                    <th>Kelas</th>
+                                    <th>SPP</th>
+                                    <th>UTS I</th>
+                                    <th>UAS I</th>
+                                    <th>UTS II</th>
+                                    <th>UAS II</th>
+                                    <!-- XI -->
+                                    <th>Kelas</th>
+                                    <th>SPP</th>
+                                    <th>UTS I</th>
+                                    <th>UAS I</th>
+                                    <th>UTS II</th>
+                                    <th>UAS II</th>
+                                    <!-- XII -->
+                                    <th>Kelas</th>
+                                    <th>SPP</th>
+                                    <th>UTS I</th>
+                                    <th>UAS I</th>
+                                    <th>UTS II</th>
+                                    <th>UAS II</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                // print_r($dataSiswa);
+                                foreach ($dataSiswa as $row) { ?>
 
-                                        <tr>
-                                            <td><?= $no ?></td>
-                                            <td><?= $row->nisn ?></td>
-                                            <td><?= $row->nama_siswa ?></td>
-                                            <td><?= $row->dpp ?></td>
-                                            <?php for ($i = 1; $i <= 3; $i++) {
-                                                $kelas = 'kelas_' . $i ?>
-                                                <td><?= $row->$kelas['kode_kelas'] ?></td>
-                                                <td><?= $row->$kelas['spp'] ?></td>
-                                                <td><?= $row->$kelas['uts1'] ?></td>
-                                                <td><?= $row->$kelas['uas1'] ?></td>
-                                                <td><?= $row->$kelas['uts2'] ?></td>
-                                                <td><?= $row->$kelas['uas2'] ?></td>
-                                            <?php } ?>
-                                            <td><?= $row->unbk ?></td>
-                                            <td>
-                                                <a href="<?= base_url() ?>DataLaporanRekapan/detail/<?= $row->nisn ?>" class="btn btn-warning">detail</a>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                        $no++;
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        >>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
+                                    <tr>
+                                        <td><?= $no ?></td>
+                                        <td><?= $row->nisn ?></td>
+                                        <td><?= $row->nama_siswa ?></td>
+                                        <td><?= $row->dpp ?></td>
+                                        <?php for ($i = 1; $i <= 3; $i++) {
+                                            $kelas = 'kelas_' . $i ?>
+                                            <td><?= $row->$kelas['kode_kelas'] ?></td>
+                                            <td><?= $row->$kelas['spp'] ?></td>
+                                            <td><?= $row->$kelas['uts1'] ?></td>
+                                            <td><?= $row->$kelas['uas1'] ?></td>
+                                            <td><?= $row->$kelas['uts2'] ?></td>
+                                            <td><?= $row->$kelas['uas2'] ?></td>
+                                        <?php } ?>
+                                        <td><?= $row->unbk ?></td>
+                                        <td>
+                                            <a href="<?= base_url() ?>DataLaporanRekapan/detail/<?= $row->nisn ?>" class="btn btn-warning">detail</a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    $no++;
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>
