@@ -10,6 +10,11 @@ class User_Model extends CI_Model
         return $this->db->get('user')->result();
     }
 
+    public function user_data()
+    {
+        echo $_SESSION['level'];
+    }
+
     public function validation($username, $password)
     {
         $this->db->where('username', $username);

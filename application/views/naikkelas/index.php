@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Laporan Ujian</h1>
+                    <h1>Data Siswa</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Pembayaran Ujian</li>
+                        <li class="breadcrumb-item active">Data Siswa</li>
                     </ol>
                 </div>
             </div>
@@ -26,9 +26,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <form action="<?= base_url('DataLaporanUjian') ?>" method="GET">
+                                <form action="<?= base_url('DataNaikKelas') ?>" method="GET">
                                     <div class="row">
-                                        <div class="col-5">
+                                        <div class="col-3">
                                             <div class="form-group">
                                                 <label>Tahun Ajaran</label>
                                                 <select class="form-control" name="ta">
@@ -42,9 +42,23 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-5">
+                                        <div class="col-3">
                                             <div class="form-group">
-                                                <label>Kelas</label>
+                                                <label>Kelas Sekarang</label>
+                                                <select class="form-control" name="kelas">
+                                                    <option value="lihat_semua">Pilih kelas</option>
+                                                    <?php
+                                                    foreach ($kelas as $row) { ?>
+                                                        <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
+                                                    <?php } ?>
+                                                    ?>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label>Kelas Mendatang</label>
                                                 <select class="form-control" name="kelas">
                                                     <option value="lihat_semua">Pilih kelas</option>
                                                     <?php
@@ -57,11 +71,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div><button type="submit" class="btn btn-danger">Lihat</button></div>
+
 
                                 </form>
                             </div>
-                            <a href="<?= base_url('DataLaporanUjian/export/') . $this->input->get('ta') . '/' . $this->input->get('kelas') ?>" class="btn btn-warning">Export</a>
+
                         </div>
                     </div>
                 </div>
@@ -74,71 +88,33 @@
             <div class="card">
                 <!-- card-body -->
                 <div class="card-body">
-                    <?php
-                    function dataPembayaranUTS_UAS($dataPembayaran, $nis, $jenisPembayaran, $keterangan)
-                    {
-                        foreach ($dataPembayaran as $valuedataPembayaran) {
-                            if ($valuedataPembayaran->nisn ==  $nis && $valuedataPembayaran->kode_jenispembayaran == $jenisPembayaran && $valuedataPembayaran->keterangan == $keterangan) {
-                                return "lunas";
-                            }
-                        }
-                    }
-                    function dataPembayaranUNBK($dataPembayaran, $nis, $jenisPembayaran)
-                    {
-                        $no = 0;
-                        foreach ($dataPembayaran as $valuedataPembayaran) {
-                            if ($valuedataPembayaran->nisn ==  $nis && $valuedataPembayaran->kode_jenispembayaran == $jenisPembayaran) {
-                                $no++;
-                            }
-                        }
-                        return 12 - $no;
-                    }
-                    ?>
+
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th rowspan="2">No</th>
-                                <th rowspan="2">NISN</th>
-                                <th rowspan="2">Nama Siswa</th>
-                                <th colspan="2">UTS</th>
-                                <th colspan="2">UAS</th>
-                                <?php
-                                $explode_kelas = explode('_', $this->input->get('kelas'));
-                                if ($explode_kelas[0] == 'XII') : ?>
-                                    <th rowspan="2">UNBK</th>
-                                <?php endif; ?>
-
-                            </tr>
-                            <tr>
-                                <th>UTS ganjil</th>
-                                <th>UTS genap</th>
-                                <th>UAS ganjil</th>
-                                <th>UAS genap</th>
+                                <th>No</th>
+                                <th>NISN</th>
+                                <th>Nama Siswa</th>
+                                <th>Jurusan</th>
+                                <th>X</th>
+                                <th>XI</th>
+                                <th>XII</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $no = 1;
-                            foreach ($this->Jenis_Pembayaran_Model->getAllData() as $value) {
-                                $dataJenisPembayaran[$value->kode_jenispembayaran] = $value->nominal;
-                            }
-                            foreach ($dataSiswa as $row) { ?>
+
+                            foreach ($datasiswa as $row) { ?>
 
                                 <tr>
                                     <td><?= $no ?></td>
                                     <td><?= $row->nisn ?></td>
                                     <td><?= $row->nama_siswa ?></td>
-                                    <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'uts', 1) == 'lunas') ? 'lunas' : $dataJenisPembayaran['uts'] ?></td>
-                                    <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'uts', 2) == 'lunas') ? 'lunas' : $dataJenisPembayaran['uts'] ?></td>
-                                    <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'uas', 1) == 'lunas') ? 'lunas' : $dataJenisPembayaran['uas'] ?></td>
-                                    <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'uas', 2) == 'lunas') ? 'lunas' : $dataJenisPembayaran['uas'] ?></td>
-                                    <?php if ($explode_kelas[0] == 'XII') :
-                                        $sisaAngsuranPembayaranUnbk = dataPembayaranUNBK($dataPembayaran, $row->nisn, 'unbk');
-                                    ?>
-
-                                        <td><?= ($sisaAngsuranPembayaranUnbk == 0) ? 'lunas' : $dataJenisPembayaran['unbk'] / 12 * $sisaAngsuranPembayaranUnbk ?></td>
-                                    <?php endif; ?>
-
+                                    <td><?= $row->kode_jurusan ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             <?php
                                 $no++;

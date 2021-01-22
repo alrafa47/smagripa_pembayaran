@@ -28,46 +28,66 @@ header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
     }
 </style>
 <center>
-    <h3>LAPORAN KEUANGAN DPP </h3>
+    <h3>REKAPAN KEUANGAN SISWA </h3>
 </center>
 <table border="1">
     <thead>
         <tr>
-            <th>No</th>
-            <th>NISN</th>
-            <th>Nama Siswa</th>
-            <th>Jumlah DPP</th>
-            <th>Nominal Angsuran</th>
-            <th>Jumlah Angsuran</th>
-            <th>Terbayar</th>
-            <th>Belum Terbayar</th>
+            <th rowspan="2">No</th>
+            <th rowspan="2">NISN</th>
+            <th rowspan="2">Nama Siswa</th>
+            <th rowspan="2">DPP</th>
+            <th colspan="6">Kelas X</th>
+            <th colspan="6">Kelas XI</th>
+            <th colspan="6">Kelas XII</th>
+            <th rowspan="2">UNBK</th>
+        </tr>
+        <tr>
+            <!-- X -->
+            <th>Kelas</th>
+            <th>SPP</th>
+            <th>UTS I</th>
+            <th>UAS I</th>
+            <th>UTS II</th>
+            <th>UAS II</th>
+            <!-- XI -->
+            <th>Kelas</th>
+            <th>SPP</th>
+            <th>UTS I</th>
+            <th>UAS I</th>
+            <th>UTS II</th>
+            <th>UAS II</th>
+            <!-- XII -->
+            <th>Kelas</th>
+            <th>SPP</th>
+            <th>UTS I</th>
+            <th>UAS I</th>
+            <th>UTS II</th>
+            <th>UAS II</th>
         </tr>
     </thead>
     <tbody>
         <?php
         $no = 1;
-        function dataAngsuran($dataAngsuran, $nisn)
-        {
-            $jumlahTotalTerbayar = 0;
-            foreach ($dataAngsuran as $valueAngsuran) {
-                if ($valueAngsuran->nisn == $nisn) {
-                    $jumlahTotalTerbayar += $valueAngsuran->nominal_bayar;
-                }
-            }
-            return $jumlahTotalTerbayar;
-        }
-        foreach ($dataSiswa as $row) {
-            $data = dataAngsuran($dataAngsuran, $row->nisn);
-        ?>
+        // print_r($dataSiswa);
+        foreach ($dataSiswa as $row) { ?>
+
             <tr>
                 <td><?= $no ?></td>
                 <td><?= $row->nisn ?></td>
                 <td><?= $row->nama_siswa ?></td>
-                <td><?= $row->nominal_dpp ?></td>
-                <td><?= $row->nominal_angsuran ?></td>
-                <td><?= $row->jumlah_angsuran ?></td>
-                <td><?= $data ?></td>
-                <td><?= $row->nominal_dpp - $data ?></td>
+                <td><?= $row->dpp ?></td>
+                <?php for ($i = 1; $i <= 3; $i++) {
+                    $kelas = 'kelas_' . $i ?>
+                    <td><?= $row->$kelas['kode_kelas'] ?></td>
+                    <td><?= $row->$kelas['spp'] ?></td>
+                    <td><?= $row->$kelas['uts1'] ?></td>
+                    <td><?= $row->$kelas['uas1'] ?></td>
+                    <td><?= $row->$kelas['uts2'] ?></td>
+                    <td><?= $row->$kelas['uas2'] ?></td>
+                <?php } ?>
+                <td><?= $row->unbk ?></td>
+
             </tr>
         <?php
             $no++;

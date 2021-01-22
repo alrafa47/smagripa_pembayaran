@@ -12,6 +12,7 @@ class DataLaporanRekapSiswa extends CI_Controller
         if (!$this->session->has_userdata('id_user')) {
             redirect('Login');
         }
+
         $this->load->model('Siswa_Model');
         $this->load->model('Jurusan_Model');
         $this->load->model('DataPembayaranUjian_Model');
@@ -57,13 +58,19 @@ class DataLaporanRekapSiswa extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function export($jurusan = null, $tahun_awal, $tahun_akhir)
+    public function export($jurusan = null)
     {
-        $jurusan = ($jurusan == 'lihat_semua') ? null : $jurusan;
+        $jurusan = $this->input->get('jurusan');
+        $jurusan = ($this->input->get('jurusan') == 'lihat_semua') ? null : $jurusan;
+        $tahun_awal = $this->input->get('tahun_awal');
+        $tahun_akhir = $this->input->get('tahun_akhir');
+
+
         $data = [
-            'dataSiswa' => $this->DPPSiswa_Model->getAllDataJoinDataSiswa($jurusan, $tahun_awal, $tahun_akhir),
-            'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData()
+            'dataSiswa' => $this->Siswa_Model->getAllData(),
+            'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
+            'jurusan' => $this->Jurusan_Model->getAllData()
         ];
-        $this->load->view('laporandpp/export', $data);
+        $this->load->view('laporanrekapan/export', $data);
     }
 }

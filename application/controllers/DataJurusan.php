@@ -9,12 +9,12 @@ class DataJurusan extends CI_Controller
 	{
 		parent::__construct();
 		if (!$this->session->has_userdata('id_user')) {
-			$level = $this->session->level;
-			if ($level != 'admin') {
-				redirect('Login');
-			}
+			redirect('Login');
 		}
-		die;
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+
 		$this->load->model('Jurusan_Model');
 		$this->load->library('form_validation');
 	}

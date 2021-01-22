@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Laporan Rekapan</h1>
+                    <h1>Rekap Tagihan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -27,28 +27,38 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <form action="<?= base_url('DataLaporanRekapan') ?>" method="GET">
-                                    <select class="form-control" name="ta">
-                                        <option value="lihat_semua">Pilih tahun</option>
-                                        <?php
-                                        foreach ($tahunajaran as $row) { ?>
-                                            <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
-                                        <?php } ?>
-                                        ?>
-                                    </select>
-                                    <select class="form-control" name="kelas">
-                                        <option value="lihat_semua">Pilih kelas</option>
-                                        <?php
-                                        foreach ($kelas as $row) { ?>
-                                            <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
-                                        <?php } ?>
-                                        ?>
-
-                                    </select>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label>Tahun Ajaran</label>
+                                                <select class="form-control" name="ta">
+                                                    <option value="lihat_semua">Pilih tahun</option>
+                                                    <?php
+                                                    foreach ($tahunajaran as $row) { ?>
+                                                        <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
+                                                    <?php } ?>
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label>Kelas</label>
+                                                <select class="form-control" name="kelas">
+                                                    <option value="lihat_semua">Pilih kelas</option>
+                                                    <?php
+                                                    foreach ($kelas as $row) { ?>
+                                                        <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
+                                                    <?php } ?>
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div><button type="submit" class="btn btn-danger">Lihat</button></div>
-
                                 </form>
                             </div>
-                            <a href="<?= base_url('DataLaporan/export/') . $this->input->get('jurusan') . '/' . $this->input->get('tahun_awal') . '/' . $this->input->get('tahun_akhir') ?>" class="btn btn-warning">Export</a>
+                            <a href="<?= base_url('DataLaporanRekapan/export/') . $this->input->get('ta') . '/' . $this->input->get('kelas')  ?>" class="btn btn-warning">Export</a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +72,7 @@
                 <!-- card-body -->
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped responsive">
                             <thead>
                                 <tr>
                                     <th rowspan="2">No</th>
@@ -122,6 +132,7 @@
                                         <td><?= $row->unbk ?></td>
                                         <td>
                                             <a href="<?= base_url() ?>DataLaporanRekapan/detail/<?= $row->nisn ?>" class="btn btn-warning">detail</a>
+                                            <a href="<?= base_url() ?>DataLaporanRekapan/exportsiswa/<?= $row->nisn ?>" class="btn btn-primary">export</a>
                                         </td>
                                     </tr>
                                 <?php

@@ -24,7 +24,7 @@
     <div class="login-box">
         <div class="login-logo">
             <a href="<?= base_url('assets/') ?>index2.html"><b>SMEAGRIPA</b> SIP</a>
-            <p style="font-size: smaller;"><b>S</b>istem <b>I</b>nformasi <b>P</b>enjadwalan</p>
+            <p style="font-size: smaller;"><b>S</b>istem <b>I</b>nformasi <b>P</b>embayaran</p>
 
         </div>
         <!-- /.login-logo -->

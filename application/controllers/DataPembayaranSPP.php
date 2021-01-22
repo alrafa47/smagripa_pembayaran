@@ -138,11 +138,13 @@ class DataPembayaranSPP extends CI_Controller
 		$bulan = $this->input->post('chkBulan');
 		$nominal = $this->input->post('nominal');
 		$jenisspp = $this->input->post('jenisspp');
-		foreach ($bulan as $value) {
-			$data = explode('-', $value);
-			$this->DataPembayaranSPP_Model->insertData($dataNISN, $data[1], date('Y/m/d'), $data[2], $data[0], $jenisspp, $nominal);
+		if (count($bulan) > 0) {
+			foreach ($bulan as $value) {
+				$data = explode('-', $value);
+				$this->DataPembayaranSPP_Model->insertData($dataNISN, $data[1], date('Y/m/d'), $data[2], $data[0], $jenisspp, $nominal);
+			}
+			$this->session->set_flashdata('flash_dataPembayaranSPP', 'berhasil');
 		}
-		$this->session->set_flashdata('flash_dataPembayaranSPP', 'berhasil');
 		redirect('DataPembayaranSPP');
 	}
 

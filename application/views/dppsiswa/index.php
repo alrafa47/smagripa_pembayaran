@@ -149,10 +149,6 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="exampleInputPassword1">Nominal Angsuran</label>
-                          <input type="text" class="form-control" id="exampleInputPassword1" name="nmnl_angsuran" value="<?php echo set_value('nmnl_angsuran'); ?>">
-                        </div>
-                        <div class="form-group">
                           <label for="exampleInputPassword1">Status</label>
                           <select class="form-control" name="stts">
                             <option>--Pilih Status--</option>
@@ -167,9 +163,7 @@
                   <!-- /.card-body -->
                 </form>
               </div>
-              <div class="col-md-6">
 
-              </div>
               <!-- /.col -->
             </div>
             <!-- /.row -->
@@ -334,6 +328,7 @@
             </tr>
             <tr>
               <th>Status</th>
+
               <td id="status"></td>
             </tr>
 

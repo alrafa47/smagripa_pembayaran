@@ -4,6 +4,13 @@
 /**
  * 
  */
+
+
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class DataLaporanRekapan extends CI_Controller
 {
     public function __construct()
@@ -129,14 +136,72 @@ class DataLaporanRekapan extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function export($jurusan = null, $tahun_awal, $tahun_akhir)
+    public function export($ta = null, $kelas = null)
     {
-        $jurusan = ($jurusan == 'lihat_semua') ? null : $jurusan;
+        $dataPembayaran = [];
+        $dataSiswa = [];
+
+        $dataPembayaran = $this->DataPembayaranUjian_Model->getDataPembayaranSiswa($ta, $kelas);
+        $kelasSiswa = explode('_', $kelas);
+        switch ($kelasSiswa[0]) {
+            case 'X':
+                $data = [
+                    'kode_ta' => $ta,
+                    'kelas_1' => $kelas
+                ];
+                $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
+                break;
+            case 'XI':
+                $data = [
+                    'kode_ta' => $ta - 1,
+                    'kelas_2' => $kelas
+                ];
+                $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
+                break;
+            case 'XII':
+                $data = [
+                    'kode_ta' => $ta - 2,
+                    'kelas_3' => $kelas
+                ];
+                $dataSiswa = $this->Siswa_Model->getDataLaporanUjianSiswa($data);
+                break;
+        }
+
+        foreach ($dataSiswa as $key => $value) {
+            $value->dpp = $this->sisaAngsuranDPP($value->nisn);
+            for ($i = 1; $i <= 3; $i++) {
+                $kls = 'kelas_' . $i;
+                // cek apakah ada kelas yang kosong
+                if ($value->$kls != null) {
+                    // masukan id kelas 
+                    $kode_kelas = $value->$kls;
+                    // perbarui array kelas
+                    $value->$kls = [
+                        'kode_kelas' => $kode_kelas,
+                        'spp' => $this->sisaPembayaranSPP($value->nisn, $kode_kelas),
+                        'uts1' => $this->cekTagihanUjian($value->nisn, 'uts', $kode_kelas, 1),
+                        'uas1' => $this->cekTagihanUjian($value->nisn, 'uas', $kode_kelas, 1),
+                        'uts2' => $this->cekTagihanUjian($value->nisn, 'uts', $kode_kelas, 2),
+                        'uas2' => $this->cekTagihanUjian($value->nisn, 'uas', $kode_kelas, 2)
+                    ];
+                    if ($i == 3) {
+                        if ($value->kelas_3 != null) {
+                            $value->unbk = $this->cekTagihanUjian($value->nisn, 'unbk', $kode_kelas);
+                        }
+                    }
+                }
+            }
+        }
         $data = [
-            'dataSiswa' => $this->DPPSiswa_Model->getAllDataJoinDataSiswa($jurusan, $tahun_awal, $tahun_akhir),
-            'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData()
+            'dataSiswa' => $dataSiswa,
+            'dataPembayaran' => $dataPembayaran,
+            'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
+            'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
+            'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData(),
+            'kelas' => $this->Kelas_Model->getAllDatabyKelas()
         ];
-        $this->load->view('laporandpp/export', $data);
+
+        $this->load->view('laporanrekapan/export', $data);
     }
 
     public function detail($nisn)
@@ -181,5 +246,67 @@ class DataLaporanRekapan extends CI_Controller
         $this->load->view('templates/sidebar');
         $this->load->view('laporanrekapan/detail', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function exportsiswa($nisn)
+    {
+        $dataPembayaran = [];
+        $dataSiswa = $this->Siswa_Model->detail_data($nisn);
+        // foreach ($dataSiswa as $key => $value) {
+        $dataSiswa['dpp'] = $this->sisaAngsuranDPP($dataSiswa['nisn']);
+        for ($i = 1; $i <= 3; $i++) {
+            $kls = 'kelas_' . $i;
+            // cek apakah ada kelas yang kosong
+            if ($dataSiswa[$kls] != null) {
+                // masukan id kelas 
+                $kode_kelas = $dataSiswa[$kls];
+                // perbarui array kelas
+                $dataSiswa[$kls] = [
+                    'kode_kelas' => $kode_kelas,
+                    'spp' => $this->sisaPembayaranSPP($dataSiswa['nisn'], $kode_kelas),
+                    'uts1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uts', $kode_kelas, 1),
+                    'uas1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uas', $kode_kelas, 1),
+                    'uts2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uts', $kode_kelas, 2),
+                    'uas2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uas', $kode_kelas, 2)
+                ];
+                if ($i == 3) {
+                    if ($dataSiswa['kelas_3'] != null) {
+                        $dataSiswa['unbk'] = $this->cekTagihanUjian($dataSiswa['nisn'], 'unbk', $kode_kelas);
+                    }
+                }
+            }
+        }
+        // }
+        $data = [
+            'dataSiswa' => $dataSiswa,
+            'dataPembayaran' => $dataPembayaran,
+            'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
+            'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
+            'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData(),
+            'kelas' => $this->Kelas_Model->getAllDatabyKelas()
+        ];
+
+        $this->load->view('laporanrekapan/exportsiswa', $data);
+    }
+
+    public function excel()
+    {
+        // $this->load->model('siswa_model');
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nama');
+        $sheet->setCellValue('C1', 'Kelas');
+        $sheet->setCellValue('D1', 'Jenis Kelamin');
+        $sheet->setCellValue('E1', 'Alamat');
+
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'laporan-siswa';
+
+        // header('Content-Type: application/vnd.ms-excel');
+        // header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        // header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
     }
 }

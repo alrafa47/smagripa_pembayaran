@@ -26,26 +26,37 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <form action="<?= base_url('DataLaporanSPP') ?>" method="GET">
-                                    <select class="form-control" name="ta">
-                                        <option value="lihat_semua">Pilih tahun</option>
-                                        <?php
-                                        foreach ($tahunajaran as $row) { ?>
-                                            <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
-                                        <?php } ?>
-                                        ?>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label>Tahun Ajaran</label>
+                                                <select class="form-control" name="ta">
+                                                    <option value="lihat_semua">Pilih Tahun</option>
+                                                    <?php
+                                                    foreach ($tahunajaran as $row) { ?>
+                                                        <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
+                                                    <?php } ?>
+                                                    ?>
 
-                                    </select>
-                                    <select class="form-control" name="kelas">
-                                        <option value="lihat_semua">Pilih kelas</option>
-                                        <?php
-                                        foreach ($kelas as $row) { ?>
-                                            <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
-                                        <?php } ?>
-                                        ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label>Kelas</label>
+                                                <select class="form-control" name="kelas">
+                                                    <option value="lihat_semua">Pilih Kelas</option>
+                                                    <?php
+                                                    foreach ($kelas as $row) { ?>
+                                                        <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
+                                                    <?php } ?>
+                                                    ?>
 
-                                    </select>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div><button type="submit" class="btn btn-danger">Lihat</button></div>
-
                                 </form>
                             </div>
                             <a href="<?= base_url('DataLaporanSPP/export/') . $this->input->get('ta') . '/' . $this->input->get('kelas') ?>" class="btn btn-warning">Export</a>

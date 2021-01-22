@@ -14,7 +14,7 @@
         <img src="<?= base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">ADMIN</a>
+        <a href="#" class="d-block"><?= $this->session->userdata('level') ?> </a>
       </div>
     </div>
 
@@ -29,69 +29,80 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataUser" class="nav-link">
-            <i class="fas fa-shield-alt"></i>
-            <p>
-              Data User
-            </p>
-          </a>
-        </li>
-        <!-- Data Jurusan  -->
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataJurusan" class="nav-link">
-            <i class="fas fa-shield-alt"></i>
-            <p>
-              Data Jurusan
-            </p>
-          </a>
-        </li>
-        <!-- Data Kelas -->
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataKelas" class="nav-link">
-            <i class="fas fa-school"></i>
-            <p>
-              Data Kelas
-            </p>
-          </a>
-        </li>
-        <!-- Data Tahun Ajaran -->
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataTahunAjaran" class="nav-link">
-            <i class="fas fa-school"></i>
-            <p>
-              Data Tahun Ajaran
-            </p>
-          </a>
-        </li>
-        <!-- Jenis SPP -->
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataJenisSPP" class="nav-link">
-            <i class="fas fa-list"></i>
-            <p>
-              Data Jenis SPP
-            </p>
-          </a>
-        </li>
-        <!-- Data DPPSiswa-->
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataDPPSiswa" class="nav-link">
-            <i class="fas fa-list"></i>
-            <p>
-              Data Siswa
-            </p>
-          </a>
-        </li>
+        <?php if ($this->session->userdata('level') == 'admin') { ?>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataUser" class="nav-link">
+              <i class="fas fa-shield-alt"></i>
+              <p>
+                Data User
+              </p>
+            </a>
+          </li>
+          <!-- Data Jurusan  -->
+
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataJurusan" class="nav-link">
+              <i class="fas fa-shield-alt"></i>
+              <p>
+                Data Jurusan
+              </p>
+            </a>
+          </li>
+          <!-- Data Kelas -->
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataKelas" class="nav-link">
+              <i class="fas fa-school"></i>
+              <p>
+                Data Kelas
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataNaikKelas" class="nav-link">
+              <i class="fas fa-school"></i>
+              <p>
+                Data Kenaikan Kelas
+              </p>
+            </a>
+          </li>
+          <!-- Data Tahun Ajaran -->
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataTahunAjaran" class="nav-link">
+              <i class="fas fa-school"></i>
+              <p>
+                Data Tahun Ajaran
+              </p>
+            </a>
+          </li>
+          <!-- Jenis SPP -->
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataJenisSPP" class="nav-link">
+              <i class="fas fa-list"></i>
+              <p>
+                Data Jenis SPP
+              </p>
+            </a>
+          </li>
+          <!-- Data DPPSiswa-->
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataDPPSiswa" class="nav-link">
+              <i class="fas fa-list"></i>
+              <p>
+                Data Siswa
+              </p>
+            </a>
+          </li>
 
 
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataJenisPembayaran" class="nav-link">
-            <i class="fas fa-tags"></i>
-            <p>
-              Data Jenis Pembayaran Ujian
-            </p>
-          </a>
-        </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataJenisPembayaran" class="nav-link">
+              <i class="fas fa-tags"></i>
+              <p>
+                Data Jenis Pembayaran Ujian
+              </p>
+            </a>
+          </li>
+        <?php } ?>
         <!-- data pembayaran -->
         <li class="nav-item">
           <a href="#" class="nav-link">
@@ -158,6 +169,14 @@
             </li>
 
           </ul>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>DataLaporanPemasukan" class="nav-link">
+            <i class="fas fa-tags"></i>
+            <p>
+              Data Laporan Pemasukan
+            </p>
+          </a>
+        </li>
         </li>
 
     </nav>

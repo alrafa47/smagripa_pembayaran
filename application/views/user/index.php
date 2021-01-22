@@ -61,7 +61,7 @@
                       <input type="text" class="form-control" id="pass" name="pass">
                     </div>
                     <div class="form-group">
-                      <label for="level">Admin</label>
+                      <label for="level">Level</label>
                       <select name="level" class="form-control">
                         <option value="admin">Admin</option>
                         <option value="petugas">Petugas</option>
@@ -88,16 +88,16 @@
       <div class="col-12">
         <div class="card">
           <!-- card-body -->
-          <div class="card-header">
-            <h2 for="">Data User</h2>
-          </div>
+
           <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>username</th>
-                  <th>password</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th>Level</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>

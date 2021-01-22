@@ -28,7 +28,7 @@ header("Content-Disposition: attachment; filename=Data LaporanSPP.xls");
     }
 </style>
 <center>
-    <h3>LAPORAN KEUANGAN SPP </h3>
+    <h3>LAPORAN KEUANGAN SPP</h3>
 </center>
 
 <br>

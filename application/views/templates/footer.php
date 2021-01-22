@@ -182,6 +182,8 @@
             var button = $(event.relatedTarget) // Button that triggered the modal
             var nisn = button.data('nisn') // Extract info from data-* attributes
             var modal = $(this)
+
+
             $.ajax({
                 type: 'post',
                 url: '<?= base_url() ?>DataDPPSiswa/tampildata',
@@ -194,6 +196,7 @@
                     modal.find('#nominal_dpp').text(dataDPPSiswa.nominal_dpp)
                     modal.find('#jumlah_angsuran').text(dataDPPSiswa.jumlah_angsuran)
                     modal.find('#nominal_angsuran').text(dataDPPSiswa.nominal_angsuran)
+
                     modal.find('#status').text(dataDPPSiswa.status)
                     console.log(dataDPPSiswa)
                 }

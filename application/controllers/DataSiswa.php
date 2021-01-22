@@ -9,10 +9,12 @@ class DataSiswa extends CI_Controller
 	{
 		parent::__construct();
 		if (!$this->session->has_userdata('id_user')) {
-			if ($this->session->userdata('level') != 'admin') {
-				redirect('Login');
-			}
+			redirect('Login');
 		}
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+
 		$this->load->model('Siswa_Model');
 		$this->load->library('form_validation');
 	}

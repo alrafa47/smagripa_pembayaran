@@ -12,6 +12,7 @@ class DataLaporan extends CI_Controller
         if (!$this->session->has_userdata('id_user')) {
             redirect('Login');
         }
+
         $this->load->model('DPPSiswa_Model');
         $this->load->model('Jurusan_Model');
         $this->load->model('DataPembayaranDPP_Model');

@@ -29,6 +29,9 @@ header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
 </style>
 <center>
     <h3>LAPORAN KEUANGAN DPP </h3>
+    <h3>TAHUN AJARAN</h3>
+    <h3>TAHUN AJARAN</h3>
+
 </center>
 
 <table border="1">

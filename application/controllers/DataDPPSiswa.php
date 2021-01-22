@@ -5,10 +5,12 @@ class DataDPPSiswa extends CI_Controller
 	{
 		parent::__construct();
 		if (!$this->session->has_userdata('id_user')) {
-			if ($this->session->userdata('level') != 'admin') {
-				redirect('Login');
-			}
+			redirect('Login');
 		}
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+
 		$this->load->model('DPPSiswa_Model');
 		$this->load->model('Siswa_Model');
 		$this->load->model('Jenis_Spp_Model');
@@ -44,7 +46,7 @@ class DataDPPSiswa extends CI_Controller
 		$this->form_validation->set_rules("Nisn", "nisn", "required|is_unique[tbl_dpp_siswa.nisn]|max_length[20]");
 		$this->form_validation->set_rules("nmnl_dpp", "Nominal DPP", "required");
 		$this->form_validation->set_rules("jmlh_angsuran", "Jumlah Angsuran", "required");
-		$this->form_validation->set_rules("nmnl_angsuran", "Nominal Angsuran", "required");
+		// $this->form_validation->set_rules("nmnl_angsuran", "Nominal Angsuran", "required");
 		$this->form_validation->set_rules("stts", "Status", "callback_check_select_stts");
 		$this->form_validation->set_rules("nm_siswa", "Nama", "required");
 		$this->form_validation->set_rules("jk_siswa", "Jenis Kelamin", "callback_check_select_jk_siswa");
@@ -58,20 +60,17 @@ class DataDPPSiswa extends CI_Controller
 		$this->form_validation->set_rules("jurusan", "Jurusan", "callback_check_select_jurusan");
 		$this->form_validation->set_rules("jenis_spp", "Jenis SPP", "callback_check_select_jenis_spp");
 
-		// $jk = ($this->input->post('jk_siswa')=="--Pilih Jenis kelamin--") ? FALSE : true ;
-		// $stts = ($this->input->post('stts')=="--Pilih Status--") ? FALSE : true ;
-		// $kd_ta = ($this->input->post('kd_ta')=="
-		// 	<option>--Pilih Tahun Masuk--") ? FALSE : true ;
-		// $jurusan = ($this->input->post('jurusan')=="--Pilih Jurusan--") ? FALSE : true ;
-		// $jenis_spp = ($this->input->post('jenis_spp')=="--Pilih Jenis SPP--") ? FALSE : true ;
 
-		// if (!$this->form_validation->run()||!$jk||!$stts||!$kd_ta||!$jurusan||!$jenis_spp) {
-		// 	$this->index();
 		if (!$this->form_validation->run()) {
 			$this->index();
 		} else {
+			$nominal = $this->input->post('nmnl_dpp');
+			$jumlah = $this->input->post('jmlh_angsuran');
+			$nominal_angsuran =  $nominal / $jumlah;
+
+
 			$this->Siswa_Model->tambah_data();
-			$this->DPPSiswa_Model->tambah_data();
+			$this->DPPSiswa_Model->tambah_data($nominal_angsuran);
 			$this->session->set_flashdata('flash_dppsiswa', 'Disimpan');
 			redirect('DataDPPSiswa');
 		}
