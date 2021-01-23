@@ -6,7 +6,7 @@
  */
 
 
-require 'vendor/autoload.php';
+require FCPATH . 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -293,24 +293,33 @@ class DataLaporanRekapan extends CI_Controller
         $this->load->view('laporanrekapan/exportsiswa', $data);
     }
 
-    public function excel()
+    public function exportExcel()
     {
-        // $this->load->model('siswa_model');
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Nama');
-        $sheet->setCellValue('C1', 'Kelas');
-        $sheet->setCellValue('D1', 'Jenis Kelamin');
-        $sheet->setCellValue('E1', 'Alamat');
+        $firstHtmlString = '<table>
+                  <tr>
+                      <td>Hello World</td>
+                  </tr>
+              </table>';
+        $secondHtmlString = '<table>
+                  <tr>
+                      <td>Hello tessss 123141412431 World</td>
+                  </tr>
+              </table>';
 
-        $writer = new Xlsx($spreadsheet);
-        $filename = 'laporan-siswa';
+        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+        $spreadsheet = $reader->loadFromString($firstHtmlString);
+        $reader->setSheetIndex(1);
+        $spreadhseet = $reader->loadFromString($secondHtmlString, $spreadsheet);
+        $reader->setSheetIndex(2);
+        $spreadhseet = $reader->loadFromString($secondHtmlString, $spreadsheet);
+        $reader->setSheetIndex(3);
 
-        // header('Content-Type: application/vnd.ms-excel');
-        // header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
-        // header('Cache-Control: max-age=0');
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+        // $writer->save('write.xls');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="data.xls"');
+        header('Cache-Control: max-age=0');
 
-        $writer->save('php://output');
+        $writer->save('php://output'); // download file 
     }
 }

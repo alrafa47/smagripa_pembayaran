@@ -109,4 +109,22 @@ class DataPembayaranSPP_Model extends CI_Model
     {
         $this->db->delete('tbl_pembayaran_spp', ['no_transaksi' => $no_transaksi]);
     }
+
+    /* 
+    * untuk mendapatkan laporan pemasukan dari spp
+    */
+
+    public function laporanPemasukanSPP($start = null, $end = null)
+    {
+        $this->db->select('*, tbl_siswa.nama_siswa');
+        $this->db->from('tbl_pembayaran_spp');
+        $this->db->join('tbl_siswa', 'tbl_pembayaran_spp.nisn = tbl_siswa.nisn');
+        if ($start != null) {
+            $this->db->where('tanggal >=', $start);
+        }
+        if ($end != null) {
+            $this->db->where('tanggal <=', $end);
+        }
+        return $this->db->get()->result();
+    }
 }

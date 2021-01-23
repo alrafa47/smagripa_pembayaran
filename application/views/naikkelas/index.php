@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Data Siswa</h1>
+                    <h1>Data Naik Kelas</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Siswa</li>
+                        <li class="breadcrumb-item active">Data Naik Kelas</li>
                     </ol>
                 </div>
             </div>
@@ -71,11 +71,9 @@
                                             </div>
                                         </div>
                                     </div>
-
-
+                                    <input type="submit" value="Cari Kelas">
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>

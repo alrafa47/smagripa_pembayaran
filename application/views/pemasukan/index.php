@@ -43,12 +43,11 @@
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label>Total Pemasukan</label>
-                                                <input type="text" class="form-control disable" id="exampleInputEmail1" name="total" readonly>
+                                                <input type="text" class="form-control disable" id="exampleInputEmail1" value="<?= $total ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
-
-
+                                    <input type="submit" value="Cari Pemasukan" class="btn btn-primary">
                                 </form>
                             </div>
 
@@ -74,23 +73,23 @@
                                 <th>Kelas</th>
                                 <th>Tanggal</th>
                                 <th>Jenis Pembayaran</th>
-                                <th>Keterangan</th>
+                                <th>Keterangan Pembayaran</th>
                                 <th>Nominal</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $no = 1;
-                            foreach ($datasiswa as $row) { ?>
+                            foreach ($pemasukan as $row) { ?>
                                 <tr>
                                     <td><?= $no ?></td>
-                                    <td><?= $row->nisn ?></td>
-                                    <td><?= $row->nama_siswa ?></td>
-                                    <td><?= $row->kelas ?></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?= $row['nisn'] ?></td>
+                                    <td><?= $row['nama_siswa'] ?></td>
+                                    <td><?= $row['kelas'] ?></td>
+                                    <td><?= $row['tanggal'] ?></td>
+                                    <td><?= $row['jenis_pembayaran'] ?></td>
+                                    <td><?= $row['keterangan_pembayaran'] ?></td>
+                                    <td align="right"><?= $row['nominal'] ?></td>
                                 </tr>
                             <?php
                                 $no++;

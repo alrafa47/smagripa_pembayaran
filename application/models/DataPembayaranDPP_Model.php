@@ -55,4 +55,18 @@ class DataPembayaranDPP_Model extends CI_Model
     {
         $this->db->query('SELECT * from tbl_angsuran_dpp where no_transaksi = "' . $no_transaksi . '"');
     }
+
+    public function laporanPemasukanDPP($start = null, $end = null)
+    {
+        $this->db->select('*, tbl_siswa.nama_siswa');
+        $this->db->from('tbl_angsuran_dpp');
+        $this->db->join('tbl_siswa', 'tbl_angsuran_dpp.nisn = tbl_siswa.nisn');
+        if ($start != null) {
+            $this->db->where('tanggal >=', $start);
+        }
+        if ($end != null) {
+            $this->db->where('tanggal <=', $end);
+        }
+        return $this->db->get()->result();
+    }
 }

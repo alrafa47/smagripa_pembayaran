@@ -1,6 +1,6 @@
 
 <?php
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * 
  */
@@ -23,10 +23,7 @@ class DataNaikKelas extends CI_Controller
     }
     function index()
     {
-
-
         $data = [
-
             'datasiswa' => $this->Siswa_Model->getAllData(),
             'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
             'kelas' => $this->Kelas_Model->getAllDatabyKelas()

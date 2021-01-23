@@ -25,21 +25,74 @@ class DataLaporanPemasukan extends CI_Controller
 
         $this->load->library('form_validation');
     }
+
+    public function getLaporanPemasukan($start = null, $end = null)
+    {
+        $dataPemasukanDPP = $this->DataPembayaranDPP_Model->laporanPemasukanDPP($start, $end);
+        $data = [];
+        $total = 0;
+
+        foreach ($dataPemasukanDPP as $value) {
+            $data[] = [
+                "nisn" => $value->nisn,
+                "nama_siswa" => $value->nama_siswa,
+                "kelas" => $value->kelas,
+                "tanggal" => $value->tanggal,
+                "jenis_pembayaran" => 'DPP',
+                "keterangan_pembayaran" => 'angsuran ke-' . $value->angsuran,
+                "nominal" => $value->nominal_bayar
+            ];
+            $total += $value->nominal_bayar;
+        }
+        $dataPemasukanSPP = $this->DataPembayaranSPP_Model->laporanPemasukanSPP($start, $end);
+        foreach ($dataPemasukanSPP as $value) {
+            $data[] = [
+                "nisn" => $value->nisn,
+                "nama_siswa" => $value->nama_siswa,
+                "kelas" => $value->kode_kelas,
+                "tanggal" => $value->tanggal,
+                "jenis_pembayaran" => 'SPP',
+                "keterangan_pembayaran" => 'bulan ke-' . $value->bulan,
+                "nominal" => $value->nominal
+            ];
+            $total += $value->nominal;
+        }
+        $dataPemasukanUjian = $this->DataPembayaranUjian_Model->laporanPemasukanUjian($start, $end);
+        foreach ($dataPemasukanUjian as $value) {
+            $data[] = [
+                "nisn" => $value->nisn,
+                "nama_siswa" => $value->nama_siswa,
+                "kelas" => $value->kode_kelas,
+                "tanggal" => $value->tanggal,
+                "jenis_pembayaran" => $value->nama_pembayaran,
+                "keterangan_pembayaran" => "$value->nama_pembayaran ke $value->keterangan",
+                "nominal" =>  $value->nominal
+            ];
+            $total += $value->nominal;
+        }
+        return ['laporan' => $data, 'nominal' => $total];
+    }
+
+
     function index()
     {
-
-
-        $data = [
-
-            'datasiswa' => $this->Siswa_Model->getAllData(),
-            'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
-            'kelas' => $this->Kelas_Model->getAllDatabyKelas(),
-            'dpp' => $this->DataPembayaranDPP_Model->getAllData(),
-            'spp' => $this->DataPembayaranSPP_Model->getAllData(),
-            'ujian' => $this->DataPembayaranUjian_Model->getAllData(),
-
-
-        ];
+        $data['pemasukan'] = [];
+        $data['total']  = 0;
+        if ($this->input->get('tanggal_awal') !== null && $this->input->get('tanggal_akhir') !== null) {
+            $result = $this->getLaporanPemasukan($this->input->get('tanggal_awal'), $this->input->get('tanggal_akhir'));
+            $data['pemasukan'] = $result['laporan'];
+            $data['total'] =  $result['nominal'];
+            function compareByTimeStamp($time1, $time2)
+            {
+                if (strtotime($time1['tanggal']) < strtotime($time2['tanggal']))
+                    return -1;
+                else if (strtotime($time1['tanggal']) > strtotime($time2['tanggal']))
+                    return 1;
+                else
+                    return 0;
+            }
+            usort($data['pemasukan'], "compareByTimeStamp");
+        }
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('pemasukan/index', $data);
