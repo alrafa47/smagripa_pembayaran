@@ -109,7 +109,9 @@ class DataLaporanSPP extends CI_Controller
             'dataSiswa' => $dataSiswa,
             'dataPembayaran' => $dataPembayaran,
             'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
-            'kelas' => $this->Kelas_Model->getAllDatabyKelas()
+            'kelas' => $this->Kelas_Model->getAllDatabyKelas(),
+            'ta' => $this->TahunAjaran_Model->detail_data($ta)['tahun_ajaran'],
+            'kelass' => $kelas
         ];
         $this->load->view('laporanspp/export', $data);
     }

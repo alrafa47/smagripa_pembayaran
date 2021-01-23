@@ -44,7 +44,10 @@ class DataLaporan extends CI_Controller
         $jurusan = ($jurusan == 'lihat_semua') ? null : $jurusan;
         $data = [
             'dataSiswa' => $this->DPPSiswa_Model->getAllDataJoinDataSiswa($jurusan, $tahun_awal, $tahun_akhir),
-            'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData()
+            'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData(),
+            'tahun_awal' => $this->TahunAjaran_Model->detail_data($tahun_awal)['tahun_ajaran'],
+            'tahun_akhir' => $this->TahunAjaran_Model->detail_data($tahun_akhir)['tahun_ajaran'],
+            'jurusan' => $this->Jurusan_Model->detail_data($jurusan)['nama_jurusan'],
         ];
         $this->load->view('laporandpp/export', $data);
     }

@@ -38,11 +38,12 @@ class DataPembayaranDPP_Model extends CI_Model
         return $this->db->delete('tbl_angsuran_dpp', ['no_transaksi' => $no_transaksi]);
     }
 
-    public function insertData($nisn, $nominal, $tanggal, $angsuran)
+    public function insertData($nisn, $nominal, $kelas, $tanggal, $angsuran)
     {
         foreach ($angsuran as $value) {
             $data = [
                 'nisn' => $nisn,
+                'kelas' => $kelas,
                 'nominal_bayar' => $nominal,
                 'tanggal' => $tanggal,
                 'angsuran' => $value,

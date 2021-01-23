@@ -28,9 +28,10 @@ class DataPembayaranDPP extends CI_Controller
     {
         $nisn = $this->input->post('nisnSiswa');
         $angsuran = $this->input->post('angsuran');
+        $kelas = $this->input->post('kelas');
         $nominal = $this->input->post('nominalAngsuran');
         if (count($angsuran) > 0) {
-            $this->DataPembayaranDPP_Model->insertData($nisn, $nominal, date('Y/m/d'), $angsuran);
+            $this->DataPembayaranDPP_Model->insertData($nisn, $nominal, $kelas, date('Y/m/d'), $angsuran);
             $this->CheckingLunas($nisn);
             $this->session->set_flashdata('flash_dataPembayaranDPP', 'berhasil');
             redirect('DataPembayaranDPP');
@@ -94,6 +95,13 @@ class DataPembayaranDPP extends CI_Controller
         if ($fromAjax) {
             $data['nisn'] = $detailSiswa->nisn;
             $data['nama_siswa'] = $detailSiswa->nama_siswa;
+            $data['kelas'] = 'siswa belum dimasukkan kelas';
+            for ($i = 3; $i >= 1; $i--) {
+                $kelas =  "kelas_$i";
+                if ($detailSiswa->$kelas != null || $detailSiswa->$kelas != "") {
+                    $data['kelas'] = $detailSiswa->$kelas;
+                }
+            }
             $data['nama_jurusan'] = $detailSiswa->nama_jurusan;
             $data['jumlah_angsuran'] = $detailSiswa->jumlah_angsuran;
             $data['nominal_dpp'] = $detailSiswa->nominal_dpp;

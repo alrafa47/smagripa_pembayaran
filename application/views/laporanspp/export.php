@@ -28,9 +28,11 @@ header("Content-Disposition: attachment; filename=Data LaporanSPP.xls");
     }
 </style>
 <center>
-    <h3>LAPORAN KEUANGAN SPP</h3>
+    <h5>LAPORAN KEUANGAN SPP
+        <p>Tahun Ajaran<?php echo "\n" .  $ta ?></p>
+        <p>Kelas<?php echo "\n" . $kelass ?></p>
+    </h5>
 </center>
-
 <br>
 <table border="1">
     <thead>

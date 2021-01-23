@@ -65,12 +65,13 @@
                           <label for="exampleInputPassword1">Tanggal Lahir</label>
                           <input type="date" class="form-control" name="tgl_lahir" value="<?= $ubah1['tgl_lahir'] ?>">
                         </div>
-                      </div>
-                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputPassword1">Alamat</label>
                           <input type="text" class="form-control" name="almat" value="<?= $ubah1['alamat'] ?>">
                         </div>
+                      </div>
+                      <div class="col-md-6">
+
                         <div class="form-group">
                           <label for="exampleInputPassword1">No Telp</label>
                           <input type="text" class="form-control" name="telp_siswa" value="<?= $ubah1['no_telfon'] ?>">
@@ -86,7 +87,7 @@
                               }
                             ?>
                               <option value="<?php echo $value->kode_ta ?>" <?php echo $selected ?>>
-                              <?php echo $value->tahun_ajaran . $value->semester  ?></option>
+                                <?php echo $value->tahun_ajaran . $value->semester  ?></option>
                             <?php
                             }
                             ?>
@@ -103,6 +104,57 @@
                               }
                             ?>
                               <option value="<?php echo $value->kode_jurusan ?>" <?php echo $selected ?>><?php echo $value->nama_jurusan ?></option>
+                            <?php
+                            }
+                            ?>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Kelas 1</label>
+                          <select class="form-control" name="kelas_1">
+                            <option value="">pilih kelas</option>
+                            <?php
+                            foreach ($kelas as $value) {
+                              $selected = '';
+                              if ($ubah1['kelas_1'] == $value->kode_kelas) {
+                                $selected = 'selected';
+                              }
+                            ?>
+                              <option value="<?php echo $value->kode_kelas ?>" <?php echo $selected ?>><?php echo $value->kode_kelas ?></option>
+                            <?php
+                            }
+                            ?>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Kelas 2</label>
+                          <select class="form-control" name="kelas_2">
+                            <option value="">pilih kelas</option>
+                            <?php
+                            foreach ($kelas as $value) {
+                              $selected = '';
+                              if ($ubah1['kelas_2'] == $value->kode_kelas) {
+                                $selected = 'selected';
+                              }
+                            ?>
+                              <option value="<?php echo $value->kode_kelas ?>" <?php echo $selected ?>><?php echo $value->kode_kelas ?></option>
+                            <?php
+                            }
+                            ?>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Kelas 3</label>
+                          <select class="form-control" name="kelas_3">
+                            <option value="">pilih kelas</option>
+                            <?php
+                            foreach ($kelas as $value) {
+                              $selected = '';
+                              if ($ubah1['kelas_3'] == $value->kode_kelas) {
+                                $selected = 'selected';
+                              }
+                            ?>
+                              <option value="<?php echo $value->kode_kelas ?>" <?php echo $selected ?>><?php echo $value->kode_kelas ?></option>
                             <?php
                             }
                             ?>
@@ -141,10 +193,7 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Nominal Angsuran</label>
-                          <input type="text" class="form-control" name="nmnl_angsuran" value="<?= $ubah['nominal_angsuran'] ?>">
-                        </div>
+
                         <div class="form-group">
                           <label for="exampleInputPassword1">Status</label>
                           <select class="form-control" name="stts">

@@ -58,7 +58,9 @@
                 },
                 success: function(data) {
                     var dataSiswa = JSON.parse(data);
+                    console.log(dataSiswa);
                     $('#jurusan_kelas').val(dataSiswa.nama_jurusan);
+                    $('#kelas').val(dataSiswa.kelas);
                     $('#jumlahAngsuran').val(dataSiswa.jumlah_angsuran);
                     $('#nominal').val(dataSiswa.nominal_dpp);
                     $('#nominalAngsuran').val(dataSiswa.nominal_dpp / dataSiswa.jumlah_angsuran);
@@ -170,6 +172,9 @@
                     modal.find('#no_telfon').text(dataSiswa.no_telfon)
                     modal.find('#tahun_ajaran').text(dataSiswa.tahun_ajaran)
                     modal.find('#jurusan').text(dataSiswa.jurusan)
+                    modal.find('#kelas_1').text(dataSiswa.kelas_1)
+                    modal.find('#kelas_2').text(dataSiswa.kelas_2)
+                    modal.find('#kelas_3').text(dataSiswa.kelas_3)
                     modal.find('#jenis_spp').text(dataSiswa.jenis_spp)
                     console.log(dataSiswa)
                 }
@@ -184,6 +189,8 @@
             var modal = $(this)
 
 
+
+
             $.ajax({
                 type: 'post',
                 url: '<?= base_url() ?>DataDPPSiswa/tampildata',
@@ -196,14 +203,18 @@
                     modal.find('#nominal_dpp').text(dataDPPSiswa.nominal_dpp)
                     modal.find('#jumlah_angsuran').text(dataDPPSiswa.jumlah_angsuran)
                     modal.find('#nominal_angsuran').text(dataDPPSiswa.nominal_angsuran)
+                    var status = "";
+                    if (dataDPPSiswa.status == 0) {
+                        status = "belum lunas"
 
-                    modal.find('#status').text(dataDPPSiswa.status)
+                    } else {
+                        status = "lunas"
+                    }
+                    modal.find('#status').text(status)
                     console.log(dataDPPSiswa)
                 }
             })
         })
-
-
         <?php if ($this->uri->segment(1) == 'DataPembayaranUjian') { ?>
             $('#pembayaran').change(function() {
                 let dataNisn = "<?= $this->uri->segment(3) ?>";

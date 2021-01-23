@@ -47,7 +47,10 @@ function dataPembayaranUNBK($dataPembayaran, $nis, $jenisPembayaran)
     }
 </style>
 <center>
-    <h3>LAPORAN KEUANGAN Ujian </h3>
+    <h5>LAPORAN KEUANGAN UTS, UAS, UNBK
+        <p>Tahun Ajaran<?php echo "\n" .  $ta ?></p>
+        <p>Kelas<?php echo "\n" . $kelass ?></p>
+    </h5>
 </center>
 <table border="1">
     <thead>

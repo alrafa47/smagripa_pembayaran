@@ -66,6 +66,10 @@
                           <input type="text" id="jurusan_kelas" class="form-control" readonly>
                         </div>
                         <div class="form-group">
+                          <label>Kelas</label>
+                          <input type="text" id="kelas" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
                           <label>Jumlah Angsuran</label>
                           <input type="text" class="form-control" id="jumlahAngsuran" readonly>
                         </div>
@@ -113,6 +117,7 @@
                   <th>No</th>
                   <th>NISN</th>
                   <th>Nama Siswa</th>
+                  <th>Jurusan</th>
                   <th>Total DPP</th>
                   <th>Jumlah Anguran</th>
                   <th>Nominal Angsuran</th>
@@ -128,6 +133,7 @@
                     <td><?= $no ?></td>
                     <td><?= $row->nisn ?></td>
                     <td><?= $row->nama_siswa ?></td>
+                    <td><?= $row->nama_jurusan ?></td>
                     <td><?= $row->nominal_dpp ?></td>
                     <td><?= $row->jumlah_angsuran ?></td>
                     <td><?= $row->nominal_angsuran ?></td>

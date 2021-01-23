@@ -82,14 +82,15 @@
                           <label for="exampleInputPassword1">Tanggal Lahir</label>
                           <input type="date" class="form-control" id="exampleInputPassword1" name="tgl_lahir" value="<?php echo set_value('tgl_lahir'); ?>">
                         </div>
-
-                      </div>
-                      <div class="col-md-6">
-
                         <div class="form-group">
                           <label for="exampleInputPassword1">Alamat</label>
                           <input type="text" class="form-control" id="exampleInputPassword1" name="almat" value="<?php echo set_value('almat'); ?>">
                         </div>
+
+                      </div>
+                      <div class="col-md-6">
+
+
                         <div class="form-group">
                           <label for="exampleInputPassword1">No Telp</label>
                           <input type="text" class="form-control" id="exampleInputPassword1" name="telp_siswa" value="<?php echo set_value('telp_siswa'); ?>">
@@ -101,7 +102,7 @@
                             <?php
 
                             foreach ($tahunajaran as $row) { ?>
-                              <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran . $row->semester ?></option>
+                              <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
                             <?php } ?>
                           </select>
 
@@ -115,6 +116,18 @@
                             <?php
                             foreach ($jurusan as $jur) { ?>
                               <option value="<?= $jur->kode_jurusan ?>" <?php echo set_select('jurusan', $jur->kode_jurusan); ?>><?= $jur->nama_jurusan ?></option>
+                            <?php } ?>
+                          </select>
+
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Kelas</label>
+                          <select class="form-control" name="kode_kelas">
+                            <option>--Pilih Kelas--</option>
+                            <?php
+
+                            foreach ($kelas as $row) { ?>
+                              <option value="<?= $row->kode_kelas ?>" <?php echo set_select('kode_kelas', $row->kode_kelas); ?>><?= $row->kode_kelas ?></option>
                             <?php } ?>
                           </select>
 
@@ -280,6 +293,18 @@
             <tr>
               <th>Jurusan</th>
               <td id="jurusan"></td>
+            </tr>
+            <tr>
+              <th>Kelas 1</th>
+              <td id="kelas_1"></td>
+            </tr>
+            <tr>
+              <th>Kelas 2</th>
+              <td id="kelas_2"></td>
+            </tr>
+            <tr>
+              <th>Kelas 3</th>
+              <td id="kelas_3"></td>
             </tr>
             <tr>
               <th>Jenis SPP</th>

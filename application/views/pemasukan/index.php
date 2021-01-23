@@ -71,9 +71,10 @@
                                 <th>No</th>
                                 <th>NISN</th>
                                 <th>Nama Siswa</th>
-                                <th>Jurusan</th>
+                                <th>Kelas</th>
                                 <th>Tanggal</th>
                                 <th>Jenis Pembayaran</th>
+                                <th>Keterangan</th>
                                 <th>Nominal</th>
                             </tr>
                         </thead>
@@ -85,7 +86,8 @@
                                     <td><?= $no ?></td>
                                     <td><?= $row->nisn ?></td>
                                     <td><?= $row->nama_siswa ?></td>
-                                    <td><?= $row->kode_jurusan ?></td>
+                                    <td><?= $row->kelas ?></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

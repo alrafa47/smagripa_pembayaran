@@ -48,12 +48,12 @@ class DPPSiswa_Model extends CI_Model
 		$this->db->insert('tbl_dpp_siswa', $data);
 	}
 
-	public function ubah_data()
+	public function ubah_data($nominal_angsuran)
 	{
 		$data = array(
 			'nominal_dpp' => $this->input->post('nmnl_dpp', true),
 			'jumlah_angsuran' => $this->input->post('jmlh_angsuran', true),
-			'nominal_angsuran' => $this->input->post('nmnl_angsuran', true),
+			'nominal_angsuran' => $nominal_angsuran,
 			'status' => $this->input->post('stts', true)
 		);
 		$this->db->where('nisn', $this->input->post('Nisn', true));
@@ -72,7 +72,7 @@ class DPPSiswa_Model extends CI_Model
 
 	public function get_detail_siswa($id)
 	{
-		$this->db->select('tbl_siswa.nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_dpp_siswa.nominal_dpp, tbl_dpp_siswa.jumlah_angsuran, tbl_dpp_siswa.nominal_angsuran');
+		$this->db->select('tbl_siswa.nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_dpp_siswa.nominal_dpp, tbl_dpp_siswa.jumlah_angsuran, tbl_dpp_siswa.nominal_angsuran, kelas_1, kelas_2, kelas_3');
 		$this->db->from('tbl_siswa');
 		$this->db->join('tbl_jurusan', 'tbl_siswa.kode_jurusan = tbl_jurusan.kode_jurusan');
 		$this->db->join('tbl_dpp_siswa', 'tbl_siswa.nisn = tbl_dpp_siswa.nisn');

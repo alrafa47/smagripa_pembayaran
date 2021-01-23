@@ -11,6 +11,8 @@ class Siswa_Model extends CI_Model
 	}
 	public function tambah_data()
 	{
+		$kelas = explode('_', $this->input->post('kode_kelas'));
+
 		$data = array(
 			'nisn' => $this->input->post('Nisn'),
 			'nama_siswa' => $this->input->post('nm_siswa'),
@@ -24,12 +26,25 @@ class Siswa_Model extends CI_Model
 			'kode_jurusan' => $this->input->post('jurusan'),
 			'kode_jenisspp' => $this->input->post('jenis_spp')
 		);
+		switch ($kelas[0]) {
+			case 'X':
+				$data['kelas_1'] = $this->input->post('kode_kelas');
+				break;
+			case 'XI':
+				$data['kelas_2'] = $this->input->post('kode_kelas');
+				break;
+			case 'XII':
+				$data['kelas_3'] = $this->input->post('kode_kelas');
+
+				break;
+		}
 
 		$this->db->insert('tbl_siswa', $data);
 	}
 
 	public function ubah_data()
 	{
+
 		$data = array(
 			'nama_siswa' => $this->input->post('nm_siswa'),
 			'jk' => $this->input->post('jk_siswa'),
@@ -40,8 +55,12 @@ class Siswa_Model extends CI_Model
 			'kode_ta' => $this->input->post('kd_ta', true),
 			'tahun_keluar' => $this->input->post('thn_keluar', true),
 			'kode_jurusan' => $this->input->post('jurusan', true),
+			'kelas_1' => $this->input->post('kelas_1', true),
+			'kelas_2' => $this->input->post('kelas_2', true),
+			'kelas_3' => $this->input->post('kelas_3', true),
 			'kode_jenisspp' => $this->input->post('jenis_spp', true)
 		);
+
 		$this->db->where('nisn', $this->input->post('Nisn', true));
 		$this->db->update('tbl_siswa', $data);
 	}

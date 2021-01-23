@@ -114,7 +114,9 @@ class DataLaporanUjian extends CI_Controller
             'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
             'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
             'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData(),
-            'kelas' => $this->Kelas_Model->getAllDatabyKelas()
+            'kelas' => $this->Kelas_Model->getAllDatabyKelas(),
+            'ta' => $this->TahunAjaran_Model->detail_data($ta)['tahun_ajaran'],
+            'kelass' => $kelas
         ];
         $this->load->view('laporanujian/export', $data);
     }

@@ -64,6 +64,9 @@ class DataSiswa extends CI_Controller
 		$data['no_telfon'] = $result->no_telfon;
 		$data['tahun_ajaran'] = $result->tahun_ajaran;
 		$data['jurusan'] = $result->nama_jurusan;
+		$data['kelas_1'] = $result->kelas_1;
+		$data['kelas_2'] = $result->kelas_2;
+		$data['kelas_3'] = $result->kelas_3;
 		$data['jenis_spp'] = "$result->nominal_jenis-$result->kategori";
 		echo json_encode($data);
 	}
