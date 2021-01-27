@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="submit" value="Cari Pemasukan" class="btn btn-primary">
+                                    <input type="submit" value="Cari Pemasukan" class="btn btn-default">
                                 </form>
                             </div>
 

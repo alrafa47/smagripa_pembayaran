@@ -28,16 +28,11 @@
     }
 </style>
 <center>
-    <h3>RINCIAN KEKURANGAN ADMINISTRASI KEUANGAN</h3>
-    <p>
+    <h3>RINCIAN KEKURANGAN ADMINISTRASI KEUANGAN</h3><br>
     <h3>TAHUN PELAJARAN</h3>
-    </p>
 </center>
 <table border="1">
     <thead>
-        <tr>
-            <th colspan="2">Data Siswa</th>
-        </tr>
         <tr>
             <td>NISN</td>
             <td><?= $dataSiswa['nisn']; ?></td>
@@ -59,21 +54,20 @@
                 ?>
             </td>
         </tr>
-        <?php
-        $alphabet = ['10', '11', '12'];
-        ?>
+</table>
+<br>
+<?php
+$alphabet = ['10', '11', '12'];
+?>
 
-        <?php
-        for ($i = 1; $i <= 3; $i++) {
-            $total[$i] = 0;
-            if (!empty($dataSiswa['kelas_' . $i])) {
-        ?>
-                <tr>
-                    <th colspan="2">
-                        <h4>Kelas<?= $alphabet[$i - 1]; ?></h4>
-                    </th>
-                </tr>
-
+<?php
+for ($i = 1; $i <= 3; $i++) {
+    $total[$i] = 0;
+    if (!empty($dataSiswa['kelas_' . $i])) {
+?>
+        <h4>Kelas <?= $alphabet[$i - 1]; ?></h4>
+        <table border="1">
+            <tbody>
                 <?php if ($i == 1 && !empty($dataSiswa['kelas_1'])) : ?>
                     <tr>
                         <td>DPP</td>
@@ -123,28 +117,26 @@
                     <td>Total Tanggungan Biaya Kelas <?= $alphabet[$i - 1]; ?></td>
                     <td><?= $total[$i]; ?></td>
                 </tr>
-
-
-        <?php
-            }
-        }
-        ?>
+            </tbody>
+        </table>
+        <br>
+<?php
+    }
+}
+?>
+<table border="1">
+    <?php
+    $totalKeseluruhan = 0;
+    for ($i = 1; $i <= 3; $i++) { ?>
         <tr>
-            <th colspan="2">Total Tanggungan</th>
+            <td>Total Tanggungan Biaya Kelas <?= $alphabet[$i - 1] ?></td>
+            <td><?= $total[$i] ?></td>
         </tr>
-
-        <?php
-        $totalKeseluruhan = 0;
-        for ($i = 1; $i <= 3; $i++) { ?>
-
-            <tr>
-                <td>Total Tanggungan Biaya Kelas <?= $alphabet[$i - 1] ?></td>
-                <td><?= $total[$i] ?></td>
-            </tr>
-        <?php
-            $totalKeseluruhan += $total[$i];
-        } ?>
-        <tr>
-            <td>Tanggungan Biaya</td>
-            <td><?= $totalKeseluruhan ?></td>
-        </tr>
+    <?php
+        $totalKeseluruhan += $total[$i];
+    } ?>
+    <tr>
+        <td>Tanggungan Biaya</td>
+        <td><?= $totalKeseluruhan ?></td>
+    </tr>
+</table>

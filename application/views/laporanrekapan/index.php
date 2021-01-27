@@ -59,6 +59,7 @@
                                 </form>
                             </div>
                             <a href="<?= base_url('DataLaporanRekapan/export/') . $this->input->get('ta') . '/' . $this->input->get('kelas')  ?>" class="btn btn-warning">Export</a>
+                            <a href="<?= base_url('DataLaporanRekapan/exportAllExcel/') . $this->input->get('ta') . '/' . $this->input->get('kelas')  ?>" class="btn btn-warning">Export Semua Siswa</a>
                         </div>
                     </div>
                 </div>
@@ -132,7 +133,7 @@
                                         <td><?= $row->unbk ?></td>
                                         <td>
                                             <a href="<?= base_url() ?>DataLaporanRekapan/detail/<?= $row->nisn ?>" class="btn btn-warning">detail</a>
-                                            <a href="<?= base_url() ?>DataLaporanRekapan/exportsiswa/<?= $row->nisn ?>" class="btn btn-primary">export</a>
+                                            <a href="<?= base_url() ?>DataLaporanRekapan/exportExcel/<?= $row->nisn ?>/<?= $this->input->get('ta') ?>" class="btn btn-primary">export</a>
                                         </td>
                                     </tr>
                                 <?php
