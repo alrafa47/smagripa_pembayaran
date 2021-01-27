@@ -45,6 +45,7 @@ class DataPembayaranDPP extends CI_Controller
     */
     public function detailTransaksi($nisn)
     {
+
         $data['jumlahAngsuran'] = $this->DPPSiswa_Model->detail_data($nisn)['jumlah_angsuran'];
         $data['detailAngsuran'] = $this->DataPembayaranDPP_Model->getDataAngsuranBynisn($nisn);
         $this->load->view('templates/header');

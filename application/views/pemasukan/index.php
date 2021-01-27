@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="Welcome">Dashboard</a></li>
                         <li class="breadcrumb-item active">Laporan Pemasukan</li>
                     </ol>
                 </div>
@@ -43,14 +43,14 @@
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label>Total Pemasukan</label>
-                                                <input type="text" class="form-control disable" id="exampleInputEmail1" value="<?= $total ?>" readonly>
+                                                <input type="text" class="form-control disable" id="exampleInputEmail1" value="Rp. <?= $total ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
                                     <input type="submit" value="Cari Pemasukan" class="btn btn-primary">
                                 </form>
                             </div>
-
+                            <a href="<?= base_url('DataLaporanPemasukan/export/') . $this->input->get('tanggal_awal') . '/' . $this->input->get('tanggal_akhir')  ?>" class="btn btn-warning">Export</a>
                         </div>
                     </div>
                 </div>
@@ -95,6 +95,8 @@
                                 $no++;
                             }
                             ?>
+
+
                         </tbody>
                     </table>
                 </div>

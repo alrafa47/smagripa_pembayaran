@@ -25,6 +25,5 @@ class Welcome extends CI_Controller
 		$this->load->view("templates/sidebar");
 		$this->load->view("index.php");
 		$this->load->view("templates/footer");
-		// aku sayang ulva
 	}
 }

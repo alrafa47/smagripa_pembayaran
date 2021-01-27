@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="Welcome">Dashboard</a></li>
             <li class="breadcrumb-item active">Data Tahun Ajaran</li>
           </ol>
         </div>

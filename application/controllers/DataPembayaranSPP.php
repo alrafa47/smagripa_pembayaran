@@ -36,13 +36,6 @@ class DataPembayaranSPP extends CI_Controller
 		$data['nisn'] = $result->nisn;
 		$data['nama_siswa'] = $result->nama_siswa;
 		$data['kode_jurusan'] = $result->kode_jurusan;
-		// $dataKelas =  $this->Kelas_Model->getAllData($result->kode_jurusan);
-		// $html = '<select class="form-control" name="kelas">';
-		// foreach ($dataKelas as $valueKelas) {
-		// 	$html .= '<option value="' . $valueKelas->kode_kelas . '">' . $valueKelas->kode_kelas . '</option>';
-		// }
-		// $html .= '</select>';
-		// $data['selectKelas'] = $html;
 		$data['kategori'] = $result->kategori;
 		$data['nominal_jenis'] = $result->nominal_jenis;
 		$data['kode_jenis'] = $result->kode_jenisspp;

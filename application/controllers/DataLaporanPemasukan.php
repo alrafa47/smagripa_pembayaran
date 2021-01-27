@@ -98,4 +98,26 @@ class DataLaporanPemasukan extends CI_Controller
         $this->load->view('pemasukan/index', $data);
         $this->load->view('templates/footer');
     }
+    public function export($start = null, $end = null)
+    {
+
+        $data['pemasukan'] = [];
+        $data['total']  = 0;
+        if ($start !== null && $end !== null) {
+            $result = $this->getLaporanPemasukan($start, $end);
+            $data['pemasukan'] = $result['laporan'];
+            $data['total'] =  $result['nominal'];
+            function compareByTimeStamp($time1, $time2)
+            {
+                if (strtotime($time1['tanggal']) < strtotime($time2['tanggal']))
+                    return -1;
+                else if (strtotime($time1['tanggal']) > strtotime($time2['tanggal']))
+                    return 1;
+                else
+                    return 0;
+            }
+            usort($data['pemasukan'], "compareByTimeStamp");
+        }
+        $this->load->view('pemasukan/export', $data);
+    }
 }

@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="Welcome">Dashboard</a></li>
                         <li class="breadcrumb-item active">Data Pembayaran SPP</li>
                     </ol>
                 </div>
@@ -50,20 +50,12 @@
             }
             return ['nominal' => '-', 'tanggal' => '-', 'no_transaksi' => '-'];
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
         foreach ($tahunAjaran as $keyTahunAjaran => $valueTahunAjaran) : ?>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card collapsed-card">
                         <div class="card-header">
-<<<<<<< HEAD
-                            <h5 class="card-title">Angsuran SPP Tahun ajaran <?= $valueTahunAjaran->tahun_ajaran ?></h5>
-=======
                             <h5 class="card-title">Angsuran SPP Tahun ajaran <?= $valueTahunAjaran->tahun_ajaran  ?></h5>
->>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-plus"></i>
@@ -88,11 +80,7 @@
                                     </thead>
                                     <tbody>
                                         <?php foreach ($ujian as $valueujian) {
-<<<<<<< HEAD
-                                            $data = DataPembayaranUjian($pembayaranUjian, $keyTahunAjaran, $keySemester, $valueujian);
-=======
                                             $data = DataPembayaranUjian($pembayaranUjian, $valueTahunAjaran->kode_ta, $keySemester, $valueujian);
->>>>>>> 46c92bd50545391818dd4ade964236a780e442ef
                                         ?>
                                             <tr>
                                                 <td><?= strtoupper($valueujian) ?></td>

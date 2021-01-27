@@ -7,7 +7,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="Welcome">Dashboard</a></li>
             <li class="breadcrumb-item active">Data Pembayaran DPP</li>
           </ol>
         </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group">
                           <label>Kelas</label>
-                          <input type="text" id="kelas" class="form-control" readonly>
+                          <input type="text" id="kelas" class="form-control" name="kelas" readonly>
                         </div>
                         <div class="form-group">
                           <label>Jumlah Angsuran</label>

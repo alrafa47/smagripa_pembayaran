@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Log in</title>
+    <link rel="icon" href="<?= base_url('assets/dist/img/logo.png') ?>">
+    <title>SMEAGRIPA PEMBAYARAN</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,10 +22,14 @@
 </head>
 
 <body class="hold-transition login-page">
+    <img src="<?= base_url() ?>assets/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8" width="10%">
     <div class="login-box">
         <div class="login-logo">
-            <a href="<?= base_url('assets/') ?>index2.html"><b>SMEAGRIPA</b> SIP</a>
-            <p style="font-size: smaller;"><b>S</b>istem <b>I</b>nformasi <b>P</b>embayaran</p>
+
+
+
+            <a href="<?= base_url('assets/') ?>index2.html"><b>SMK PGRI PAKISAJI</b></a>
+            <p style="font-size: smaller;"><b>Sistem Informasi Pembayaran</b></p>
 
         </div>
         <!-- /.login-logo -->

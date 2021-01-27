@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Pembayaran SMK PGRI PAKISAJI</title>
+  <link rel="icon" href="<?= base_url('assets/dist/img/logo.png') ?>">
+  <title>SMEAGRIPA PEMBAYARAN</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -38,15 +39,9 @@
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">DashBoard</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">User</a>
+          <a href="Welcome" class="nav-link">DashBoard</a>
         </li>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?= base_url('DataUser') ?>" class="nav-link">User</a>
-          </li>
           <li class="nav-item d-none d-sm-inline-block">
             <a href="<?= base_url('Login/logout') ?>" class="nav-link">Log Out</a>
           </li>
