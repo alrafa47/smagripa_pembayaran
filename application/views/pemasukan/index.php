@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="submit" value="Cari Pemasukan" class="btn btn-primary">
+                                    <input type="submit" value="Cari Pemasukan" class="btn btn-default">
                                 </form>
                             </div>
                             <a href="<?= base_url('DataLaporanPemasukan/export/') . $this->input->get('tanggal_awal') . '/' . $this->input->get('tanggal_akhir')  ?>" class="btn btn-warning">Export</a>
