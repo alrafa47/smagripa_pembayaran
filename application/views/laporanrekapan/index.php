@@ -34,8 +34,13 @@
                                                 <select class="form-control" name="ta">
                                                     <option value="lihat_semua">Pilih tahun</option>
                                                     <?php
-                                                    foreach ($tahunajaran as $row) { ?>
-                                                        <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
+                                                    foreach ($tahunajaran as $row) {
+                                                        $selected = '';
+                                                        if ($this->input->get('ta') == $row->kode_ta) {
+                                                            $selected = 'selected';
+                                                        }
+                                                    ?>
+                                                        <option value="<?= $row->kode_ta ?>" <?= $selected ?>><?= $row->tahun_ajaran ?></option>
                                                     <?php } ?>
                                                     ?>
                                                 </select>
@@ -47,8 +52,12 @@
                                                 <select class="form-control" name="kelas">
                                                     <option value="lihat_semua">Pilih kelas</option>
                                                     <?php
-                                                    foreach ($kelas as $row) { ?>
-                                                        <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
+                                                    foreach ($kelas as $row) {
+                                                        $selected = '';
+                                                        if ($this->input->get('kelas') == $row->kode_kelas) {
+                                                            $selected = 'selected';
+                                                        } ?>
+                                                        <option value="<?= $row->kode_kelas ?>" <?= $selected ?>><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
                                                     <?php } ?>
                                                     ?>
                                                 </select>
@@ -123,14 +132,23 @@
                                         <td><?= $row->dpp ?></td>
                                         <?php for ($i = 1; $i <= 3; $i++) {
                                             $kelas = 'kelas_' . $i ?>
-                                            <td><?= $row->$kelas['kode_kelas'] ?></td>
-                                            <td><?= $row->$kelas['spp'] ?></td>
-                                            <td><?= $row->$kelas['uts1'] ?></td>
-                                            <td><?= $row->$kelas['uas1'] ?></td>
-                                            <td><?= $row->$kelas['uts2'] ?></td>
-                                            <td><?= $row->$kelas['uas2'] ?></td>
+                                            <?php if (!empty($row->$kelas['kode_kelas'])) { ?>
+                                                <td><?= $row->$kelas['kode_kelas'] ?></td>
+                                                <td><?= $row->$kelas['spp'] ?></td>
+                                                <td><?= $row->$kelas['uts1'] ?></td>
+                                                <td><?= $row->$kelas['uas1'] ?></td>
+                                                <td><?= $row->$kelas['uts2'] ?></td>
+                                                <td><?= $row->$kelas['uas2'] ?></td>
+                                            <?php } else { ?>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            <?php } ?>
                                         <?php } ?>
-                                        <td><?= $row->unbk ?></td>
+                                        <td><?= (empty($row->unbk)) ? '-' : $row->unbk; ?></td>
                                         <td>
                                             <a href="<?= base_url() ?>DataLaporanRekapan/detail/<?= $row->nisn ?>" class="btn btn-warning">detail</a>
                                             <a href="<?= base_url() ?>DataLaporanRekapan/exportExcel/<?= $row->nisn ?>/<?= $this->input->get('ta') ?>" class="btn btn-primary">export</a>

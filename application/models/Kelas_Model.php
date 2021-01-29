@@ -7,7 +7,7 @@ class Kelas_Model extends CI_Model
 {
 	public function getAllData($kode_jurusan = null)
 	{
-		$this->db->select('kode_kelas, kelas, tbl_jurusan.nama_jurusan, nama_kelas');
+		$this->db->select('kode_kelas, kelas, tbl_jurusan.nama_jurusan, nama_kelas, tbl_kelas.kode_jurusan');
 		$this->db->from('tbl_kelas');
 		$this->db->join('tbl_jurusan', 'tbl_jurusan.kode_jurusan = tbl_kelas.kode_jurusan');
 		if ($kode_jurusan != null) {

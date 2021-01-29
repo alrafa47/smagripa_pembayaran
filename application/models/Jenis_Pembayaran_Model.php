@@ -9,6 +9,17 @@ class Jenis_Pembayaran_Model extends CI_Model
 	{
 		return $this->db->get('tbl_jenis_pembayaran')->result();
 	}
+	public function getAllDataTahun($kode_ta = null)
+	{
+		$this->db->select('kode_jenispembayaran, nama_pembayaran, tbl_tahun_ajaran.tahun_ajaran, nominal,jumlah_pembayaran, tbl_jenis_pembayaran.kode_ta');
+		$this->db->from('tbl_jenis_pembayaran');
+		$this->db->join('tbl_tahun_ajaran', 'tbl_tahun_ajaran.kode_ta = tbl_jenis_pembayaran.kode_ta');
+		if ($kode_ta != null) {
+			$this->db->where('tbl_jenis_pembayaran.tahun', $kode_ta);
+		}
+		return $this->db->get()->result();
+	}
+
 
 	public function tambah_data()
 	{
@@ -16,7 +27,7 @@ class Jenis_Pembayaran_Model extends CI_Model
 			'kode_jenispembayaran' => $this->input->post('kode_jenispembayaran', true),
 			'nama_pembayaran' => $this->input->post('nama_pembayaran', true),
 			'nominal' => $this->input->post('nominal', true),
-			'tahun' => $this->input->post('tahun', true),
+			'kode_ta' => $this->input->post('kd_ta', true),
 			'jumlah_pembayaran' => $this->input->post('jumlah_pembayaran', true)
 		);
 
@@ -28,7 +39,7 @@ class Jenis_Pembayaran_Model extends CI_Model
 		$data = array(
 			'nama_pembayaran' => $this->input->post('nama_pembayaran', true),
 			'nominal' => $this->input->post('nominal', true),
-			'tahun' => $this->input->post('tahun', true),
+			'kode_ta' => $this->input->post('kd_ta', true),
 			'jumlah_pembayaran' => $this->input->post('jumlah_pembayaran', true)
 		);
 		$this->db->where('kode_jenispembayaran', $this->input->post('kode_jenispembayaran', true));

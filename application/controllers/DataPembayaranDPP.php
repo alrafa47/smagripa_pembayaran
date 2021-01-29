@@ -9,6 +9,7 @@ class DataPembayaranDPP extends CI_Controller
         }
         $this->load->model("DataPembayaranDPP_Model");
         $this->load->model("DPPSiswa_Model");
+        $this->load->model("Siswa_Model");
         $this->load->library("session");
         $this->load->library('form_validation');
     }
@@ -45,9 +46,11 @@ class DataPembayaranDPP extends CI_Controller
     */
     public function detailTransaksi($nisn)
     {
-
+        $data['nama_siswa'] = $this->Siswa_Model->detail_data($nisn)['nama_siswa'];
         $data['jumlahAngsuran'] = $this->DPPSiswa_Model->detail_data($nisn)['jumlah_angsuran'];
         $data['detailAngsuran'] = $this->DataPembayaranDPP_Model->getDataAngsuranBynisn($nisn);
+
+
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('DataPembayaranDPP/detailTransaksi', $data);

@@ -47,14 +47,14 @@ class DataUser extends CI_Controller
 
     public function hapus($id)
     {
-        $this->User_Model->hapus_data($id);
+        $this->User_Model->deleteData($id);
         $this->session->set_flashdata('flash_user', 'Dihapus');
         redirect('DataUser');
     }
 
     public function ubah($id)
     {
-        $this->form_validation->set_rules("username", "Nama Jurusan", "required|is_unique[user.username]");
+        $this->form_validation->set_rules("username", "Nama Jurusan", "required");
         $this->form_validation->set_rules("pass", "Password", "required");
         if ($this->form_validation->run() == FALSE) {
             $data['ubah'] = $this->User_Model->detail_data($id);

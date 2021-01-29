@@ -37,7 +37,7 @@
                       <input type="text" class="form-control disabled" name="kode_jenispembayaran" value="<?= $ubah['kode_jenispembayaran'] ?>" readonly>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Nama Pembayaran</label>
+                      <label for="exampleInputPassword1">Nama Pembayaran Ujian</label>
                       <input type="text" class="form-control" name="nama_pembayaran" value="<?= $ubah['nama_pembayaran'] ?>">
                     </div>
                     <div class="form-group">
@@ -46,7 +46,20 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Tahun</label>
-                      <input type="text" class="form-control" name="tahun" value="<?= $ubah['tahun'] ?>">
+                      <select class="form-control" name="kd_ta">
+                        <?php
+                        foreach ($tahunajaran as $value) {
+                          $selected = '';
+                          if ($ubah1['kode_ta'] == $value->kode_ta) {
+                            $selected = 'selected';
+                          }
+                        ?>
+                          <option value="<?php echo $value->kode_ta ?>" <?php echo $selected ?>>
+                            <?php echo $value->tahun_ajaran ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Jumlah Pembayaran/Tahun</label>

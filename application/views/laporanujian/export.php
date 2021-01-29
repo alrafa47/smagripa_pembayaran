@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Data LaporanUjian.xls");
+header("Content-Disposition: attachment; filename=LaporanUjian <? $kelass $ta.xls");
 function dataPembayaranUTS_UAS($dataPembayaran, $nis, $jenisPembayaran, $keterangan)
 {
     foreach ($dataPembayaran as $valuedataPembayaran) {
@@ -47,10 +47,10 @@ function dataPembayaranUNBK($dataPembayaran, $nis, $jenisPembayaran)
     }
 </style>
 <center>
-    <h5>LAPORAN KEUANGAN UTS, UAS, UNBK
-        <p>Tahun Ajaran<?php echo "\n" .  $ta ?></p>
-        <p>Kelas<?php echo "\n" . $kelass ?></p>
-    </h5>
+    <h3>LAPORAN KEUANGAN UTS, UAS, UNBK
+        <br>Tahun Ajaran<?php echo "\n" .  $ta ?>
+        <br>Kelas<?php echo "\n" . $kelass ?>
+    </h3>
 </center>
 <table border="1">
     <thead>

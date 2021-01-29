@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
+header("Content-Disposition: attachment; filename=LaporanRekapan <?$kelass $ta.xls");
 ?>
 <style type="text/css">
     body {
@@ -28,10 +28,10 @@ header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
     }
 </style>
 <center>
-    <h5>REKAP TAGIHAN SISWA
-        <p>Tahun Ajaran<?php echo "\n" .  $ta ?></p>
-        <p>Kelas<?php echo "\n" . $kelass ?></p>
-    </h5>
+    <h3>REKAP TAGIHAN SISWA
+        <br>Tahun Ajaran<?php echo "\n" .  $ta ?>
+        <br>Kelas<?php echo "\n" . $kelass ?>
+        </h5>
 </center>
 <table border="1">
     <thead>
@@ -82,14 +82,23 @@ header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
                 <td><?= $row->dpp ?></td>
                 <?php for ($i = 1; $i <= 3; $i++) {
                     $kelas = 'kelas_' . $i ?>
-                    <td><?= $row->$kelas['kode_kelas'] ?></td>
-                    <td><?= $row->$kelas['spp'] ?></td>
-                    <td><?= $row->$kelas['uts1'] ?></td>
-                    <td><?= $row->$kelas['uas1'] ?></td>
-                    <td><?= $row->$kelas['uts2'] ?></td>
-                    <td><?= $row->$kelas['uas2'] ?></td>
+                    <?php if (!empty($row->$kelas['kode_kelas'])) { ?>
+                        <td><?= $row->$kelas['kode_kelas'] ?></td>
+                        <td><?= $row->$kelas['spp'] ?></td>
+                        <td><?= $row->$kelas['uts1'] ?></td>
+                        <td><?= $row->$kelas['uas1'] ?></td>
+                        <td><?= $row->$kelas['uts2'] ?></td>
+                        <td><?= $row->$kelas['uas2'] ?></td>
+                    <?php } else { ?>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    <?php } ?>
                 <?php } ?>
-                <td><?= $row->unbk ?></td>
+                <td><?= (empty($row->unbk)) ? '-' : $row->unbk; ?></td>
 
             </tr>
         <?php

@@ -182,6 +182,28 @@
         })
 
 
+        $('#selectjurusan').change(function() {
+            let selected = $('#selectjurusan').find(':selected').val();
+            $.ajax({
+                type: 'post',
+                url: "<?= base_url('DataDPPSiswa/cariKelas') ?>",
+                data: {
+                    'kode_jurusan': selected
+                },
+                success: function(data) {
+                    var datakelas = JSON.parse(data);
+                    $('#selectkelas').html(datakelas).show();
+                }
+            })
+
+        });
+
+        $('#kelasmendatang').change(function() {
+            let selected = $('#kelasmendatang').find(':selected').val();
+            let kelas = selected.split('_');
+
+            $('.opt-' + kelas[0] + ' option[data-kelas=' + selected + ']').attr("selected", "selected");
+        });
         // modal detail DPP
         $('#detailDPP').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
@@ -216,6 +238,19 @@
             })
         })
         <?php if ($this->uri->segment(1) == 'DataPembayaranUjian') { ?>
+
+            $('#tahunAjaran').change(function() {
+                var result = $('#tahunAjaran option:selected').data('kelas').split('_');
+                var html = "";
+                if (result[0] == 'XII') {
+                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value ="uts">UTS</option><option value ="unbk">UNBK</option>';
+                } else {
+                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value = "uts">UTS</option>';
+                }
+                $('#pembayaran').html(html);
+                $('#pembayaran').removeAttr('disabled');
+            });
+
             $('#pembayaran').change(function() {
                 let dataNisn = "<?= $this->uri->segment(3) ?>";
                 let ta = $('#tahunAjaran').val();
@@ -238,17 +273,7 @@
                     $(this).val('-')
                 }
             });
-            $('#tahunAjaran').change(function() {
-                var result = $('#tahunAjaran option:selected').data('kelas').split('_');
-                var html = "";
-                if (result[0] == 'XII') {
-                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value ="uts">UTS</option><option value ="unbk">UNBK</option>';
-                } else {
-                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value = "uts">UTS</option>';
-                }
-                $('#pembayaran').html(html);
-                $('#pembayaran').removeAttr('disabled');
-            });
+
         <?php }  ?>
 
     });

@@ -55,58 +55,62 @@ class DataPembayaranSPP extends CI_Controller
 		$html = "<form id='formSPP' method='POST' action='" . base_url() . "DataPembayaranSPP/bayarSPP/$nisn'>";
 		$html = '<div class="col-12">';
 		$no = 1;
-		foreach ($listTagihan as $rowTagihan) {
-			$html .= '<table class="table table-bordered">';
-			$html .= '<tr>';
-			$html .= '<td colspan="6">tahun Ajaran : ' . $rowTagihan->tahun_ajaran . ' , Kelas : ' . $dataKelasSiswa['kelas_' . $no] . '</td>';
-			$html .= '</tr>';
-			$html .= '<tr>';
-			$html .= '<tr>';
-			$html .= '<td colspan="6">Semester Ganjil</td>';
-			$html .= '</tr>';
 
-			foreach ($semesterGanjil as $key => $value) {
-				if (isset($listPembayaran[$rowTagihan->kode_ta])) {
-					if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
-						$html .= '<td >';
-						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
-						$html .= '</td>';
+		foreach ($listTagihan as $rowTagihan) {
+			if ($dataKelasSiswa['kelas_' . $no] !== null || $dataKelasSiswa['kelas_' . $no] != '') {
+				# code...
+				$html .= '<table class="table table-bordered">';
+				$html .= '<tr>';
+				$html .= '<td colspan="6">tahun Ajaran : ' . $rowTagihan->tahun_ajaran . ' , Kelas : ' . $dataKelasSiswa['kelas_' . $no] . '</td>';
+				$html .= '</tr>';
+				$html .= '<tr>';
+				$html .= '<tr>';
+				$html .= '<td colspan="6">Semester Ganjil</td>';
+				$html .= '</tr>';
+
+				foreach ($semesterGanjil as $key => $value) {
+					if (isset($listPembayaran[$rowTagihan->kode_ta])) {
+						if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
+							$html .= '<td >';
+							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
+							$html .= '</td>';
+						} else {
+							$html .= '<td >';
+							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+							$html .= '</td>';
+						}
 					} else {
 						$html .= '<td >';
 						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
 						$html .= '</td>';
 					}
-				} else {
-					$html .= '<td >';
-					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
-					$html .= '</td>';
 				}
-			}
-			$html .= '</tr>';
-			$html .= '<tr>';
-			$html .= '<td colspan="6">Semester Genap</td>';
-			$html .= '</tr>';
-			$html .= '<tr>';
-			foreach ($semesterGenap as $key => $value) {
-				if (isset($listPembayaran[$rowTagihan->kode_ta])) {
-					if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
-						$html .= '<td >';
-						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
-						$html .= '</td>';
+				$html .= '</tr>';
+				$html .= '<tr>';
+				$html .= '<td colspan="6">Semester Genap</td>';
+				$html .= '</tr>';
+				$html .= '<tr>';
+				foreach ($semesterGenap as $key => $value) {
+					if (isset($listPembayaran[$rowTagihan->kode_ta])) {
+						if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
+							$html .= '<td >';
+							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
+							$html .= '</td>';
+						} else {
+							$html .= '<td >';
+							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+							$html .= '</td>';
+						}
 					} else {
 						$html .= '<td >';
 						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
 						$html .= '</td>';
 					}
-				} else {
-					$html .= '<td >';
-					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
-					$html .= '</td>';
 				}
+				$html .= '</tr>';
+				$html .= '</table>';
+				$no++;
 			}
-			$html .= '</tr>';
-			$html .= '</table>';
-			$no++;
 		}
 		$html .= '</div>';
 		$html .= '</form>';
@@ -147,6 +151,7 @@ class DataPembayaranSPP extends CI_Controller
 		$data = [
 			'nisn' => $nisn,
 			'nama_siswa' => $result->nama_siswa,
+			'dataSiswa' => $this->Siswa_Model->detail_data($nisn),
 			'ganjil' => [7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'],
 			'genap' => [1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni'],
 			'tahunAjaran' => $this->DataPembayaranSPP_Model->getTagihanSPP($result->kode_ta, $result->tahun_keluar),

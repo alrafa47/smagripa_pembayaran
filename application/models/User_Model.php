@@ -30,7 +30,7 @@ class User_Model extends CI_Model
     public function deleteData($id)
     {
         $this->db->where('id_user', $id);
-        $this->db->delete('rumusan');
+        $this->db->delete('user');
     }
     /* 
     * tambah data

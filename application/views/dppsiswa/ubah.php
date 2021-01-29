@@ -87,7 +87,7 @@
                               }
                             ?>
                               <option value="<?php echo $value->kode_ta ?>" <?php echo $selected ?>>
-                                <?php echo $value->tahun_ajaran . $value->semester  ?></option>
+                                <?php echo $value->tahun_ajaran ?></option>
                             <?php
                             }
                             ?>

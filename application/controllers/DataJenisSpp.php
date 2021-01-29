@@ -32,8 +32,8 @@ class DataJenisSpp extends CI_Controller
 	{
 
 		$this->form_validation->set_rules("nominal_jenis", "Nominal Jenis", "required|is_unique[tbl_jenis_spp.nominal_jenis]");
-		$this->form_validation->set_rules("kategori", "Kategori", "callback_check_select_kategori");
-		$this->form_validation->set_rules("tahun", "Tahun", "required|is_unique[tbl_jenis_spp.tahun]");
+		$this->form_validation->set_rules("kategori", "Kategori", "required|is_unique[tbl_jenis_spp.kategori]");
+		// $this->form_validation->set_rules("tahun", "Tahun", "required|is_unique[tbl_jenis_spp.tahun]");
 
 		if (!$this->form_validation->run()) {
 			$this->index();
@@ -64,7 +64,7 @@ class DataJenisSpp extends CI_Controller
 		$this->form_validation->set_rules("kode_jenisspp", "Kode Jenis SPP", "required|max_length[20]");
 		$this->form_validation->set_rules("nominal_jenis", "Nominal Jenis", "required");
 		$this->form_validation->set_rules("kategori", "Kategori", "required");
-		$this->form_validation->set_rules("tahun", "tahun", "required");
+		// $this->form_validation->set_rules("tahun", "tahun", "required");
 
 		if ($this->form_validation->run() == FALSE) {
 			$data['ubah'] = $this->Jenis_Spp_Model->detail_data($kd);

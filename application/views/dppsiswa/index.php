@@ -111,7 +111,7 @@
                         <!-- diambil dari tbl jurusan -->
                         <div class="form-group">
                           <label for="exampleInputPassword1">Jurusan</label>
-                          <select class="form-control" name="jurusan">
+                          <select class="form-control" name="jurusan" id="selectjurusan">
                             <option>--Pilih Jurusan--</option>
                             <?php
                             foreach ($jurusan as $jur) { ?>
@@ -122,7 +122,7 @@
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Kelas</label>
-                          <select class="form-control" name="kode_kelas">
+                          <select class="form-control" name="kode_kelas" id="selectkelas">
                             <option>--Pilih Kelas--</option>
                             <?php
 

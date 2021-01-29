@@ -31,15 +31,24 @@ class DataTahunAjaran extends CI_Controller
 	public function validation_form()
 	{
 		// $this->form_validation->set_rules("kd_ta", "Kode Tahun Ajaran", "required|is_unique[tbl_tahun_ajaran.kode_ta]|max_length[5]");
-		$this->form_validation->set_rules("thn_ajaran", "Tahun Ajaran", "required");
+		$this->form_validation->set_rules("thn_ajaran", "Tahun Ajaran", "required|is_unique[tbl_tahun_ajaran.tahun_ajaran]");
 		// $this->form_validation->set_rules("smt", "Semester", "callback_check_select_semester");
 		$this->form_validation->set_rules("stts", "Status", "callback_check_select_status");
 
 		if (!$this->form_validation->run()) {
 			$this->index();
 		} else {
-			$this->TahunAjaran_Model->tambah_data();
-			$this->session->set_flashdata('flash_tahunajaran', 'Disimpan');
+			if ($this->input->post('stts') == 'aktif') {
+				if (empty($this->TahunAjaran_Model->statusAktif())) {
+					$this->TahunAjaran_Model->tambah_data();
+					$this->session->set_flashdata('flash_tahunajaran', 'Disimpan');
+				} else {
+					$this->session->set_flashdata('flash_tahunajaran', 'Gagal Disimpan');
+				}
+			} else {
+				$this->TahunAjaran_Model->tambah_data();
+				$this->session->set_flashdata('flash_tahunajaran', 'Disimpan');
+			}
 			redirect('DataTahunAjaran');
 		}
 	}
@@ -82,8 +91,17 @@ class DataTahunAjaran extends CI_Controller
 			$this->load->view('tahunajaran/ubah', $data);
 			$this->load->view('templates/footer');
 		} else {
-			$this->TahunAjaran_Model->ubah_data();
-			$this->session->set_flashdata('flash_tahunajaran', 'DiUbah');
+			if ($this->input->post('stts') == 'aktif') {
+				if (empty($this->TahunAjaran_Model->statusAktif())) {
+					$this->TahunAjaran_Model->ubah_data();
+					$this->session->set_flashdata('flash_tahunajaran', 'DiUbah');
+				} else {
+					$this->session->set_flashdata('flash_tahunajaran', 'Gagal DiUbah');
+				}
+			} else {
+				$this->TahunAjaran_Model->ubah_data();
+				$this->session->set_flashdata('flash_tahunajaran', 'DiUbah');
+			}
 			redirect('DataTahunAjaran');
 		}
 	}

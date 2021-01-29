@@ -44,7 +44,9 @@ class Siswa_Model extends CI_Model
 
 	public function ubah_data()
 	{
-
+		$kelas_1 =  ($this->input->post('kelas_1', true) == '') ? null : $this->input->post('kelas_1', true);;
+		$kelas_2 =  ($this->input->post('kelas_2', true) == '') ? null : $this->input->post('kelas_2', true);;
+		$kelas_3 =  ($this->input->post('kelas_3', true) == '') ? null : $this->input->post('kelas_3', true);;
 		$data = array(
 			'nama_siswa' => $this->input->post('nm_siswa'),
 			'jk' => $this->input->post('jk_siswa'),
@@ -55,9 +57,9 @@ class Siswa_Model extends CI_Model
 			'kode_ta' => $this->input->post('kd_ta', true),
 			'tahun_keluar' => $this->input->post('thn_keluar', true),
 			'kode_jurusan' => $this->input->post('jurusan', true),
-			'kelas_1' => $this->input->post('kelas_1', true),
-			'kelas_2' => $this->input->post('kelas_2', true),
-			'kelas_3' => $this->input->post('kelas_3', true),
+			'kelas_1' => $kelas_1,
+			'kelas_2' => $kelas_2,
+			'kelas_3' => $kelas_3,
 			'kode_jenisspp' => $this->input->post('jenis_spp', true)
 		);
 

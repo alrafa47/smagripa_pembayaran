@@ -16,12 +16,14 @@ class DataJenisPembayaran extends CI_Controller
 		}
 
 		$this->load->model('Jenis_Pembayaran_Model');
+		$this->load->model('TahunAjaran_Model');
 		$this->load->library('form_validation');
 	}
 
 	function index()
 	{
-		$data['jenis_pembayaran'] = $this->Jenis_Pembayaran_Model->getAllData();
+		$data['jenis_pembayaran'] = $this->Jenis_Pembayaran_Model->getAllDataTahun();
+		$data['tahunajaran'] = $this->TahunAjaran_Model->getAllData();
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('jenis_pembayaran/index', $data);
@@ -30,10 +32,10 @@ class DataJenisPembayaran extends CI_Controller
 
 	public function validation_form()
 	{
-		$this->form_validation->set_rules("kode_jenispembayaran", "Kode Jenis Pembayaran", "required|is_unique[tbl_jenis_pembayaran.kode_jenispembayaran]|max_length[20]");
-		$this->form_validation->set_rules("nama_pembayaran", "Nama Pembayaran", "required[tbl_jenis_pembayaran.nama_pembayaran]");
-		$this->form_validation->set_rules("nominal", "Nominal", "required[tbl_jenis_pembayaran.nominal]");
-		$this->form_validation->set_rules("tahun", "Tahun Berlaku", "required[tbl_jenis_pembayaran.tahun]");
+		// $this->form_validation->set_rules("kode_jenispembayaran", "Kode Jenis Pembayaran", "required|is_unique[tbl_jenis_pembayaran.kode_jenispembayaran]|max_length[20]");
+		$this->form_validation->set_rules("nama_pembayaran", "Nama Pembayaran", "required");
+		$this->form_validation->set_rules("nominal", "Nominal", "required");
+		$this->form_validation->set_rules("kd_ta", "Tahun Berlaku", "required");
 		$this->form_validation->set_rules("jumlah_pembayaran", "Jumlah Pembayaran", "required[tbl_jenis_pembayaran.jumlah_pembayaran]");
 		if ($this->form_validation->run() == FALSE) {
 			$this->index();
@@ -56,10 +58,11 @@ class DataJenisPembayaran extends CI_Controller
 		$this->form_validation->set_rules("kode_jenispembayaran", "Kode Jenis Pembayaran", "required|max_length[20]");
 		$this->form_validation->set_rules("nama_pembayaran", "Nama Pembayaran", "required");
 		$this->form_validation->set_rules("nominal", "Nominal", "required");
-		$this->form_validation->set_rules("tahun", "Tahun", "required");
+		$this->form_validation->set_rules("kd_ta", "Tahun", "required");
 		$this->form_validation->set_rules("jumlah_pembayaran", "Jumlah Pembayaran", "required[tbl_jenis_pembayaran.jumlah_pembayaran]");
 		if ($this->form_validation->run() == FALSE) {
 			$data['ubah'] = $this->Jenis_Pembayaran_Model->detail_data($kd);
+			$data['tahunajaran'] = $this->TahunAjaran_Model->getAllData();
 			$this->load->view('templates/header');
 			$this->load->view('templates/sidebar');
 			$this->load->view('jenis_pembayaran/ubah', $data);

@@ -46,19 +46,42 @@
                                     <option value="-">Pilih Tahun Ajaran</option>
                                     <?php
                                     $no = 1;
-                                    foreach ($tahunAjaran as $valueTahunAJaran) : ?>
-                                        <option value="<?= $valueTahunAJaran->kode_ta . '-' . $siswa['kelas_' . $no] ?>" data-kelas='<?= $siswa['kelas_' . $no] ?>'><?= $valueTahunAJaran->tahun_ajaran . '::' . $siswa['kelas_' . $no] ?></option>
+                                    foreach ($tahunAjaran as $valueTahunAJaran) :
+                                        if ($siswa['kelas_' . $no] !== null) {
+                                    ?>
+                                            <option value="<?= $valueTahunAJaran->kode_ta . '-' . $siswa['kelas_' . $no] ?>" data-kelas='<?= $siswa['kelas_' . $no] ?>'><?= $valueTahunAJaran->tahun_ajaran . '::' . $siswa['kelas_' . $no] ?></option>
                                     <?php
+                                        }
                                         $no++;
                                     endforeach; ?>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputFile">Jenis Pembayaran</label>
-                                <select class="form-control" name="jenisPembayaran" id="pembayaran" disabled>
-                                    <option value="-">Pilih Pembayaran</option>
-                                    <div id="jenisPembayaran"></div>
-                                </select>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Jenis Pembayaran</label>
+                                        <select class="form-control" name="jenisPembayaran" disabled>
+                                            <option value="-">Pilih Pembayaran</option>
+                                            <div id="jenisPembayaran"></div>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Tahun Ajaran</label>
+                                        <select class="form-control" name="ta" disabled>
+                                            <option value="-">Pilih Pembayaran</option>
+                                            <div id="ta"></div>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Nominal</label>
+                                        <input type="number" class="form-control" name="nominal" readonly>
+                                    </div>
+                                </div>
+
                             </div>
                             <div id="dataPembayaran"></div>
                             <button class="mt-5 btn btn-primary float-right btn-lg" type="submit">Bayar</button>

@@ -33,8 +33,13 @@
                                                 <select class="form-control" name="ta">
                                                     <option value="lihat_semua">Pilih Tahun</option>
                                                     <?php
-                                                    foreach ($tahunajaran as $row) { ?>
-                                                        <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
+                                                    foreach ($tahunajaran as $row) {
+                                                        $selected = '';
+                                                        if ($this->input->get('ta') == $row->kode_ta) {
+                                                            $selected = 'selected';
+                                                        }
+                                                    ?>
+                                                        <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?> <?= $selected ?>><?= $row->tahun_ajaran ?></option>
                                                     <?php } ?>
                                                     ?>
 
@@ -47,8 +52,13 @@
                                                 <select class="form-control" name="kelas">
                                                     <option value="lihat_semua">Pilih Kelas</option>
                                                     <?php
-                                                    foreach ($kelas as $row) { ?>
-                                                        <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
+                                                    foreach ($kelas as $row) {
+                                                        $selected = '';
+                                                        if ($this->input->get('kelas') == $row->kode_kelas) {
+                                                            $selected = 'selected';
+                                                        }
+                                                    ?>
+                                                        <option value="<?= $row->kode_kelas ?>" <?= $selected ?>><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
                                                     <?php } ?>
                                                     ?>
 
@@ -72,68 +82,70 @@
             <div class="card">
                 <!-- card-body -->
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped table-responsive">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">No</th>
-                                <th rowspan="2">NISN</th>
-                                <th rowspan="2">Nama Siswa</th>
-                                <th rowspan="2">Nominal Bayar</th>
-                                <th colspan="12">Bulan</th>
-                            </tr>
-                            <tr>
-                                <?php foreach ($bulan as $bln) : ?>
-                                    <td>
-                                        <label><?= $bln ?></label>
-                                    </td>
-                                <?php endforeach; ?>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $no = 1;
-                            function dataBayar($dataBayar, $nisn)
-                            {
-                                $jumlahTotalTerbayar = 0;
-                                foreach ($dataBayar as $valueBayar) {
-                                    if ($valueBayar->nisn == $nisn) {
-                                        $jumlahTotalTerbayar += $valueBayar->nominal_bayar;
-                                    }
-                                }
-                                return $jumlahTotalTerbayar;
-                            }
-
-                            function dataBayarPerBulan($dataPembayaran, $nisn, $bulan, $ta)
-                            {
-                                foreach ($dataPembayaran as $valueBayar) {
-                                    if ($valueBayar->nisn == $nisn && $bulan == $valueBayar->bulan && $ta == $valueBayar->ta_bayar) {
-                                        return 'lunas';
-                                    }
-                                }
-                                return '-';
-                            }
-
-                            $nisn = '';
-
-                            foreach ($dataSiswa as $row) {
-                            ?>
+                    <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-striped responsive">
+                            <thead>
                                 <tr>
-                                    <td><?= $no ?></td>
-                                    <td><?= $row->nisn ?></td>
-                                    <td><?= $row->nama_siswa ?></td>
-                                    <td><?= $row->nominal_jenis  ?></td>
-                                    <?php foreach ($bulan as $keyBulan => $bln) : ?>
+                                    <th rowspan="2">No</th>
+                                    <th rowspan="2">NISN</th>
+                                    <th rowspan="2">Nama Siswa</th>
+                                    <th rowspan="2">Nominal Bayar</th>
+                                    <th colspan="12">Bulan</th>
+                                </tr>
+                                <tr>
+                                    <?php foreach ($bulan as $bln) : ?>
                                         <td>
-                                            <label><?= dataBayarPerBulan($dataPembayaran, $row->nisn, $keyBulan, $this->input->get('ta')) ?></label>
+                                            <label><?= $bln ?></label>
                                         </td>
                                     <?php endforeach; ?>
                                 </tr>
-                            <?php
-                                $no++;
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                function dataBayar($dataBayar, $nisn)
+                                {
+                                    $jumlahTotalTerbayar = 0;
+                                    foreach ($dataBayar as $valueBayar) {
+                                        if ($valueBayar->nisn == $nisn) {
+                                            $jumlahTotalTerbayar += $valueBayar->nominal_bayar;
+                                        }
+                                    }
+                                    return $jumlahTotalTerbayar;
+                                }
+
+                                function dataBayarPerBulan($dataPembayaran, $nisn, $bulan, $ta)
+                                {
+                                    foreach ($dataPembayaran as $valueBayar) {
+                                        if ($valueBayar->nisn == $nisn && $bulan == $valueBayar->bulan && $ta == $valueBayar->ta_bayar) {
+                                            return 'lunas';
+                                        }
+                                    }
+                                    return '-';
+                                }
+
+                                $nisn = '';
+
+                                foreach ($dataSiswa as $row) {
+                                ?>
+                                    <tr>
+                                        <td><?= $no ?></td>
+                                        <td><?= $row->nisn ?></td>
+                                        <td><?= $row->nama_siswa ?></td>
+                                        <td><?= $row->nominal_jenis  ?></td>
+                                        <?php foreach ($bulan as $keyBulan => $bln) : ?>
+                                            <td>
+                                                <label><?= dataBayarPerBulan($dataPembayaran, $row->nisn, $keyBulan, $this->input->get('ta')) ?></label>
+                                            </td>
+                                        <?php endforeach; ?>
+                                    </tr>
+                                <?php
+                                    $no++;
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>

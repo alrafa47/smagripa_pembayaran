@@ -34,8 +34,13 @@
                                                 <select class="form-control" name="ta">
                                                     <option value="lihat_semua">Pilih tahun</option>
                                                     <?php
-                                                    foreach ($tahunajaran as $row) { ?>
-                                                        <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
+                                                    foreach ($tahunajaran as $row) {
+                                                        $selected = '';
+                                                        if ($this->input->get('ta') == $row->kode_ta) {
+                                                            $selected = 'selected';
+                                                        }
+                                                    ?>
+                                                        <option value="<?= $row->kode_ta ?>" <?= $selected ?>><?= $row->tahun_ajaran ?></option>
                                                     <?php } ?>
                                                     ?>
                                                 </select>
@@ -47,8 +52,13 @@
                                                 <select class="form-control" name="kelas">
                                                     <option value="lihat_semua">Pilih kelas</option>
                                                     <?php
-                                                    foreach ($kelas as $row) { ?>
-                                                        <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
+                                                    foreach ($kelas as $row) {
+                                                        $selected = '';
+                                                        if ($this->input->get('kelas') == $row->kode_kelas) {
+                                                            $selected = 'selected';
+                                                        }
+                                                    ?>
+                                                        <option value="<?= $row->kode_kelas ?>" <?= $selected ?>><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -57,7 +67,7 @@
                                             <?php if ($this->input->get('kelas') !== null) : ?>
                                                 <div class="form-group">
                                                     <label>Kelas Mendatang</label>
-                                                    <select class="form-control">
+                                                    <select class="form-control" id="kelasmendatang">
                                                         <option value=" lihat_semua">Pilih kelas</option>
                                                         <?php
                                                         foreach ($kelas as $row) {
@@ -125,14 +135,14 @@
                                             } else {
                                             ?>
 
-                                                <select class="form-control" name="kelas_1[]">
+                                                <select class="form-control opt-X" name="kelas_1[]">
                                                     <option value="">Pilih kelas</option>
                                                     <?php
                                                     foreach ($kelas as $valueKelas) {
                                                         $expKelas = explode('_', $valueKelas->kode_kelas);
                                                         if ($row->kode_jurusan == $expKelas[1] && 'X' == $expKelas[0]) {
                                                     ?>
-                                                            <option value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
+                                                            <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
                                                     <?php }
                                                     } ?>
                                                 </select>
@@ -147,14 +157,14 @@
                                                 echo $row->kelas_2;
                                             } else {
                                             ?>
-                                                <select class="form-control" name="kelas_2[]">
+                                                <select class="form-control opt-XI" name="kelas_2[]">
                                                     <option value="">Pilih kelas</option>
                                                     <?php
                                                     foreach ($kelas as $valueKelas) {
                                                         $expKelas = explode('_', $valueKelas->kode_kelas);
                                                         if ($row->kode_jurusan == $expKelas[1] && 'XI' == $expKelas[0]) {
                                                     ?>
-                                                            <option value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
+                                                            <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
 
                                                     <?php }
                                                     } ?>
@@ -170,14 +180,14 @@
                                                 echo $row->kelas_3;
                                             } else {
                                             ?>
-                                                <select class="form-control" name="kelas_3[]">
+                                                <select class="form-control opt-XII" name="kelas_3[]">
                                                     <option value="">Pilih kelas</option>
                                                     <?php
                                                     foreach ($kelas as $valueKelas) {
                                                         $expKelas = explode('_', $valueKelas->kode_kelas);
                                                         if ($row->kode_jurusan == $expKelas[1] && 'XII' == $expKelas[0]) {
                                                     ?>
-                                                            <option value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
+                                                            <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
 
                                                     <?php }
                                                     } ?>

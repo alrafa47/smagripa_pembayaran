@@ -5,12 +5,20 @@
  */
 class TahunAjaran_Model extends CI_Model
 {
-	public $tahunAjaranAktif;
+	public $tahunAjaranAktif  = '';
 	public function __construct()
 	{
-		$taAktif = $this->db->get_where('tbl_tahun_ajaran', ['status' => 'aktif'])->row();
-		$this->tahunAjaranAktif = $taAktif->kode_ta;
+		$taAktif = $this->statusAktif();
+		if (!empty($taAktif)) {
+			$this->tahunAjaranAktif = $taAktif->kode_ta;
+		}
 	}
+
+	public function statusAktif()
+	{
+		return $this->db->get_where('tbl_tahun_ajaran', ['status' => 'aktif'])->row();
+	}
+
 	public function getAllData()
 	{
 		return $this->db->get('tbl_tahun_ajaran')->result();

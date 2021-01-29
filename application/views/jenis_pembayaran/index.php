@@ -52,12 +52,12 @@
                 <?= validation_errors(); ?>
                 <form action="<?= base_url() ?>DataJenisPembayaran/validation_form" method="post" accept-charset="utf-8">
                   <div class="card-body">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputEmail1">Kode Jenis Pembayaran</label>
                       <input type="text" class="form-control" id="exampleInputEmail1" name="kode_jenispembayaran">
-                    </div>
+                    </div> -->
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Nama Pembayaran</label>
+                      <label for="exampleInputPassword1">Nama Pembayaran Ujian</label>
                       <input type="text" class="form-control" id="exampleInputPassword1" name="nama_pembayaran">
                     </div>
                     <div class="form-group">
@@ -66,7 +66,15 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Tahun Berlaku </label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="tahun">
+                      <select class="form-control" name="kd_ta">
+                        <option>--Pilih Tahun--</option>
+                        <?php
+
+                        foreach ($tahunajaran as $row) { ?>
+                          <option value="<?= $row->kode_ta ?>" <?php echo set_select('kd_ta', $row->kode_ta); ?>><?= $row->tahun_ajaran ?></option>
+                        <?php } ?>
+                      </select>
+
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Jumlah Pembayaran/Tahun </label>
@@ -117,7 +125,7 @@
                       <td><?= $row->kode_jenispembayaran ?></td>
                       <td><?= $row->nama_pembayaran ?></td>
                       <td><?= $row->nominal ?></td>
-                      <td><?= $row->tahun ?></td>
+                      <td><?= $row->tahun_ajaran ?></td>
                       <td><?= $row->jumlah_pembayaran ?></td>
                       <td>
                         <div class="btn-group">

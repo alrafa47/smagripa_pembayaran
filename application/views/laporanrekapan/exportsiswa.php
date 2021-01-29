@@ -4,7 +4,7 @@
 ?>
 <style type="text/css">
     body {
-        font-family: sans-serif;
+        font-family: t sans-serif;
     }
 
     table {

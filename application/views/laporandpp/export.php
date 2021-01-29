@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
+header("Content-Disposition: attachment; filename=LaporanDPP <? $jurusan $tahun_awal - $tahun_akhir?>.xls");
 ?>
 <style type="text/css">
     body {
@@ -28,10 +28,10 @@ header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
     }
 </style>
 <center>
-    <h5>LAPORAN KEUANGAN DPP
-        <p>Tahun Ajaran<?php echo "\n" .  $tahun_awal ?></p>
-        <p>Jurusan<?php echo "\n" . $jurusan ?></p>
-    </h5>
+    <h3>LAPORAN KEUANGAN DPP
+        <br>Tahun Ajaran<?php echo "\n" .  $tahun_awal . " \n-\n " . $tahun_akhir ?>
+        <br>Jurusan<?php echo "\n" . $jurusan ?>
+    </h3>
 
 </center>
 

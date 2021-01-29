@@ -35,7 +35,7 @@ Content Wrapper. Contains page content -->
                   <div class="card-body">
                     <div class="form-group">
                       <label for="username">Username</label>
-                      <input type="text" class="form-control" id="username" name="username" value="<?= $ubah['username'] ?>">
+                      <input type="text" class="form-control disable" id="username" name="username" value="<?= $ubah['username'] ?>" readonly>
                     </div>
                     <div class="form-group">
                       <label for="pass">Password</label>
@@ -45,6 +45,7 @@ Content Wrapper. Contains page content -->
                       <label for="level">Admin</label>
                       <select name="level" class="form-control">
                         <option value="admin">Admin</option>
+                        <option value="petugas">Petugas</option>
                       </select>
                     </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">

@@ -474,10 +474,10 @@ class DataLaporanRekapan extends CI_Controller
 
 
         $writer = new Xlsx($spreadsheet);
-        $path = FCPATH . '/uploads/' . 'Pembayaran Siswa ' . $dataSiswa['nama_siswa'] . '.xlsx';
+        $path = FCPATH . '/uploads/' . 'Tagihan Siswa ' . $dataSiswa['nama_siswa'] . '.xlsx';
         $writer->save($path);
         force_download($path, NULL);
-        unlink('./uploads/Pembayaran Siswa ' . $dataSiswa['nama_siswa'] . '.xlsx');
+        unlink('./uploads/Tagihan Siswa ' . $dataSiswa['nama_siswa'] . '.xlsx');
     }
 
     public function exportAllExcel($ta, $kelas)

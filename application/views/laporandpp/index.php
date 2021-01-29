@@ -35,7 +35,11 @@
                                                     <option value='lihat_semua'>lihat Semua</option>
                                                     <?php
                                                     foreach ($jurusan as $valueJurusan) {
-                                                        echo "<option value='$valueJurusan->kode_jurusan'>$valueJurusan->nama_jurusan</option>";
+                                                        $selected = '';
+                                                        if ($this->input->get('jurusan') == $valueJurusan->kode_jurusan) {
+                                                            $selected = 'selected';
+                                                        }
+                                                        echo "<option value='$valueJurusan->kode_jurusan' $selected>$valueJurusan->nama_jurusan</option>";
                                                     }
                                                     ?>
                                                 </select>
@@ -47,7 +51,11 @@
                                                 <select class="form-control" name="tahun_awal">
                                                     <?php
                                                     foreach ($dataTahunAjaran as $valueTahunAjaran) {
-                                                        echo "<option value='$valueTahunAjaran->kode_ta'>$valueTahunAjaran->tahun_ajaran</option>";
+                                                        $selected = '';
+                                                        if ($this->input->get('tahun_awal') == $valueTahunAjaran->kode_ta) {
+                                                            $selected = 'selected';
+                                                        }
+                                                        echo "<option value='$valueTahunAjaran->kode_ta' $selected>$valueTahunAjaran->tahun_ajaran</option>";
                                                     }
                                                     ?>
                                                 </select>
@@ -59,7 +67,11 @@
                                                 <select class="form-control" name="tahun_akhir">
                                                     <?php
                                                     foreach ($dataTahunAjaran as $valueTahunAjaran) {
-                                                        echo "<option value='$valueTahunAjaran->kode_ta'>$valueTahunAjaran->tahun_ajaran</option>";
+                                                        $selected = '';
+                                                        if ($this->input->get('tahun_akhir') == $valueTahunAjaran->kode_ta) {
+                                                            $selected = 'selected';
+                                                        }
+                                                        echo "<option value='$valueTahunAjaran->kode_ta' $selected>$valueTahunAjaran->tahun_ajaran</option>";
                                                     }
                                                     ?>
                                                 </select>
@@ -82,57 +94,59 @@
             <div class="card">
                 <!-- card-body -->
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>NISN</th>
-                                <th>Nama Siswa</th>
-                                <th>Jumlah DPP</th>
-                                <th>Nominal Angsuran</th>
-                                <th>Jumlah Angsuran</th>
-                                <th>Terbayar</th>
-                                <th>Belum Terbayar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $no = 1;
-                            function dataAngsuran($dataAngsuran, $nisn)
-                            {
-                                $jumlahTotalTerbayar = 0;
-                                foreach ($dataAngsuran as $valueAngsuran) {
-                                    if ($valueAngsuran->nisn == $nisn) {
-                                        $jumlahTotalTerbayar += $valueAngsuran->nominal_bayar;
-                                    }
-                                }
-                                return $jumlahTotalTerbayar;
-                            }
-                            foreach ($dataSiswa as $row) {
-                                $data = dataAngsuran($dataAngsuran, $row->nisn);
-                            ?>
+                    <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td><?= $no ?></td>
-                                    <td><?= $row->nisn ?></td>
-                                    <td><?= $row->nama_siswa ?></td>
-                                    <td><?= $row->nominal_dpp ?></td>
-                                    <td><?= $row->nominal_angsuran ?></td>
-                                    <td><?= $row->jumlah_angsuran ?></td>
-                                    <td><?= $data ?></td>
-                                    <td><?= $row->nominal_dpp - $data ?></td>
-                                    <!-- <td>
+                                    <th>No</th>
+                                    <th>NISN</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Jumlah DPP</th>
+                                    <th>Nominal Angsuran</th>
+                                    <th>Jumlah Angsuran</th>
+                                    <th>Terbayar</th>
+                                    <th>Belum Terbayar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                function dataAngsuran($dataAngsuran, $nisn)
+                                {
+                                    $jumlahTotalTerbayar = 0;
+                                    foreach ($dataAngsuran as $valueAngsuran) {
+                                        if ($valueAngsuran->nisn == $nisn) {
+                                            $jumlahTotalTerbayar += $valueAngsuran->nominal_bayar;
+                                        }
+                                    }
+                                    return $jumlahTotalTerbayar;
+                                }
+                                foreach ($dataSiswa as $row) {
+                                    $data = dataAngsuran($dataAngsuran, $row->nisn);
+                                ?>
+                                    <tr>
+                                        <td><?= $no ?></td>
+                                        <td><?= $row->nisn ?></td>
+                                        <td><?= $row->nama_siswa ?></td>
+                                        <td><?= $row->nominal_dpp ?></td>
+                                        <td><?= $row->nominal_angsuran ?></td>
+                                        <td><?= $row->jumlah_angsuran ?></td>
+                                        <td><?= $data ?></td>
+                                        <td><?= $row->nominal_dpp - $data ?></td>
+                                        <!-- <td>
                                         <div class="btn-group">
                                             <a href="<?= base_url() ?>DataJurusan/hapus/<?= $row->kode_jurusan ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
                                             <a href="<?= base_url() ?>DataJurusan/ubah/<?= $row->kode_jurusan ?>" class="btn btn-warning">update</a>
                                         </div>
                                     </td> -->
-                                </tr>
-                            <?php
-                                $no++;
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                    </tr>
+                                <?php
+                                    $no++;
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>

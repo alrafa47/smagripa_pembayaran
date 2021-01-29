@@ -1,7 +1,8 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Data LaporanSPP.xls");
+header("Content-Disposition: attachment; filename=LaporanSPP <? $kelass $ta?>.xls");
 ?>
+
 <style type="text/css">
     body {
         font-family: sans-serif;
@@ -28,10 +29,10 @@ header("Content-Disposition: attachment; filename=Data LaporanSPP.xls");
     }
 </style>
 <center>
-    <h5>LAPORAN KEUANGAN SPP
-        <p>Tahun Ajaran<?php echo "\n" .  $ta ?></p>
-        <p>Kelas<?php echo "\n" . $kelass ?></p>
-    </h5>
+    <h3>LAPORAN KEUANGAN SPP
+        <br>Tahun Ajaran<?php echo "\n" .  $ta ?>
+        <br>Kelas<?php echo "\n" . $kelass ?>
+    </h3>
 </center>
 <br>
 <table border="1">

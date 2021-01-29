@@ -20,6 +20,17 @@ class DataDPPSiswa extends CI_Controller
 		$this->load->library('form_validation');
 	}
 
+	public function cariKelas()
+	{
+		$nisn = $this->input->post('kode_jurusan');
+		$kelas = $this->Kelas_Model->getAllData($nisn);
+		$html = '';
+		foreach ($kelas as $key => $row) {
+			$html .= "<option value='$row->kode_kelas'>$row->kode_kelas</option>";
+		}
+		echo json_encode($html);
+	}
+
 	function index()
 	{
 		$data['dppsiswa'] = $this->DPPSiswa_Model->getAllData();

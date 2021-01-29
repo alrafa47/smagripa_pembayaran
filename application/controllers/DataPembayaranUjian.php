@@ -107,6 +107,7 @@ class DataPembayaranUjian extends CI_Controller
         $result = $this->DataPembayaranSPP_Model->getDataSIswaJoinJenisSPPByNISN($nisn);
         $data = [
             'nisn' => $nisn,
+            'dataSiswa' => $this->Siswa_Model->detail_data($nisn),
             'nama_siswa' => $result->nama_siswa,
             'tahunAjaran' => $this->DataPembayaranSPP_Model->getTagihanSPP($result->kode_ta, $result->tahun_keluar),
             'pembayaranUjian' => $this->DataPembayaranUjian_Model->pembayaranSiswa($nisn)

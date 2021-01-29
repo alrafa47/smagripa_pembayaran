@@ -52,28 +52,24 @@
                 <?= validation_errors(); ?>
                 <form action="<?= base_url() ?>DataJenisSpp/validation_form" method="post" accept-charset="utf-8">
                   <div class="card-body">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputEmail1">Kode Jenis SPP</label>
                       <input type="text" class="form-control" id="exampleInputEmail1" name="kode_jenisspp">
+                    </div> -->
+
+
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Tingkat</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="kategori">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nominal Jenis</label>
                       <input type="text" class="form-control" id="exampleInputPassword1" name="nominal_jenis">
                     </div>
-                    <div class="form-group">
-                      <label>Kategori</label>
-                      <select class="form-control" name="kategori">
-                        <option>--Pilih Kategori SPP--</option>
-                        <option value="tingkat 1" <?php echo  set_select('kategori', 'tingkat 1'); ?>>Tingkat 1</option>
-                        <option value="tingkat 2" <?php echo  set_select('kategori', 'tingkat 2'); ?>>Tingkat 2</option>
-                        <option value="tingkat 3" <?php echo  set_select('kategori', 'tingkat 3'); ?>>Tingkat 3</option>
-
-                      </select>
-                    </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputEmail1">Tahun</label>
                       <input type="text" class="form-control" id="exampleInputEmail1" name="tahun">
-                    </div>
+                    </div> -->
 
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>
@@ -103,8 +99,8 @@
                   <th>No</th>
                   <th>Kode Jenis SPP</th>
                   <th>Nominal Jenis</th>
-                  <th>Kategori</th>
-                  <th>Tahun</th>
+                  <th>Tingkat</th>
+                  <!-- <th>Tahun</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -117,7 +113,7 @@
                     <td><?= $row->kode_jenisspp ?></td>
                     <td><?= $row->nominal_jenis ?></td>
                     <td><?= $row->kategori ?></td>
-                    <td><?= $row->tahun ?></td>
+                    <!-- <td><?= $row->tahun ?></td> -->
                     <td>
                       <div class="btn-group">
                         <a href="<?= base_url() ?>DataJenisSpp/hapus/<?= $row->kode_jenisspp ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a>

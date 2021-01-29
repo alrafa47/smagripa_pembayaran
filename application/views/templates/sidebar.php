@@ -57,14 +57,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?= base_url() ?>DataNaikKelas" class="nav-link">
-              <i class="fas fa-university"></i>
-              <p>
-                Data Kenaikan Kelas
-              </p>
-            </a>
-          </li>
+
           <!-- Data Tahun Ajaran -->
           <li class="nav-item">
             <a href="<?= base_url() ?>DataTahunAjaran" class="nav-link">
@@ -92,7 +85,14 @@
               </p>
             </a>
           </li>
-
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataNaikKelas" class="nav-link">
+              <i class="fas fa-university"></i>
+              <p>
+                Data Kenaikan Kelas
+              </p>
+            </a>
+          </li>
 
           <li class="nav-item">
             <a href="<?= base_url() ?>DataJenisPembayaran" class="nav-link">
