@@ -130,7 +130,7 @@ class DataPembayaranUjian extends CI_Controller
     public function getDataTahunAjaran()
     {
         $data = explode('-', $this->input->post('ta'));
-        $dataPembayaranSiswa = $this->DataPembayaranUjian_Model->getpembayaranSiswa($this->input->post('nisn'), $data[0]);
+        $dataPembayaranSiswa = $this->DataPembayaranUjian_Model->getpembayaranSiswa($this->input->post('nisn'), $data[0], $this->input->post('jenispembayaran'));
         $html = "<option value='-' > Pilih Tahun Ajaran</option>";
         if (!empty($dataPembayaranSiswa)) {
             $html .= "<option data-harga='$dataPembayaranSiswa->nominal' value='$dataPembayaranSiswa->kode_jenispembayaran' > $dataPembayaranSiswa->tahun_ajaran</option>";
@@ -140,6 +140,7 @@ class DataPembayaranUjian extends CI_Controller
                 $html .= "<option data-harga='$value->nominal' value='$value->kode_jenispembayaran' > $value->tahun_ajaran</option>";
             }
         }
+        // print_r($dataPembayaranSiswa);
         echo json_encode($html);
     }
 }

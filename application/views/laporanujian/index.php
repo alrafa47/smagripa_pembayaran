@@ -86,10 +86,13 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <?php
+                        echo "<pre>";
+                        print_r($dataPembayaran);
+                        echo "</pre>";
                         function dataPembayaranUTS_UAS($dataPembayaran, $nis, $jenisPembayaran, $keterangan)
                         {
                             foreach ($dataPembayaran as $valuedataPembayaran) {
-                                if ($valuedataPembayaran->nisn ==  $nis && $valuedataPembayaran->kode_jenispembayaran == $jenisPembayaran && $valuedataPembayaran->keterangan == $keterangan) {
+                                if ($valuedataPembayaran->nisn ==  $nis && $valuedataPembayaran->nama_pembayaran == $jenisPembayaran && $valuedataPembayaran->keterangan == $keterangan) {
                                     return "lunas";
                                 }
                             }
@@ -98,7 +101,7 @@
                         {
                             $no = 0;
                             foreach ($dataPembayaran as $valuedataPembayaran) {
-                                if ($valuedataPembayaran->nisn ==  $nis && $valuedataPembayaran->kode_jenispembayaran == $jenisPembayaran) {
+                                if ($valuedataPembayaran->nisn ==  $nis && $valuedataPembayaran->nama_pembayaran == $jenisPembayaran) {
                                     $no++;
                                 }
                             }
@@ -130,8 +133,14 @@
                             <tbody>
                                 <?php
                                 $no = 1;
-                                foreach ($this->Jenis_Pembayaran_Model->getAllData() as $value) {
+                                foreach ($jenisPembayaran as $value) {
                                     $dataJenisPembayaran[$value->kode_jenispembayaran] = $value->nominal;
+                                }
+                                function cekPembayaran($nisn, $kelas)
+                                {
+                                    if ($this->DataPembayaranUjian_Model->cekPembayaranUjian($nisn, $kelas)) {
+                                        # code...
+                                    }
                                 }
                                 foreach ($dataSiswa as $row) { ?>
 
@@ -139,15 +148,15 @@
                                         <td><?= $no ?></td>
                                         <td><?= $row->nisn ?></td>
                                         <td><?= $row->nama_siswa ?></td>
-                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'uts', 1) == 'lunas') ? 'lunas' : $dataJenisPembayaran['uts'] ?></td>
-                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'uts', 2) == 'lunas') ? 'lunas' : $dataJenisPembayaran['uts'] ?></td>
-                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'uas', 1) == 'lunas') ? 'lunas' : $dataJenisPembayaran['uas'] ?></td>
-                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'uas', 2) == 'lunas') ? 'lunas' : $dataJenisPembayaran['uas'] ?></td>
+                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UTS', 1) == 'lunas') ? 'lunas' : $dataJenisPembayaran['UTS'] ?></td>
+                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UTS', 2) == 'lunas') ? 'lunas' : $dataJenisPembayaran['UTS'] ?></td>
+                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UAS', 1) == 'lunas') ? 'lunas' : $dataJenisPembayaran['UAS'] ?></td>
+                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UAS', 2) == 'lunas') ? 'lunas' : $dataJenisPembayaran['UAS'] ?></td>
                                         <?php if ($explode_kelas[0] == 'XII') :
-                                            $sisaAngsuranPembayaranUnbk = dataPembayaranUNBK($dataPembayaran, $row->nisn, 'unbk');
+                                            $sisaAngsuranPembayaranUnbk = dataPembayaranUNBK($dataPembayaran, $row->nisn, 'UNBK');
                                         ?>
 
-                                            <td><?= ($sisaAngsuranPembayaranUnbk == 0) ? 'lunas' : $dataJenisPembayaran['unbk'] / 12 * $sisaAngsuranPembayaranUnbk ?></td>
+                                            <td><?= ($sisaAngsuranPembayaranUnbk == 0) ? 'lunas' : $dataJenisPembayaran['UNBK'] / 12 * $sisaAngsuranPembayaranUnbk ?></td>
                                         <?php endif; ?>
 
                                     </tr>

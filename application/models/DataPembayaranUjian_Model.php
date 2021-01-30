@@ -12,14 +12,18 @@ class DataPembayaranUjian_Model extends CI_Model
 
     public function pembayaranSiswa($nisn)
     {
+        $this->db->select('no_transaksi, nisn, kode_kelas, tanggal, tbl_pembayaran_ujian.kode_jenispembayaran, tbl_pembayaran_ujian.nominal, tbl_pembayaran_ujian.kode_ta as tahunBayar, tbl_jenis_pembayaran.kode_ta as kode_ta, keterangan, nama_pembayaran, jumlah_pembayaran');
         $this->db->join('tbl_jenis_pembayaran', 'tbl_pembayaran_ujian.kode_jenispembayaran = tbl_jenis_pembayaran.kode_jenispembayaran');
         return $this->db->get_where('tbl_pembayaran_ujian', ['nisn' => $nisn])->result();
     }
 
-    public function getpembayaranSiswa($nisn, $ta)
+    public function getpembayaranSiswa($nisn, $ta, $jenisPembayaran)
     {
-        $this->db->join('tbl_tahun_ajaran', 'tbl_pembayaran_ujian.kode_ta = tbl_tahun_ajaran.kode_ta');
+        $this->db->select('no_transaksi, nisn, kode_kelas, tanggal, tbl_pembayaran_ujian.kode_jenispembayaran, tbl_pembayaran_ujian.nominal, tbl_pembayaran_ujian.kode_ta as tahunBayar, tbl_jenis_pembayaran.kode_ta as kode_ta, keterangan, nama_pembayaran, jumlah_pembayaran, tbl_tahun_ajaran.tahun_ajaran');
+        $this->db->join('tbl_jenis_pembayaran', 'tbl_pembayaran_ujian.kode_jenispembayaran = tbl_jenis_pembayaran.kode_jenispembayaran');
+        $this->db->join('tbl_tahun_ajaran', 'tbl_jenis_pembayaran.kode_ta = tbl_tahun_ajaran.kode_ta');
         $this->db->where('nisn', $nisn);
+        $this->db->where('tbl_jenis_pembayaran.nama_pembayaran', $jenisPembayaran);
         $this->db->where('tbl_pembayaran_ujian.kode_ta', $ta);
         return $this->db->get('tbl_pembayaran_ujian')->row();
     }
@@ -61,8 +65,10 @@ class DataPembayaranUjian_Model extends CI_Model
 
     public function getDataPembayaranSiswa($ta, $kode_kelas)
     {
+        $this->db->select('no_transaksi, nisn, kode_kelas, tanggal, tbl_pembayaran_ujian.kode_jenispembayaran, tbl_pembayaran_ujian.nominal, tbl_pembayaran_ujian.kode_ta as tahunBayar, tbl_jenis_pembayaran.kode_ta as kode_ta, keterangan, nama_pembayaran, jumlah_pembayaran');
+        $this->db->join('tbl_jenis_pembayaran', 'tbl_pembayaran_ujian.kode_jenispembayaran = tbl_jenis_pembayaran.kode_jenispembayaran');
         $this->db->where('kode_kelas', $kode_kelas);
-        $this->db->where('kode_ta', $ta);
+        $this->db->where('tbl_pembayaran_ujian.kode_ta', $ta);
         return $this->db->get('tbl_pembayaran_ujian')->result();
     }
 
@@ -79,5 +85,13 @@ class DataPembayaranUjian_Model extends CI_Model
             $this->db->where('tanggal <=', $end);
         }
         return $this->db->get()->result();
+    }
+
+    public function cekPembayaranUjian($nisn, $kelas)
+    {
+        $this->db->join('tbl_jenis_pembayaran', 'tbl_jenis_pembayaran.kode_jenispembayaran = tbl_pembayaran_ujian.kode_jenispembayaran');
+        $this->db->where('nisn', $nisn);
+        $this->db->where('kode_kelas', $kelas);
+        return $this->db->get('tbl_pembayaran_ujian')->row();
     }
 }

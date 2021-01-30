@@ -34,7 +34,7 @@
         function DataPembayaranUjian($pembayaranUjian, $ta, $semester, $jenisUjian)
         {
             foreach ($pembayaranUjian as $value) {
-                if ($value->kode_ta == $ta && $value->keterangan == $semester && $value->nama_pembayaran == $jenisUjian) {
+                if ($value->tahunBayar == $ta && $value->keterangan == $semester && $value->nama_pembayaran == $jenisUjian) {
                     return ['nominal' => $value->nominal, 'tanggal' => $value->tanggal, 'no_transaksi' => $value->no_transaksi];
                 }
             }
@@ -44,14 +44,14 @@
         function DataPembayaranUjianUNBK($pembayaranUjian, $bulan)
         {
             foreach ($pembayaranUjian as $value) {
-                if ($value->keterangan == $bulan && $value->kode_jenispembayaran == 'UNBK') {
+                if ($value->keterangan == $bulan && $value->nama_pembayaran == 'UNBK') {
                     return ['nominal' => $value->nominal, 'tanggal' => $value->tanggal, 'no_transaksi' => $value->no_transaksi];
                 }
             }
             return ['nominal' => '-', 'tanggal' => '-', 'no_transaksi' => '-'];
         }
         $kls = 1;
-        foreach ($tahunAjaran as $keyTahunAjaran => $valueTahunAjaran) :
+        foreach ($tahunAjaran as $valueTahunAjaran) :
             if ($dataSiswa['kelas_' . $kls] !== null) {
         ?>
                 <div class="row">
