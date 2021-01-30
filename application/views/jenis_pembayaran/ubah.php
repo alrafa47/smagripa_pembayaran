@@ -38,7 +38,23 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nama Pembayaran Ujian</label>
-                      <input type="text" class="form-control" name="nama_pembayaran" value="<?= $ubah['nama_pembayaran'] ?>">
+                      <select class="form-control" name="nama_pembayaran">
+                        <?php
+                        if ($ubah['nama_pembayaran'] == 'UTS') {
+                          echo "<option value = 'UTS' selected>UTS</option>
+                          <option value ='UAS'>UAS</option>
+                          <option value ='UNBK'>UNBK</option>";
+                        } elseif ($ubah['nama_pembayaran'] == 'UAS') {
+                          echo "<option value = 'UTS' >UTS</option>
+                          <option value ='UAS' selected >UAS</option>
+                          <option value ='UNBK'>UNBK</option>";
+                        } else {
+                          echo "<option value = 'UTS' >UTS</option>
+                          <option value ='UAS' >UAS</option>
+                          <option value ='UNBK' selected>UNBK</option>";
+                        }
+                        ?>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nominal Pembayaran</label>

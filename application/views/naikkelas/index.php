@@ -78,9 +78,9 @@
                                                                 <option value="<?= $row->kode_kelas ?>"><?= $row->kelas . ' ' . $row->nama_jurusan . ' ' . $row->nama_kelas ?></option>
                                                         <?php
                                                             }
-                                                        } ?>
+                                                        }
                                                         ?>
-
+                                                        <option value="lulus">Lulus</option>
                                                     </select>
                                                 </div>
                                             <?php endif; ?>

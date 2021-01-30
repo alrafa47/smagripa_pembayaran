@@ -34,7 +34,7 @@
         function DataPembayaranUjian($pembayaranUjian, $ta, $semester, $jenisUjian)
         {
             foreach ($pembayaranUjian as $value) {
-                if ($value->kode_ta == $ta && $value->keterangan == $semester && $value->kode_jenispembayaran == $jenisUjian) {
+                if ($value->kode_ta == $ta && $value->keterangan == $semester && $value->nama_pembayaran == $jenisUjian) {
                     return ['nominal' => $value->nominal, 'tanggal' => $value->tanggal, 'no_transaksi' => $value->no_transaksi];
                 }
             }
@@ -44,7 +44,7 @@
         function DataPembayaranUjianUNBK($pembayaranUjian, $bulan)
         {
             foreach ($pembayaranUjian as $value) {
-                if ($value->keterangan == $bulan && $value->kode_jenispembayaran == 'unbk') {
+                if ($value->keterangan == $bulan && $value->kode_jenispembayaran == 'UNBK') {
                     return ['nominal' => $value->nominal, 'tanggal' => $value->tanggal, 'no_transaksi' => $value->no_transaksi];
                 }
             }
@@ -55,10 +55,11 @@
             if ($dataSiswa['kelas_' . $kls] !== null) {
         ?>
                 <div class="row">
+
                     <div class="col-md-12">
                         <div class="card collapsed-card">
                             <div class="card-header">
-                                <h5 class="card-title">Angsuran SPP Tahun ajaran <?= $valueTahunAjaran->tahun_ajaran  ?></h5>
+                                <h5 class="card-title">Angsuran Ujian Tahun ajaran <?= $valueTahunAjaran->tahun_ajaran  ?></h5>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-plus"></i>
@@ -69,7 +70,7 @@
                             <div class="card-body">
                                 <?php
                                 $semester = ['1' => 'Ganjil', '2' => 'Genap'];
-                                $ujian = ['1' => 'uts', '2' => 'uas'];
+                                $ujian = ['1' => 'UTS', '2' => 'UAS'];
                                 foreach ($semester as $keySemester => $valueSemester) { ?>
                                     <h3>Semester <?= $valueSemester ?></h3>
                                     <table class="table table-bordered table-striped">

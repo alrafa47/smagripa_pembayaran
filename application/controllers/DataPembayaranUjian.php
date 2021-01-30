@@ -51,7 +51,7 @@ class DataPembayaranUjian extends CI_Controller
 
     public function tambahData($nisn)
     {
-        $jenisPembayaran = $this->input->post('jenisPembayaran');
+        $jenisPembayaran = $this->input->post('id_pembayaran');
         $nominal = $this->Jenis_Pembayaran_Model->detail_data($jenisPembayaran)['nominal'];
         $data = explode('-', $this->input->post('tahunAjaran'));
         $dataPembayaran = [
@@ -63,6 +63,7 @@ class DataPembayaranUjian extends CI_Controller
             'kode_ta' => $data[0],
             'keterangan' => $this->input->post('pembayaran')
         ];
+        print_r($dataPembayaran);
         $this->DataPembayaranUjian_Model->tambahData($dataPembayaran);
         $this->session->set_flashdata('flash_ujian', 'Disimpan');
         redirect('DataPembayaranUjian/bayar/' . $nisn);
@@ -124,5 +125,21 @@ class DataPembayaranUjian extends CI_Controller
         $this->DataPembayaranUjian_Model->hapusTransaksi($noTransaksi);
         $this->session->set_flashdata('flash_dataPembayaranUjian', 'dihapus');
         redirect("DataPembayaranUjian/detailTransaksi/$nisn");
+    }
+
+    public function getDataTahunAjaran()
+    {
+        $data = explode('-', $this->input->post('ta'));
+        $dataPembayaranSiswa = $this->DataPembayaranUjian_Model->getpembayaranSiswa($this->input->post('nisn'), $data[0]);
+        $html = "<option value='-' > Pilih Tahun Ajaran</option>";
+        if (!empty($dataPembayaranSiswa)) {
+            $html .= "<option data-harga='$dataPembayaranSiswa->nominal' value='$dataPembayaranSiswa->kode_jenispembayaran' > $dataPembayaranSiswa->tahun_ajaran</option>";
+        } else {
+            $query = $this->Jenis_Pembayaran_Model->getAllData(['nama_pembayaran' => $this->input->post('jenispembayaran')]);
+            foreach ($query as $value) {
+                $html .= "<option data-harga='$value->nominal' value='$value->kode_jenispembayaran' > $value->tahun_ajaran</option>";
+            }
+        }
+        echo json_encode($html);
     }
 }

@@ -5,9 +5,15 @@
  */
 class Jenis_Pembayaran_Model extends CI_Model
 {
-	public function getAllData()
+	public function getAllData($where = null)
 	{
-		return $this->db->get('tbl_jenis_pembayaran')->result();
+		if ($where == null) {
+			$this->db->join('tbl_tahun_ajaran', 'tbl_jenis_pembayaran.kode_ta = tbl_tahun_ajaran.kode_ta');
+			return $this->db->get('tbl_jenis_pembayaran')->result();
+		} else {
+			$this->db->join('tbl_tahun_ajaran', 'tbl_jenis_pembayaran.kode_ta = tbl_tahun_ajaran.kode_ta');
+			return $this->db->get_where('tbl_jenis_pembayaran', $where)->result();
+		}
 	}
 	public function getAllDataTahun($kode_ta = null)
 	{

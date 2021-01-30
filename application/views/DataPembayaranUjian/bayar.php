@@ -13,7 +13,8 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
@@ -60,7 +61,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="exampleInputFile">Jenis Pembayaran</label>
-                                        <select class="form-control" name="jenisPembayaran" disabled>
+                                        <select class="form-control" disabled id="jenis_pembayaran">
                                             <option value="-">Pilih Pembayaran</option>
                                             <div id="jenisPembayaran"></div>
                                         </select>
@@ -69,16 +70,16 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="exampleInputFile">Tahun Ajaran</label>
-                                        <select class="form-control" name="ta" disabled>
+                                        <select class="form-control" name="id_pembayaran" disabled id="ta">
                                             <option value="-">Pilih Pembayaran</option>
-                                            <div id="ta"></div>
+                                            <!-- <div id="optta"></div> -->
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="exampleInputFile">Nominal</label>
-                                        <input type="number" class="form-control" name="nominal" readonly>
+                                        <input type="number" class="form-control" name="nominal" id="nominal" readonly>
                                     </div>
                                 </div>
 

@@ -200,18 +200,19 @@
 
         $('#kelasmendatang').change(function() {
             let selected = $('#kelasmendatang').find(':selected').val();
-            let kelas = selected.split('_');
-
-            $('.opt-' + kelas[0] + ' option[data-kelas=' + selected + ']').attr("selected", "selected");
+            if (selected == 'lulus') {
+                $("input[type='checkbox']").attr('checked', 'checked');
+            } else {
+                let kelas = selected.split('_');
+                $('.opt-' + kelas[0] + ' option[data-kelas=' + selected + ']').attr("selected", "selected");
+            }
         });
+
         // modal detail DPP
         $('#detailDPP').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var nisn = button.data('nisn') // Extract info from data-* attributes
             var modal = $(this)
-
-
-
 
             $.ajax({
                 type: 'post',
@@ -237,21 +238,53 @@
                 }
             })
         })
+        <?php if ($this->uri->segment(1) == 'DataNaikKelas') { ?>
+            $('').change(function() {
+
+            });
+        <?php } ?>
+
         <?php if ($this->uri->segment(1) == 'DataPembayaranUjian') { ?>
 
             $('#tahunAjaran').change(function() {
                 var result = $('#tahunAjaran option:selected').data('kelas').split('_');
                 var html = "";
                 if (result[0] == 'XII') {
-                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value ="uts">UTS</option><option value ="unbk">UNBK</option>';
+                    html = '<option value="">pilih Jenis Pembayaran</option><option value="UAS">UAS</option> <option value ="UTS">UTS</option><option value ="UNBK">UNBK</option>';
                 } else {
-                    html = '<option>pilih Jenis Pembayaran</option><option value="uas">UAS</option> <option value = "uts">UTS</option>';
+                    html = '<option value="">pilih Jenis Pembayaran</option><option value="UAS">UAS</option> <option value = "UTS">UTS</option>';
                 }
-                $('#pembayaran').html(html);
-                $('#pembayaran').removeAttr('disabled');
+                $('#jenis_pembayaran').html(html);
+                $('#jenis_pembayaran').removeAttr('disabled');
             });
 
-            $('#pembayaran').change(function() {
+            $('#jenis_pembayaran').change(function() {
+                let selected = $(this).val();
+                let ta = $('#tahunAjaran').val();
+
+                if (selected != '-') {
+                    // alert(selected);
+                    $.ajax({
+                        url: "<?= base_url('DataPembayaranUjian/getDataTahunAjaran') ?>",
+                        data: {
+                            'jenispembayaran': selected,
+                            'nisn': "<?= $this->uri->segment(3) ?>",
+                            'ta': ta
+                        },
+                        type: 'POST',
+                        success: function(data) {
+                            let html = JSON.parse(data);
+                            $('#ta').html(html).show();
+                            $('#ta').removeAttr('disabled');
+                        }
+                    })
+                }
+            });
+
+            $('#ta').change(function() {
+                let nominal = $('#ta option:selected').data('harga');
+                let id = $('#ta option:selected').val();
+                $('#nominal').val(nominal);
                 let dataNisn = "<?= $this->uri->segment(3) ?>";
                 let ta = $('#tahunAjaran').val();
                 let jenisPembayaran = $(this).val();
@@ -262,7 +295,7 @@
                         // dataType: 'json',
                         data: {
                             'nisn': dataNisn,
-                            'pembayaran': jenisPembayaran
+                            'pembayaran': id
                         },
                         success: function(response) {
                             $('#dataPembayaran').html(JSON.parse(response));

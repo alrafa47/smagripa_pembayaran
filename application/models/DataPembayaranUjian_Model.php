@@ -12,7 +12,16 @@ class DataPembayaranUjian_Model extends CI_Model
 
     public function pembayaranSiswa($nisn)
     {
+        $this->db->join('tbl_jenis_pembayaran', 'tbl_pembayaran_ujian.kode_jenispembayaran = tbl_jenis_pembayaran.kode_jenispembayaran');
         return $this->db->get_where('tbl_pembayaran_ujian', ['nisn' => $nisn])->result();
+    }
+
+    public function getpembayaranSiswa($nisn, $ta)
+    {
+        $this->db->join('tbl_tahun_ajaran', 'tbl_pembayaran_ujian.kode_ta = tbl_tahun_ajaran.kode_ta');
+        $this->db->where('nisn', $nisn);
+        $this->db->where('tbl_pembayaran_ujian.kode_ta', $ta);
+        return $this->db->get('tbl_pembayaran_ujian')->row();
     }
 
     public function detailpembayaranSiswa($nisn, $jenisPembayaran, $keterangan)

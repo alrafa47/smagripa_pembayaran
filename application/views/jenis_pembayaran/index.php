@@ -58,7 +58,12 @@
                     </div> -->
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nama Pembayaran Ujian</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="nama_pembayaran">
+                      <select class="form-control" name="nama_pembayaran">
+                        <option>--Pilih Pembayaran--</option>
+                        <option value="UTS">UTS</option>
+                        <option value="UAS">UAS</option>
+                        <option value="UNBK">UNBK</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Nominal Pembayaran</label>
