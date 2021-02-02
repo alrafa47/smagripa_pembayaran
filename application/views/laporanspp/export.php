@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=LaporanSPP <? $kelass $ta?>.xls");
+header("Content-Disposition: attachment; filename=LaporanSPP <?= $kelass $ta ?>.xls");
 ?>
 
 <style type="text/css">
@@ -43,6 +43,7 @@ header("Content-Disposition: attachment; filename=LaporanSPP <? $kelass $ta?>.xl
             <th rowspan="2">Nama Siswa</th>
             <th rowspan="2">Nominal Bayar</th>
             <th colspan="12">Bulan</th>
+            <th rowspan="2">Kekurangan Pembayaran</th>
         </tr>
         <tr>
             <?php foreach ($bulan as $bln) : ?>
@@ -77,7 +78,9 @@ header("Content-Disposition: attachment; filename=LaporanSPP <? $kelass $ta?>.xl
         }
 
         $nisn = '';
+        $totalKeseluruhan = 0;
         foreach ($dataSiswa as $row) {
+            $total = 0;
         ?>
             <tr>
                 <td><?= $no ?></td>
@@ -86,13 +89,32 @@ header("Content-Disposition: attachment; filename=LaporanSPP <? $kelass $ta?>.xl
                 <td><?= $row->nominal_jenis  ?></td>
                 <?php foreach ($bulan as $keyBulan => $bln) : ?>
                     <td>
-                        <label><?= dataBayarPerBulan($dataPembayaran, $row->nisn, $keyBulan, $this->uri->segment(3)) ?></label>
+                        <label>
+                            <?php
+                            $dataBayar = dataBayarPerBulan($dataPembayaran, $row->nisn, $keyBulan, $this->uri->segment(3));
+                            if ($dataBayar == '-') {
+                                echo $row->nominal_jenis;
+                                $total += $row->nominal_jenis;
+                            } else {
+                                echo $dataBayar;
+                            }
+
+                            ?>
+                        </label>
                     </td>
                 <?php endforeach; ?>
+                <td><?= $total ?></td>
             </tr>
         <?php
             $no++;
+            $totalKeseluruhan += $total;
         }
         ?>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="16">Total</td>
+            <td><?= $totalKeseluruhan ?></td>
+        </tr>
+    </tfoot>
 </table>

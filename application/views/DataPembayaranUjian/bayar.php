@@ -50,7 +50,7 @@
                                     foreach ($tahunAjaran as $valueTahunAJaran) :
                                         if ($siswa['kelas_' . $no] !== null) {
                                     ?>
-                                            <option value="<?= $valueTahunAJaran->kode_ta . '-' . $siswa['kelas_' . $no] ?>" data-kelas='<?= $siswa['kelas_' . $no] ?>'><?= $valueTahunAJaran->tahun_ajaran . '::' . $siswa['kelas_' . $no] ?></option>
+                                            <option data-tahun="<?= $valueTahunAJaran->kode_ta ?>" value="<?= $valueTahunAJaran->kode_ta . '-' . $siswa['kelas_' . $no] ?>" data-kelas='<?= $siswa['kelas_' . $no] ?>'><?= $valueTahunAJaran->tahun_ajaran . '::' . $siswa['kelas_' . $no] ?></option>
                                     <?php
                                         }
                                         $no++;
@@ -65,15 +65,7 @@
                                             <option value="-">Pilih Pembayaran</option>
                                             <div id="jenisPembayaran"></div>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">Tahun Ajaran</label>
-                                        <select class="form-control" name="id_pembayaran" disabled id="ta">
-                                            <option value="-">Pilih Pembayaran</option>
-                                            <!-- <div id="optta"></div> -->
-                                        </select>
+                                        <input type="hidden" name="id_pembayaran" id="id_pembayaran" readonly>
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -82,7 +74,6 @@
                                         <input type="number" class="form-control" name="nominal" id="nominal" readonly>
                                     </div>
                                 </div>
-
                             </div>
                             <div id="dataPembayaran"></div>
                             <button class="mt-5 btn btn-primary float-right btn-lg" type="submit">Bayar</button>

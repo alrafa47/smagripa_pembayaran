@@ -76,4 +76,10 @@ class TahunAjaran_Model extends CI_Model
 	{
 		return $this->db->get_where('tbl_tahun_ajaran', ['kode_ta' => $kode])->row_array();
 	}
+
+	public function lastDataTahunAjaran()
+	{
+		$this->db->order_by('kode_ta', 'DESC');
+		return $this->db->get('tbl_tahun_ajaran')->row();
+	}
 }

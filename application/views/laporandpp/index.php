@@ -121,6 +121,8 @@
                                     }
                                     return $jumlahTotalTerbayar;
                                 }
+                                $totalBelumTerbayar = 0;
+                                $totalTerbayar = 0;
                                 foreach ($dataSiswa as $row) {
                                     $data = dataAngsuran($dataAngsuran, $row->nisn);
                                 ?>
@@ -131,20 +133,23 @@
                                         <td><?= $row->nominal_dpp ?></td>
                                         <td><?= $row->nominal_angsuran ?></td>
                                         <td><?= $row->jumlah_angsuran ?></td>
-                                        <td><?= $data ?></td>
-                                        <td><?= $row->nominal_dpp - $data ?></td>
-                                        <!-- <td>
-                                        <div class="btn-group">
-                                            <a href="<?= base_url() ?>DataJurusan/hapus/<?= $row->kode_jurusan ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                                            <a href="<?= base_url() ?>DataJurusan/ubah/<?= $row->kode_jurusan ?>" class="btn btn-warning">update</a>
-                                        </div>
-                                    </td> -->
+                                        <td style="text-align: right;"><?php echo $data;
+                                                                        $totalTerbayar += $data ?></td>
+                                        <td style="text-align: right;"><?php echo $row->nominal_dpp - $data;
+                                                                        $totalBelumTerbayar += $row->nominal_dpp - $data ?></td>
                                     </tr>
                                 <?php
                                     $no++;
                                 }
                                 ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6">Total</td>
+                                    <td style="text-align: right;"><?= $totalTerbayar ?></td>
+                                    <td style="text-align: right;"><?= $totalBelumTerbayar ?></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

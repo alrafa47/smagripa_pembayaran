@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=LaporanDPP <? $jurusan $tahun_awal - $tahun_akhir?>.xls");
+header("Content-Disposition: attachment; filename=LaporanDPP <?= $jurusan $tahun_awal - $tahun_akhir ?>.xls");
 ?>
 <style type="text/css">
     body {
@@ -61,6 +61,8 @@ header("Content-Disposition: attachment; filename=LaporanDPP <? $jurusan $tahun_
             }
             return $jumlahTotalTerbayar;
         }
+        $totalBelumTerbayar = 0;
+        $totalTerbayar = 0;
         foreach ($dataSiswa as $row) {
             $data = dataAngsuran($dataAngsuran, $row->nisn);
         ?>
@@ -71,12 +73,21 @@ header("Content-Disposition: attachment; filename=LaporanDPP <? $jurusan $tahun_
                 <td><?= $row->nominal_dpp ?></td>
                 <td><?= $row->nominal_angsuran ?></td>
                 <td><?= $row->jumlah_angsuran ?></td>
-                <td><?= $data ?></td>
-                <td><?= $row->nominal_dpp - $data ?></td>
+                <td><?php echo $data;
+                    $totalTerbayar += $data ?></td>
+                <td style="text-align: right;"><?php echo $row->nominal_dpp - $data;
+                                                $totalBelumTerbayar += $row->nominal_dpp - $data ?></td>
             </tr>
         <?php
             $no++;
         }
         ?>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">Total</td>
+            <td style="text-align: right;"><?= $totalTerbayar ?></td>
+            <td style="text-align: right;"><?= $totalBelumTerbayar ?></td>
+        </tr>
+    </tfoot>
 </table>

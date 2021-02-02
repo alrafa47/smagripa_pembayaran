@@ -29,6 +29,7 @@ class DataLaporanRekapan extends CI_Controller
         $this->load->model('DPPSiswa_Model');
         $this->load->model('DataPembayaranDPP_Model');
         $this->load->model('TahunAjaran_Model');
+        $this->load->model('DataTagihanUjian_Model');
         $this->load->library('form_validation');
     }
 
@@ -49,15 +50,16 @@ class DataLaporanRekapan extends CI_Controller
         return ($Pembayaran == 0) ? 0 : $Pembayaran;
     }
 
-    public function cekTagihanUjian($nisn, $jenis, $kode_kelas, $keterangan = null)
+    public function cekTagihanUjian($nisn, $jenis, $kode_kelas, $keterangan = null, $kode_ta)
     {
-        $nominalPembayaranUjian = $this->Jenis_Pembayaran_Model->detail_data($jenis)['nominal'];
+        $id_pembayaran = $this->DataTagihanUjian_Model->getData($kode_ta)->$jenis;
+        $nominalPembayaranUjian = $this->Jenis_Pembayaran_Model->detail_data($id_pembayaran)['nominal'];
+
         $getDataSIswaJoinJenisSPP = $this->DataPembayaranUjian_Model->cekTagihanUjian($nisn, $jenis, $kode_kelas, $keterangan);
-        if ($jenis == 'unbk') {
+        if ($jenis == 'UNBK') {
             $nominalAngsuran = $nominalPembayaranUjian / 12;
             $Pembayaran = $nominalAngsuran * count($getDataSIswaJoinJenisSPP);
             return ($Pembayaran == $nominalPembayaranUjian) ? 0 : $nominalPembayaranUjian - $Pembayaran;
-            return $Pembayaran;
         }
         return (count($getDataSIswaJoinJenisSPP) == 1) ? 0 : $nominalPembayaranUjian;
     }
@@ -100,6 +102,7 @@ class DataLaporanRekapan extends CI_Controller
         }
         foreach ($dataSiswa as $key => $value) {
             $value->dpp = $this->sisaAngsuranDPP($value->nisn);
+            $kode_ta = $value->kode_ta;
             for ($i = 1; $i <= 3; $i++) {
                 $kls = 'kelas_' . $i;
                 // cek apakah ada kelas yang kosong
@@ -110,17 +113,18 @@ class DataLaporanRekapan extends CI_Controller
                     $value->$kls = [
                         'kode_kelas' => $kode_kelas,
                         'spp' => $this->sisaPembayaranSPP($value->nisn, $kode_kelas),
-                        'uts1' => $this->cekTagihanUjian($value->nisn, 'uts', $kode_kelas, 1),
-                        'uas1' => $this->cekTagihanUjian($value->nisn, 'uas', $kode_kelas, 1),
-                        'uts2' => $this->cekTagihanUjian($value->nisn, 'uts', $kode_kelas, 2),
-                        'uas2' => $this->cekTagihanUjian($value->nisn, 'uas', $kode_kelas, 2)
+                        'uts1' => $this->cekTagihanUjian($value->nisn, 'UTS', $kode_kelas, 1, $kode_ta),
+                        'uas1' => $this->cekTagihanUjian($value->nisn, 'UAS', $kode_kelas, 1, $kode_ta),
+                        'uts2' => $this->cekTagihanUjian($value->nisn, 'UTS', $kode_kelas, 2, $kode_ta),
+                        'uas2' => $this->cekTagihanUjian($value->nisn, 'UAS', $kode_kelas, 2, $kode_ta)
                     ];
                     if ($i == 3) {
                         if ($value->kelas_3 != null) {
-                            $value->unbk = $this->cekTagihanUjian($value->nisn, 'unbk', $kode_kelas);
+                            $value->unbk = $this->cekTagihanUjian($value->nisn, 'UNBK', $kode_kelas, null, $kode_ta);
                         }
                     }
                 }
+                $kode_ta++;
             }
         }
         $data = [
@@ -170,6 +174,7 @@ class DataLaporanRekapan extends CI_Controller
 
         foreach ($dataSiswa as $key => $value) {
             $value->dpp = $this->sisaAngsuranDPP($value->nisn);
+            $kode_ta = $value->kode_ta;
             for ($i = 1; $i <= 3; $i++) {
                 $kls = 'kelas_' . $i;
                 // cek apakah ada kelas yang kosong
@@ -180,17 +185,18 @@ class DataLaporanRekapan extends CI_Controller
                     $value->$kls = [
                         'kode_kelas' => $kode_kelas,
                         'spp' => $this->sisaPembayaranSPP($value->nisn, $kode_kelas),
-                        'uts1' => $this->cekTagihanUjian($value->nisn, 'uts', $kode_kelas, 1),
-                        'uas1' => $this->cekTagihanUjian($value->nisn, 'uas', $kode_kelas, 1),
-                        'uts2' => $this->cekTagihanUjian($value->nisn, 'uts', $kode_kelas, 2),
-                        'uas2' => $this->cekTagihanUjian($value->nisn, 'uas', $kode_kelas, 2)
+                        'uts1' => $this->cekTagihanUjian($value->nisn, 'UTS', $kode_kelas, 1, $kode_ta),
+                        'uas1' => $this->cekTagihanUjian($value->nisn, 'UAS', $kode_kelas, 1, $kode_ta),
+                        'uts2' => $this->cekTagihanUjian($value->nisn, 'UTS', $kode_kelas, 2, $kode_ta),
+                        'uas2' => $this->cekTagihanUjian($value->nisn, 'UAS', $kode_kelas, 2, $kode_ta)
                     ];
                     if ($i == 3) {
                         if ($value->kelas_3 != null) {
-                            $value->unbk = $this->cekTagihanUjian($value->nisn, 'unbk', $kode_kelas);
+                            $value->unbk = $this->cekTagihanUjian($value->nisn, 'UNBK', $kode_kelas, null, $kode_ta);
                         }
                     }
                 }
+                $kode_ta++;
             }
         }
         $data = [
@@ -213,6 +219,7 @@ class DataLaporanRekapan extends CI_Controller
         $dataSiswa = $this->Siswa_Model->detail_data($nisn);
         // foreach ($dataSiswa as $key => $value) {
         $dataSiswa['dpp'] = $this->sisaAngsuranDPP($dataSiswa['nisn']);
+        $kode_ta = $dataSiswa['kode_ta'];
         for ($i = 1; $i <= 3; $i++) {
             $kls = 'kelas_' . $i;
             // cek apakah ada kelas yang kosong
@@ -223,17 +230,18 @@ class DataLaporanRekapan extends CI_Controller
                 $dataSiswa[$kls] = [
                     'kode_kelas' => $kode_kelas,
                     'spp' => $this->sisaPembayaranSPP($dataSiswa['nisn'], $kode_kelas),
-                    'uts1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uts', $kode_kelas, 1),
-                    'uas1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uas', $kode_kelas, 1),
-                    'uts2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uts', $kode_kelas, 2),
-                    'uas2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uas', $kode_kelas, 2)
+                    'uts1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UTS', $kode_kelas, 1, $kode_ta),
+                    'uas1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UAS', $kode_kelas, 1, $kode_ta),
+                    'uts2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UTS', $kode_kelas, 2, $kode_ta),
+                    'uas2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UAS', $kode_kelas, 2, $kode_ta)
                 ];
                 if ($i == 3) {
                     if ($dataSiswa['kelas_3'] != null) {
-                        $dataSiswa['unbk'] = $this->cekTagihanUjian($dataSiswa['nisn'], 'unbk', $kode_kelas);
+                        $dataSiswa['unbk'] = $this->cekTagihanUjian($dataSiswa['nisn'], 'UNBK', $kode_kelas, null, $kode_ta);
                     }
                 }
             }
+            $kode_ta++;
         }
         // }
         $data = [
@@ -258,6 +266,7 @@ class DataLaporanRekapan extends CI_Controller
         $dataSiswa = $this->Siswa_Model->detail_data($nisn);
         // foreach ($dataSiswa as $key => $value) {
         $dataSiswa['dpp'] = $this->sisaAngsuranDPP($dataSiswa['nisn']);
+        $kode_ta = $dataSiswa['kode_ta'];
         for ($i = 1; $i <= 3; $i++) {
             $kls = 'kelas_' . $i;
             // cek apakah ada kelas yang kosong
@@ -268,17 +277,18 @@ class DataLaporanRekapan extends CI_Controller
                 $dataSiswa[$kls] = [
                     'kode_kelas' => $kode_kelas,
                     'spp' => $this->sisaPembayaranSPP($dataSiswa['nisn'], $kode_kelas),
-                    'uts1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uts', $kode_kelas, 1),
-                    'uas1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uas', $kode_kelas, 1),
-                    'uts2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uts', $kode_kelas, 2),
-                    'uas2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uas', $kode_kelas, 2)
+                    'uts1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UTS', $kode_kelas, 1, $kode_ta),
+                    'uas1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UAS', $kode_kelas, 1, $kode_ta),
+                    'uts2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UTS', $kode_kelas, 2, $kode_ta),
+                    'uas2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UAS', $kode_kelas, 2, $kode_ta)
                 ];
                 if ($i == 3) {
                     if ($dataSiswa['kelas_3'] != null) {
-                        $dataSiswa['unbk'] = $this->cekTagihanUjian($dataSiswa['nisn'], 'unbk', $kode_kelas);
+                        $dataSiswa['unbk'] = $this->cekTagihanUjian($dataSiswa['nisn'], 'UNBK', $kode_kelas, null, $kode_ta);
                     }
                 }
             }
+            $kode_ta++;
         }
         // }
         $data = [
@@ -300,6 +310,7 @@ class DataLaporanRekapan extends CI_Controller
         $dataSiswa = $this->Siswa_Model->detail_data($nisn);
         // foreach ($dataSiswa as $key => $value) {
         $dataSiswa['dpp'] = $this->sisaAngsuranDPP($dataSiswa['nisn']);
+        $kode_ta = $dataSiswa['kode_ta'];
         for ($i = 1; $i <= 3; $i++) {
             $kls = 'kelas_' . $i;
             // cek apakah ada kelas yang kosong
@@ -310,17 +321,18 @@ class DataLaporanRekapan extends CI_Controller
                 $dataSiswa[$kls] = [
                     'kode_kelas' => $kode_kelas,
                     'spp' => $this->sisaPembayaranSPP($dataSiswa['nisn'], $kode_kelas),
-                    'uts1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uts', $kode_kelas, 1),
-                    'uas1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uas', $kode_kelas, 1),
-                    'uts2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uts', $kode_kelas, 2),
-                    'uas2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'uas', $kode_kelas, 2)
+                    'uts1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UTS', $kode_kelas, 1, $kode_ta),
+                    'uas1' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UAS', $kode_kelas, 1, $kode_ta),
+                    'uts2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UTS', $kode_kelas, 2, $kode_ta),
+                    'uas2' => $this->cekTagihanUjian($dataSiswa['nisn'], 'UAS', $kode_kelas, 2, $kode_ta)
                 ];
                 if ($i == 3) {
                     if ($dataSiswa['kelas_3'] != null) {
-                        $dataSiswa['unbk'] = $this->cekTagihanUjian($dataSiswa['nisn'], 'unbk', $kode_kelas);
+                        $dataSiswa['unbk'] = $this->cekTagihanUjian($dataSiswa['nisn'], 'UNBK', $kode_kelas, null, $kode_ta);
                     }
                 }
             }
+            $kode_ta++;
         }
         // }
         $dataSiswa = $dataSiswa;
@@ -443,6 +455,7 @@ class DataLaporanRekapan extends CI_Controller
         $sheet->setCellValue('A' . $numRows, 'DPP');
         $sheet->setCellValue('B' . $numRows, $dataDPP);
         $numRows += 1;
+        $totalTanggungan = $dataDPP;
         for ($urutanKelas = 1; $urutanKelas <= 3; $urutanKelas++) {
             if (!empty($dataSiswa['kelas_' . $urutanKelas]['kode_kelas'])) {
                 $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()
@@ -450,12 +463,13 @@ class DataLaporanRekapan extends CI_Controller
                 $sheet->setCellValue('A' . $numRows, 'Total Tanggungan kelas ' . $alphabet[$urutanKelas - 1]);
                 $sheet->setCellValue('B' . $numRows, $total[$urutanKelas]);
                 $numRows = $numRows + 1;
+                $totalTanggungan += $total[$urutanKelas];
             }
         }
         $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()
             ->setFormatCode('#,##0.-');
-        $sheet->setCellValue('A' . $numRows, 'total Tanggungan Biaya', array_sum($total));
-        $sheet->setCellValue('B' . $numRows, array_sum($total));
+        $sheet->setCellValue('A' . $numRows, 'total Tanggungan Biaya');
+        $sheet->setCellValue('B' . $numRows, $totalTanggungan);
         // end of body
 
         // }
@@ -517,6 +531,7 @@ class DataLaporanRekapan extends CI_Controller
 
         foreach ($dataSiswa as $key => $value) {
             $value->dpp = $this->sisaAngsuranDPP($value->nisn);
+            $kode_ta = $value->kode_ta;
             for ($i = 1; $i <= 3; $i++) {
                 $kls = 'kelas_' . $i;
                 // cek apakah ada kelas yang kosong
@@ -527,17 +542,20 @@ class DataLaporanRekapan extends CI_Controller
                     $value->$kls = [
                         'kode_kelas' => $kode_kelas,
                         'spp' => $this->sisaPembayaranSPP($value->nisn, $kode_kelas),
-                        'uts1' => $this->cekTagihanUjian($value->nisn, 'uts', $kode_kelas, 1),
-                        'uas1' => $this->cekTagihanUjian($value->nisn, 'uas', $kode_kelas, 1),
-                        'uts2' => $this->cekTagihanUjian($value->nisn, 'uts', $kode_kelas, 2),
-                        'uas2' => $this->cekTagihanUjian($value->nisn, 'uas', $kode_kelas, 2)
+                        'uts1' => $this->cekTagihanUjian($value->nisn, 'UTS', $kode_kelas, 1, $kode_ta),
+                        'uas1' => $this->cekTagihanUjian($value->nisn, 'UAS', $kode_kelas, 1, $kode_ta),
+                        'uts2' => $this->cekTagihanUjian($value->nisn, 'UTS', $kode_kelas, 2, $kode_ta),
+                        'uas2' => $this->cekTagihanUjian($value->nisn, 'UAS', $kode_kelas, 2, $kode_ta)
                     ];
                     if ($i == 3) {
                         if ($value->kelas_3 != null) {
-                            $value->unbk = $this->cekTagihanUjian($value->nisn, 'unbk', $kode_kelas);
+                            $value->unbk = $this->cekTagihanUjian($value->nisn, 'UNBK', $kode_kelas, null, $kode_ta);
+                        } else {
+                            $value->unbk = 0;
                         }
                     }
                 }
+                $kode_ta++;
             }
         }
 
@@ -601,24 +619,21 @@ class DataLaporanRekapan extends CI_Controller
             // tanggungan per kelas
             $alphabet = ['10', '11', '12'];
             $numRows = 11;
-            // $total = [];
+            $total = [];
             for ($urutanKelas = 1; $urutanKelas <= 3; $urutanKelas++) {
+                $kelas = 'kelas_' . $urutanKelas;
                 if (!empty($valueDataSiswa->$kelas['kode_kelas'])) {
-
-                    $kelas = 'kelas_' . $urutanKelas;
                     $sheet->setCellValue('A' . $numRows, 'Kelas ' . $alphabet[$urutanKelas - 1]);
                     $spreadsheet->getActiveSheet(0)->mergeCells('A' . $numRows . ':' . 'B' . $numRows);
-
                     $total[$urutanKelas] = $valueDataSiswa->$kelas['spp'] + $valueDataSiswa->$kelas['uts1'] + $valueDataSiswa->$kelas['uas1'] + $valueDataSiswa->$kelas['uts2'] + $valueDataSiswa->$kelas['uas2'];
-
                     $spp = ($valueDataSiswa->$kelas['spp'] == 0) ? '0,-' : $valueDataSiswa->$kelas['spp'];
                     $uts1 = ($valueDataSiswa->$kelas['uts1'] == 0) ? '0,-' : $valueDataSiswa->$kelas['uts1'];
                     $uas1 = ($valueDataSiswa->$kelas['uas1'] == 0) ? '0,-' : $valueDataSiswa->$kelas['uas1'];
                     $uts2 = ($valueDataSiswa->$kelas['uts2'] == 0) ? '0,-' : $valueDataSiswa->$kelas['uts2'];
                     $uas2 = ($valueDataSiswa->$kelas['uas2'] == 0) ? '0,-' : $valueDataSiswa->$kelas['uas2'];
-                    $unbk = ($valueDataSiswa->unbk == 0) ? '0,-' :         $valueDataSiswa->unbk;
 
                     if ($urutanKelas == 3) {
+                        $unbk = ($valueDataSiswa->unbk == 0) ? '0,-' : $valueDataSiswa->unbk;
                         $total[$urutanKelas] += $valueDataSiswa->unbk;
                     }
                     $arrayData = [
@@ -665,17 +680,22 @@ class DataLaporanRekapan extends CI_Controller
             $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()->setFormatCode('#,##0.-');
 
             $numRows = $numRows + 1;
+            $totalTanggungan = $valueDataSiswa->dpp;
+
             for ($urutanKelas = 1; $urutanKelas <= 3; $urutanKelas++) {
+                $kelas = 'kelas_' . $urutanKelas;
                 if (!empty($valueDataSiswa->$kelas['kode_kelas'])) {
-                    $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()
-                        ->setFormatCode('#,##0.-');
                     $sheet->setCellValue('A' . $numRows, 'Total Tanggungan kelas ' . $alphabet[$urutanKelas - 1]);
                     $sheet->setCellValue('B' . $numRows, $total[$urutanKelas]);
+                    $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()->setFormatCode('#,##0.-');
                     $numRows = $numRows + 1;
+                    $totalTanggungan += $total[$urutanKelas];
                 }
             }
-            $sheet->setCellValue('A' . $numRows, 'total Tanggugan Biaya', array_sum($total));
-            $sheet->setCellValue('B' . $numRows, array_sum($total));
+
+
+            $sheet->setCellValue('A' . $numRows, 'total Tanggugan Biaya');
+            $sheet->setCellValue('B' . $numRows, $totalTanggungan);
             $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()
                 ->setFormatCode('#,##0.-');
             // end of body
@@ -688,15 +708,12 @@ class DataLaporanRekapan extends CI_Controller
                 ],
             ];
 
+
             $spreadsheet->getActiveSheet(0)->getStyle('A1:B' . $numRows)->applyFromArray($styleArray);
             $spreadsheet->getActiveSheet(0)->getStyle('B3:B' . $numRows)
                 ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
             $i++;
         }
-
-
-
-
         $writer = new Xlsx($spreadsheet);
         $path = FCPATH . '/uploads/' . 'Report Data Siswa .xlsx';
         $writer->save($path);

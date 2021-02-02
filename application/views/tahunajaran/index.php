@@ -120,6 +120,7 @@
                       <div class="btn-group">
                         <a href="<?= base_url() ?>DataTahunAjaran/hapus/<?= $row->kode_ta ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
                         <a href="<?= base_url() ?>DataTahunAjaran/ubah/<?= $row->kode_ta ?>" class="btn btn-warning">update</a>
+                        <a href="<?= base_url() ?>DataTahunAjaran/konfigurasiUjian/<?= $row->kode_ta ?>" class="btn btn-primary">config Ujian</a>
                       </div>
                     </td>
                   </tr>

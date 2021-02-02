@@ -35,11 +35,13 @@ class DataPembayaranUjian_Model extends CI_Model
 
     public function cekTagihanUjian($nisn = null, $jenisPembayaran = null, $kelas = null,  $keterangan = null)
     {
+        $this->db->join('tbl_jenis_pembayaran', 'tbl_jenis_pembayaran.kode_jenispembayaran = tbl_pembayaran_ujian.kode_jenispembayaran');
         if ($nisn != null) {
             $this->db->where('nisn', $nisn);
         }
         if ($jenisPembayaran != null) {
-            $this->db->where('kode_jenispembayaran', $jenisPembayaran);
+            // $this->db->where('tbl_pembayaran_ujian.kode_jenispembayaran', $jenisPembayaran);
+            $this->db->where('tbl_jenis_pembayaran.nama_pembayaran', $jenisPembayaran);
         }
         if ($kelas != null) {
             $this->db->where('kode_kelas', $kelas);

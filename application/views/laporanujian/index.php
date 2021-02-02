@@ -86,9 +86,6 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <?php
-                        echo "<pre>";
-                        print_r($dataPembayaran);
-                        echo "</pre>";
                         function dataPembayaranUTS_UAS($dataPembayaran, $nis, $jenisPembayaran, $keterangan)
                         {
                             foreach ($dataPembayaran as $valuedataPembayaran) {
@@ -107,6 +104,15 @@
                             }
                             return 12 - $no;
                         }
+
+                        function getNominal($jenisPembayaran, $kode_ta)
+                        {
+                            $index  = array_search($kode_ta, array_column($jenisPembayaran, 'kode_jenispembayaran'));
+                            if (!$index) {
+                                return 'error';
+                            }
+                            return $jenisPembayaran[$index]->nominal;
+                        }
                         ?>
                         <table id="example1" class="table table-bordered table-striped responsive">
                             <thead>
@@ -121,7 +127,7 @@
                                     if ($explode_kelas[0] == 'XII') : ?>
                                         <th rowspan="2">UNBK</th>
                                     <?php endif; ?>
-
+                                    <th rowspan="2">Total</th>
                                 </tr>
                                 <tr>
                                     <th>UTS ganjil</th>
@@ -133,38 +139,83 @@
                             <tbody>
                                 <?php
                                 $no = 1;
-                                foreach ($jenisPembayaran as $value) {
-                                    $dataJenisPembayaran[$value->kode_jenispembayaran] = $value->nominal;
-                                }
-                                function cekPembayaran($nisn, $kelas)
-                                {
-                                    if ($this->DataPembayaranUjian_Model->cekPembayaranUjian($nisn, $kelas)) {
-                                        # code...
-                                    }
-                                }
-                                foreach ($dataSiswa as $row) { ?>
+                                $totalKeseluruhan = 0;
+                                foreach ($dataSiswa as $row) {
+                                    $total = 0;
+                                ?>
 
                                     <tr>
                                         <td><?= $no ?></td>
                                         <td><?= $row->nisn ?></td>
                                         <td><?= $row->nama_siswa ?></td>
-                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UTS', 1) == 'lunas') ? 'lunas' : $dataJenisPembayaran['UTS'] ?></td>
-                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UTS', 2) == 'lunas') ? 'lunas' : $dataJenisPembayaran['UTS'] ?></td>
-                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UAS', 1) == 'lunas') ? 'lunas' : $dataJenisPembayaran['UAS'] ?></td>
-                                        <td><?= (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UAS', 2) == 'lunas') ? 'lunas' : $dataJenisPembayaran['UAS'] ?></td>
-                                        <?php if ($explode_kelas[0] == 'XII') :
+                                        <td>
+                                            <?php
+                                            if (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UTS', 1) == 'lunas') {
+                                                echo 'lunas';
+                                            } else {
+                                                echo $nominal_ujian = getNominal($jenisPembayaran, $konfigTagihanUjian->UTS);
+                                                $total += $nominal_ujian;
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UTS', 2) == 'lunas') {
+                                                echo 'lunas';
+                                            } else {
+                                                echo $nominal_ujian = getNominal($jenisPembayaran, $konfigTagihanUjian->UTS);
+                                                $total += $nominal_ujian;
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UAS', 1) == 'lunas') {
+                                                echo 'lunas';
+                                            } else {
+                                                echo $nominal_ujian = getNominal($jenisPembayaran, $konfigTagihanUjian->UAS);
+                                                $total += $nominal_ujian;
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if (dataPembayaranUTS_UAS($dataPembayaran, $row->nisn, 'UAS', 2) == 'lunas') {
+                                                echo 'lunas';
+                                            } else {
+                                                echo $nominal_ujian = getNominal($jenisPembayaran, $konfigTagihanUjian->UAS);
+                                                $total += $nominal_ujian;
+                                            }
+                                            ?>
+                                        </td>
+                                        <?php
+                                        if ($explode_kelas[0] == 'XII') :
                                             $sisaAngsuranPembayaranUnbk = dataPembayaranUNBK($dataPembayaran, $row->nisn, 'UNBK');
                                         ?>
 
-                                            <td><?= ($sisaAngsuranPembayaranUnbk == 0) ? 'lunas' : $dataJenisPembayaran['UNBK'] / 12 * $sisaAngsuranPembayaranUnbk ?></td>
+                                            <td><?php
+                                                if ($sisaAngsuranPembayaranUnbk == 0) {
+                                                    echo 'lunas';
+                                                } else {
+                                                    echo $nominal_ujian = getNominal($jenisPembayaran, $konfigTagihanUjian->UNBK) / 12 * $sisaAngsuranPembayaranUnbk;
+                                                    $total += $nominal_ujian;
+                                                }
+                                                ?></td>
                                         <?php endif; ?>
-
+                                        <td><?= $total ?></td>
                                     </tr>
                                 <?php
+                                    $totalKeseluruhan += $total;
                                     $no++;
                                 }
                                 ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="<?= ($explode_kelas[0] == 'XII') ? 8 : 7; ?>">Total</td>
+                                    <td><?= $totalKeseluruhan ?></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

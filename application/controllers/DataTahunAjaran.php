@@ -5,6 +5,8 @@
  */
 class DataTahunAjaran extends CI_Controller
 {
+	public $ujian = ['UTS', 'UAS', 'UNBK'];
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -16,6 +18,8 @@ class DataTahunAjaran extends CI_Controller
 		}
 
 		$this->load->model('TahunAjaran_Model');
+		$this->load->model('Jenis_Pembayaran_Model');
+		$this->load->model('DataTagihanUjian_Model');
 		$this->load->library('form_validation');
 	}
 
@@ -41,12 +45,30 @@ class DataTahunAjaran extends CI_Controller
 			if ($this->input->post('stts') == 'aktif') {
 				if (empty($this->TahunAjaran_Model->statusAktif())) {
 					$this->TahunAjaran_Model->tambah_data();
+					$lastIdTahunAjar = $this->TahunAjaran_Model->lastDataTahunAjaran()->kode_ta;
+					$lastDataKonfigUjian = $this->DataTagihanUjian_Model->lastDataKonfigUjian();
+					$dataKonfigUjian = [
+						'kode_ta' => $lastIdTahunAjar,
+						'UTS' => $lastDataKonfigUjian->UTS,
+						'UAS' => $lastDataKonfigUjian->UAS,
+						'UNBK' => $lastDataKonfigUjian->UNBK,
+					];
+					$this->insertKonfigUjian($dataKonfigUjian);
 					$this->session->set_flashdata('flash_tahunajaran', 'Disimpan');
 				} else {
 					$this->session->set_flashdata('flash_tahunajaran', 'Gagal Disimpan');
 				}
 			} else {
 				$this->TahunAjaran_Model->tambah_data();
+				$lastIdTahunAjar = $this->TahunAjaran_Model->lastDataTahunAjaran()->kode_ta;
+				$lastDataKonfigUjian = $this->DataTagihanUjian_Model->lastDataKonfigUjian();
+				$dataKonfigUjian = [
+					'kode_ta' => $lastIdTahunAjar,
+					'UTS' => $lastDataKonfigUjian->UTS,
+					'UAS' => $lastDataKonfigUjian->UAS,
+					'UNBK' => $lastDataKonfigUjian->UNBK,
+				];
+				$this->insertKonfigUjian($dataKonfigUjian);
 				$this->session->set_flashdata('flash_tahunajaran', 'Disimpan');
 			}
 			redirect('DataTahunAjaran');
@@ -74,6 +96,7 @@ class DataTahunAjaran extends CI_Controller
 	public function hapus($kd)
 	{
 		$this->TahunAjaran_Model->hapus_data($kd);
+		$this->DataTagihanUjian_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_tahunajaran', 'Dihapus');
 		redirect('DataTahunAjaran');
 	}
@@ -104,5 +127,49 @@ class DataTahunAjaran extends CI_Controller
 			}
 			redirect('DataTahunAjaran');
 		}
+	}
+
+	public function konfigurasiUjian($kode_ta)
+	{
+		$disabled = '';
+		$tagihan = $this->DataTagihanUjian_Model->getData($kode_ta);
+		$data = [
+			'ujian' => $this->ujian,
+			'tahunAjaran' => $this->TahunAjaran_Model->detail_data($kode_ta),
+			'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData(),
+			'disabled' => $disabled
+		];
+		if (!empty($tagihan)) {
+			$data['tagihan'] = $tagihan;
+			$data['disabled'] = 'disabled';
+		}
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('tahunajaran/konfigurasi_tagihan', $data);
+		$this->load->view('templates/footer');
+	}
+
+
+	public function insertKonfigUjian($dataKonfigUjian = null)
+	{
+		if ($dataKonfigUjian == null) {
+			$kode_ta = $this->input->post('kd_ta');
+			$tagihan = $this->DataTagihanUjian_Model->getData($kode_ta);
+			if (empty($tagihan)) {
+				$data['kode_ta'] = $kode_ta;
+				foreach ($this->ujian as $valueUjian) {
+					$data[$valueUjian] = $this->input->post($valueUjian);
+				}
+				$this->DataTagihanUjian_Model->insertData($data);
+			} else {
+				foreach ($this->ujian as $valueUjian) {
+					$dataUpdate[$valueUjian] = $this->input->post($valueUjian);
+				}
+				$this->DataTagihanUjian_Model->update($dataUpdate, ['kode_ta' => $kode_ta]);
+			}
+		} else {
+			$this->DataTagihanUjian_Model->insertData($dataKonfigUjian);
+		}
+		redirect('DataTahunAjaran');
 	}
 }

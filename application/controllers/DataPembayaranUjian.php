@@ -17,6 +17,7 @@ class DataPembayaranUjian extends CI_Controller
         $this->load->model("Kelas_Model");
         $this->load->model("Jenis_Pembayaran_Model");
         $this->load->model("DataPembayaranSPP_Model");
+        $this->load->model("DataTagihanUjian_Model");
         $this->load->library("form_validation");
     }
 
@@ -52,18 +53,16 @@ class DataPembayaranUjian extends CI_Controller
     public function tambahData($nisn)
     {
         $jenisPembayaran = $this->input->post('id_pembayaran');
-        $nominal = $this->Jenis_Pembayaran_Model->detail_data($jenisPembayaran)['nominal'];
         $data = explode('-', $this->input->post('tahunAjaran'));
         $dataPembayaran = [
             'nisn' => $nisn,
             'kode_kelas' => $data[1],
             'tanggal' => date('Y/m/d'),
             'kode_jenispembayaran' => $jenisPembayaran,
-            'nominal' => $nominal,
+            'nominal' => $this->input->post('nominal'),
             'kode_ta' => $data[0],
             'keterangan' => $this->input->post('pembayaran')
         ];
-        print_r($dataPembayaran);
         $this->DataPembayaranUjian_Model->tambahData($dataPembayaran);
         $this->session->set_flashdata('flash_ujian', 'Disimpan');
         redirect('DataPembayaranUjian/bayar/' . $nisn);
@@ -73,15 +72,18 @@ class DataPembayaranUjian extends CI_Controller
     {
         $jenisPembayaran = $this->input->post('pembayaran');
         $nisn = $this->input->post('nisn');
+        $ta = $this->input->post('ta');
+        $idPembayaran = $this->DataTagihanUjian_Model->getData($ta)->$jenisPembayaran;
         $html = '';
-        if ($jenisPembayaran != '-') {
+        if ($ta != '-') {
             $pembayaranSiswa = $this->DataPembayaranUjian_Model->pembayaranSiswa($nisn);
-            $jenisPembayaran = $this->Jenis_Pembayaran_Model->detail_data($jenisPembayaran);
+            $jenisPembayaran = $this->Jenis_Pembayaran_Model->detail_data($idPembayaran);
+            $nominal = $jenisPembayaran['nominal'];
             $row = 12 / $jenisPembayaran['jumlah_pembayaran'];
             $html .= "<h5> Pembayaran " . $jenisPembayaran['nama_pembayaran'] . "</h5>";
             $html .= "<div class='row'>";
             for ($i = 1; $i <=  $jenisPembayaran['jumlah_pembayaran']; $i++) {
-                $pembayaranSiswa = $this->DataPembayaranUjian_Model->detailpembayaranSiswa($nisn, $this->input->post('pembayaran'), $i);
+                $pembayaranSiswa = $this->DataPembayaranUjian_Model->detailpembayaranSiswa($nisn, $idPembayaran, $i);
                 if (empty($pembayaranSiswa)) {
                     $html .= "<div class='col-" . $row . "'>";
                     $html .= "<div class='form-check'>";
@@ -100,7 +102,12 @@ class DataPembayaranUjian extends CI_Controller
             }
             $html .= "</div>";
         }
-        echo json_encode($html);
+        $data = [
+            'html' => $html,
+            'nominal' => $nominal,
+            'id_pembayaran' => $idPembayaran
+        ];
+        echo json_encode($data);
     }
 
     public function detailTransaksi($nisn)
@@ -129,18 +136,7 @@ class DataPembayaranUjian extends CI_Controller
 
     public function getDataTahunAjaran()
     {
-        $data = explode('-', $this->input->post('ta'));
-        $dataPembayaranSiswa = $this->DataPembayaranUjian_Model->getpembayaranSiswa($this->input->post('nisn'), $data[0], $this->input->post('jenispembayaran'));
-        $html = "<option value='-' > Pilih Tahun Ajaran</option>";
-        if (!empty($dataPembayaranSiswa)) {
-            $html .= "<option data-harga='$dataPembayaranSiswa->nominal' value='$dataPembayaranSiswa->kode_jenispembayaran' > $dataPembayaranSiswa->tahun_ajaran</option>";
-        } else {
-            $query = $this->Jenis_Pembayaran_Model->getAllData(['nama_pembayaran' => $this->input->post('jenispembayaran')]);
-            foreach ($query as $value) {
-                $html .= "<option data-harga='$value->nominal' value='$value->kode_jenispembayaran' > $value->tahun_ajaran</option>";
-            }
-        }
-        // print_r($dataPembayaranSiswa);
-        echo json_encode($html);
+        $data['nominal'] = '';
+        echo json_encode('data');
     }
 }

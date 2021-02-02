@@ -243,11 +243,20 @@
 
             });
         <?php } ?>
+        <?php if ($this->uri->segment(1) == 'DataTahunAjaran') { ?>
+            $('#ganti_konfigurasi').click(function() {
+                $('#UTS').removeAttr('disabled');
+                $('#UAS').removeAttr('disabled');
+                $('#UNBK').removeAttr('disabled');
+                $('#btn_save').removeAttr('disabled');
+            });
+        <?php } ?>
 
         <?php if ($this->uri->segment(1) == 'DataPembayaranUjian') { ?>
 
             $('#tahunAjaran').change(function() {
                 var result = $('#tahunAjaran option:selected').data('kelas').split('_');
+                var resultTahun = $('#tahunAjaran option:selected').data('tahun');
                 var html = "";
                 if (result[0] == 'XII') {
                     html = '<option value="">pilih Jenis Pembayaran</option><option value="UAS">UAS</option> <option value ="UTS">UTS</option><option value ="UNBK">UNBK</option>';
@@ -259,48 +268,34 @@
             });
 
             $('#jenis_pembayaran').change(function() {
-                let selected = $(this).val();
-                let ta = $('#tahunAjaran').val();
-
-                if (selected != '-') {
-                    // alert(selected);
-                    $.ajax({
-                        url: "<?= base_url('DataPembayaranUjian/getDataTahunAjaran') ?>",
-                        data: {
-                            'jenispembayaran': selected,
-                            'nisn': "<?= $this->uri->segment(3) ?>",
-                            'ta': ta
-                        },
-                        type: 'POST',
-                        success: function(data) {
-                            let html = JSON.parse(data);
-                            $('#ta').html(html).show();
-                            $('#ta').removeAttr('disabled');
-                        }
-                    })
-                }
-            });
-
-            $('#ta').change(function() {
-                let nominal = $('#ta option:selected').data('harga');
-                let id = $('#ta option:selected').val();
-                $('#nominal').val(nominal);
                 let dataNisn = "<?= $this->uri->segment(3) ?>";
                 let ta = $('#tahunAjaran').val();
                 let jenisPembayaran = $(this).val();
-                if (ta != '-') {
-                    $.ajax({
-                        url: "<?= base_url('DataPembayaranUjian/JumlahPembayaran') ?>",
-                        type: 'POST',
-                        // dataType: 'json',
-                        data: {
-                            'nisn': dataNisn,
-                            'pembayaran': id
-                        },
-                        success: function(response) {
-                            $('#dataPembayaran').html(JSON.parse(response));
-                        }
-                    });
+                if (jenisPembayaran != '-') {
+                    if (ta != '-') {
+                        $.ajax({
+                            url: "<?= base_url('DataPembayaranUjian/JumlahPembayaran') ?>",
+                            type: 'POST',
+                            data: {
+                                'nisn': dataNisn,
+                                'pembayaran': jenisPembayaran,
+                                'ta': ta
+                            },
+                            success: function(response) {
+                                let data = JSON.parse(response);
+                                $('#dataPembayaran').html(data.html);
+                                let nominal = data.nominal;
+                                if (jenisPembayaran == 'UNBK') {
+                                    nominal = parseInt(data.nominal) / 12;
+                                }
+                                $('#nominal').val(nominal);
+                                $('#id_pembayaran').val(data.id_pembayaran);
+                            }
+                        });
+                    } else {
+                        alert('pilih jenis pembayaran');
+                        $(this).val('-')
+                    }
                 } else {
                     alert('pilih tahun ajaran');
                     $(this).val('-')

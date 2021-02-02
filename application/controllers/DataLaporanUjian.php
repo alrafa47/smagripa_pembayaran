@@ -18,6 +18,7 @@ class DataLaporanUjian extends CI_Controller
         $this->load->model('Kelas_Model');
         $this->load->model('Jenis_Pembayaran_Model');
         $this->load->model('DataPembayaranUjian_Model');
+        $this->load->model('DataTagihanUjian_Model');
         $this->load->model('TahunAjaran_Model');
         $this->load->library('form_validation');
     }
@@ -66,7 +67,8 @@ class DataLaporanUjian extends CI_Controller
             'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
             'tahunajaran' => $this->TahunAjaran_Model->getAllData(),
             'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData(),
-            'kelas' => $this->Kelas_Model->getAllDatabyKelas()
+            'kelas' => $this->Kelas_Model->getAllDatabyKelas(),
+            'konfigTagihanUjian' => $this->DataTagihanUjian_Model->getData($this->input->get('ta'))
         ];
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
@@ -116,7 +118,9 @@ class DataLaporanUjian extends CI_Controller
             'jenisPembayaran' => $this->Jenis_Pembayaran_Model->getAllData(),
             'kelas' => $this->Kelas_Model->getAllDatabyKelas(),
             'ta' => $this->TahunAjaran_Model->detail_data($ta)['tahun_ajaran'],
-            'kelass' => $kelas
+            'kelass' => $kelas,
+            'konfigTagihanUjian' => $this->DataTagihanUjian_Model->getData($this->input->get('ta'))
+
         ];
         $this->load->view('laporanujian/export', $data);
     }
