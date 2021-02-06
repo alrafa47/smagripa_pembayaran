@@ -100,7 +100,7 @@
               <a href="<?= base_url() ?>DataNaikKelas" class="nav-link">
                 <i class="fas fa-university"></i>
                 <p>
-                  Data Kenaikan Kelas
+                  Kenaikan Kelas
                 </p>
               </a>
             </li>
@@ -193,11 +193,7 @@
               </p>
             </a>
           </li>
-
-
         <?php } ?>
-
-
     </nav>
     <!-- /.sidebar-menu -->
   </div>

@@ -91,6 +91,7 @@ class DataPembayaranDPP extends CI_Controller
     public function detail_siswa($fromAjax = false)
     {
         $detailSiswa = $this->DPPSiswa_Model->get_detail_siswa($this->input->post('nisn'));
+        // $detailSisswa = $this->Siswa_Model->detail_data($this->input->post('nisn'));
         $dataTransaksi = $this->DataPembayaranDPP_Model->getDataBynisn($this->input->post('nisn'));
         if (is_array($dataTransaksi)) {
             foreach ($dataTransaksi as $value) {
@@ -107,6 +108,7 @@ class DataPembayaranDPP extends CI_Controller
                 $kelas =  "kelas_$i";
                 if ($detailSiswa->$kelas != null || $detailSiswa->$kelas != "") {
                     $data['kelas'] = $detailSiswa->$kelas;
+                    break;
                 }
             }
             $data['nama_jurusan'] = $detailSiswa->nama_jurusan;
