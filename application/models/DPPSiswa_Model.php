@@ -25,6 +25,35 @@ class DPPSiswa_Model extends CI_Model
 		}
 		return $this->db->get()->result();
 	}
+
+	public function getAllDataJoinDataSiswa_Kelas($kelas = null, $tahun_awal = null, $tahun_akhir = null)
+	{
+		$this->db->select('tbl_siswa.nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_dpp_siswa.nominal_dpp, tbl_dpp_siswa.jumlah_angsuran, tbl_dpp_siswa.nominal_angsuran, status');
+		$this->db->from('tbl_siswa');
+		$this->db->join('tbl_jurusan', 'tbl_siswa.kode_jurusan = tbl_jurusan.kode_jurusan');
+		$this->db->join('tbl_dpp_siswa', 'tbl_siswa.nisn = tbl_dpp_siswa.nisn');
+		if ($kelas != null) {
+			$dataKelas = explode('_', $kelas);
+			switch ($dataKelas[0]) {
+				case 'X':
+					$urutanKelas = 1;
+					break;
+				case 'XI':
+					$urutanKelas = 2;
+					break;
+				case 'XII':
+					$urutanKelas = 3;
+					break;
+			}
+			$this->db->where('tbl_siswa.kelas_' . $urutanKelas, $kelas);
+		}
+		if ($tahun_awal != null) {
+			$this->db->where('tbl_siswa.kode_ta', ($tahun_awal - $urutanKelas) + 1);
+			// $this->db->where('tbl_siswa.kode_ta <=', $tahun_akhir);
+		}
+		return $this->db->get()->result();
+	}
+
 	public function getDataJoinDataSiswaByNisn($nisn)
 	{
 		$this->db->select('tbl_siswa.nisn, nama_siswa, jk, tempat_lahir, tgl_lahir, alamat, no_telfon, tbl_jurusan.nama_jurusan, tbl_dpp_siswa.nominal_dpp, tbl_dpp_siswa.jumlah_angsuran, tbl_dpp_siswa.nominal_angsuran, status');

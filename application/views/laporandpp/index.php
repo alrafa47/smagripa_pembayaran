@@ -30,16 +30,16 @@
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="form-group">
-                                                <label>Jurusan</label>
-                                                <select class="form-control" name="jurusan">
+                                                <label>Kelas</label>
+                                                <select class="form-control" name="kelas">
                                                     <option value='lihat_semua'>lihat Semua</option>
                                                     <?php
-                                                    foreach ($jurusan as $valueJurusan) {
+                                                    foreach ($kelas as $valueKelas) {
                                                         $selected = '';
-                                                        if ($this->input->get('jurusan') == $valueJurusan->kode_jurusan) {
+                                                        if ($this->input->get('kelas') == $valueKelas->kode_kelas) {
                                                             $selected = 'selected';
                                                         }
-                                                        echo "<option value='$valueJurusan->kode_jurusan' $selected>$valueJurusan->nama_jurusan</option>";
+                                                        echo "<option value='$valueKelas->kode_kelas' $selected>$valueKelas->kode_kelas</option>";
                                                     }
                                                     ?>
                                                 </select>
@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="col-3">
                                             <div class="form-group">
-                                                <label>Tahun ajaran Awal</label>
+                                                <label>Tahun ajaran</label>
                                                 <select class="form-control" name="tahun_awal">
                                                     <?php
                                                     foreach ($dataTahunAjaran as $valueTahunAjaran) {
@@ -61,7 +61,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-3">
+                                        <!-- <div class="col-3">
                                             <div class="form-group">
                                                 <label>Tahun Ajaran Akhir</label>
                                                 <select class="form-control" name="tahun_akhir">
@@ -76,12 +76,12 @@
                                                     ?>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div><button type="submit" class="btn btn-danger">Lihat</button></div>
                                 </form>
                             </div>
-                            <a href="<?= base_url('DataLaporan/export/') . $this->input->get('jurusan') . '/' . $this->input->get('tahun_awal') . '/' . $this->input->get('tahun_akhir') ?>" class="btn btn-warning">Export</a>
+                            <a href="<?= base_url('DataLaporan/export/') . $this->input->get('kelas') . '/' . $this->input->get('tahun_awal') ?>" class="btn btn-warning">Export</a>
                         </div>
                     </div>
                 </div>
