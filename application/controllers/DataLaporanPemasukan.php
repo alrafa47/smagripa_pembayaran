@@ -12,9 +12,10 @@ class DataLaporanPemasukan extends CI_Controller
         if (!$this->session->has_userdata('id_user')) {
             redirect('Login');
         }
-        if ($this->session->userdata('level') != 'admin') {
+        if ($this->session->userdata('level') == 'siswa') {
             show_404();
         }
+
 
         $this->load->model('Siswa_Model');
         $this->load->model('Kelas_Model');

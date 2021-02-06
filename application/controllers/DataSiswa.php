@@ -11,9 +11,10 @@ class DataSiswa extends CI_Controller
 		if (!$this->session->has_userdata('id_user')) {
 			redirect('Login');
 		}
-		if ($this->session->userdata('level') != 'admin') {
+		if ($this->session->userdata('level') == 'siswa') {
 			show_404();
 		}
+
 
 		$this->load->model('Siswa_Model');
 		$this->load->library('form_validation');
@@ -30,6 +31,9 @@ class DataSiswa extends CI_Controller
 
 	public function validation_form()
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->form_validation->set_rules("Nisn", "nisn", "required|is_unique[tbl_dpp_siswa.nisn]|max_length[5]");
 		$this->form_validation->set_rules("nmnl_dpp", "Nominal DPP", "required");
 		$this->form_validation->set_rules("jmlh_angsuran", "Jumlah Angsuran", "required");
@@ -46,6 +50,9 @@ class DataSiswa extends CI_Controller
 
 	public function hapus($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->DPPSiswa_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_dppsiswa', 'Dihapus');
 		redirect('DataDPPSiswa');
@@ -57,6 +64,7 @@ class DataSiswa extends CI_Controller
 		$result = $this->Siswa_Model->getDataSiswaJoinSPPjurusanByNIS($nisn);
 		$data['nisn'] = $result->nisn;
 		$data['nama_siswa'] = $result->nama_siswa;
+		$data['password'] = $result->password;
 		$data['jk'] = $result->jk;
 		$data['tempat_lahir'] = $result->tempat_lahir;
 		$data['tgl_lahir'] = $result->tgl_lahir;
@@ -73,6 +81,9 @@ class DataSiswa extends CI_Controller
 
 	public function ubah($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->form_validation->set_rules("Nisn", "nisn", "required|max_length[5]");
 		$this->form_validation->set_rules("nmnl_dpp", "Nominal", "required");
 		$this->form_validation->set_rules("jmlh_angsuran", "Jumlah Angsuran", "required");

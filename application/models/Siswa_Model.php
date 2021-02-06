@@ -16,6 +16,7 @@ class Siswa_Model extends CI_Model
 		$data = array(
 			'nisn' => $this->input->post('Nisn'),
 			'nama_siswa' => $this->input->post('nm_siswa'),
+			'password' => $this->input->post('password'),
 			'jk' => $this->input->post('jk_siswa'),
 			'tempat_lahir' => $this->input->post('tmpt_lahir'),
 			'tgl_lahir' => $this->input->post('tgl_lahir'),
@@ -49,6 +50,7 @@ class Siswa_Model extends CI_Model
 		$kelas_3 =  ($this->input->post('kelas_3', true) == '') ? null : $this->input->post('kelas_3', true);;
 		$data = array(
 			'nama_siswa' => $this->input->post('nm_siswa'),
+			'password' => $this->input->post('password'),
 			'jk' => $this->input->post('jk_siswa'),
 			'tempat_lahir' => $this->input->post('tmpt_lahir'),
 			'tgl_lahir' => $this->input->post('tgl_lahir', true),
@@ -106,5 +108,16 @@ class Siswa_Model extends CI_Model
 	{
 		$this->db->where('nisn', $nisn);
 		$this->db->update('tbl_siswa', $data);
+	}
+
+	public function validation($username, $pass)
+	{
+		$this->db->where('nisn', $username);
+		$this->db->where('password', $pass);
+		$query = $this->db->get('tbl_siswa');
+		if ($query->num_rows() >= 1) {
+			return $query->row();
+		}
+		return false;
 	}
 }

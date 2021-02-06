@@ -38,8 +38,9 @@
               </p>
             </a>
           </li>
-          <!-- Data Jurusan  -->
-
+        <?php } ?>
+        <!-- Data Jurusan  -->
+        <?php if ($this->session->userdata('level') == 'admin' || $this->session->userdata('level') == 'petugas') { ?>
           <li class="nav-item">
             <a href="<?= base_url() ?>DataJurusan" class="nav-link">
               <i class="fas fa-shield-alt"></i>
@@ -57,6 +58,22 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataJenisSPP" class="nav-link">
+              <i class="fas fa-list"></i>
+              <p>
+                Data Jenis SPP
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataJenisPembayaran" class="nav-link">
+              <i class="fas fa-tags"></i>
+              <p>
+                Data Jenis Pembayaran Ujian
+              </p>
+            </a>
+          </li>
 
           <!-- Data Tahun Ajaran -->
           <li class="nav-item">
@@ -68,14 +85,7 @@
             </a>
           </li>
           <!-- Jenis SPP -->
-          <li class="nav-item">
-            <a href="<?= base_url() ?>DataJenisSPP" class="nav-link">
-              <i class="fas fa-list"></i>
-              <p>
-                Data Jenis SPP
-              </p>
-            </a>
-          </li>
+
           <!-- Data DPPSiswa-->
           <li class="nav-item">
             <a href="<?= base_url() ?>DataDPPSiswa" class="nav-link">
@@ -85,100 +95,108 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?= base_url() ?>DataNaikKelas" class="nav-link">
-              <i class="fas fa-university"></i>
-              <p>
-                Data Kenaikan Kelas
-              </p>
-            </a>
-          </li>
+          <?php if ($this->session->userdata('level') == 'admin') { ?>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>DataNaikKelas" class="nav-link">
+                <i class="fas fa-university"></i>
+                <p>
+                  Data Kenaikan Kelas
+                </p>
+              </a>
+            </li>
+          <?php } ?>
 
+
+
+          <!-- data pembayaran -->
           <li class="nav-item">
-            <a href="<?= base_url() ?>DataJenisPembayaran" class="nav-link">
-              <i class="fas fa-tags"></i>
+            <a href="#" class="nav-link">
+              <i class="fas fa-dollar-sign"></i>
+              <p> Transaksi Pembayaran <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataPembayaranDPP" class="nav-link">
+                  <i class="fas fa-hand-holding-usd"></i>
+                  <p>
+                    Pembayaran DPP
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataPembayaranSPP" class="nav-link">
+                  <i class="fas fa-hand-holding-usd"></i>
+                  Pembayaran SPP
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataPembayaranUjian" class="nav-link">
+                  <i class="fas fa-hand-holding-usd"></i>
+                  <p>Pembayaran Ujian</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- data laporan -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-list-alt"></i>
+              <p> Laporan Pembayaran <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataLaporan" class="nav-link">
+                  <i class="fas fa-list-alt"></i>
+                  Laporan DPP
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataLaporanSPP" class="nav-link">
+                  <i class="fas fa-list-alt"></i>
+                  <p>
+                    Laporan SPP
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="<?= base_url('DataLaporanUjian') ?>" class="nav-link">
+                  <i class="fas fa-list-alt"></i>
+                  <p>Laporan Ujian</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataLaporanRekapan" class="nav-link">
+                  <i class="fas fa-list-alt"></i>
+                  <p>Rekapan Pembayaran</p>
+                </a>
+              </li>
+
+            </ul>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataLaporanPemasukan" class="nav-link">
+              <i class="fas fa-hand-holding-usd"></i>
               <p>
-                Data Jenis Pembayaran Ujian
+                Data Laporan Pemasukan
               </p>
             </a>
           </li>
         <?php } ?>
-        <!-- data pembayaran -->
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="fas fa-dollar-sign"></i>
-            <p> Transaksi Pembayaran <i class="right fas fa-angle-left"></i></p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataPembayaranDPP" class="nav-link">
-                <i class="fas fa-hand-holding-usd"></i>
-                <p>
-                  Pembayaran DPP
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataPembayaranSPP" class="nav-link">
-                <i class="fas fa-hand-holding-usd"></i>
-                Pembayaran SPP
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataPembayaranUjian" class="nav-link">
-                <i class="fas fa-hand-holding-usd"></i>
-                <p>Pembayaran Ujian</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- data laporan -->
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="fas fa-list-alt"></i>
-            <p> Laporan Pembayaran <i class="right fas fa-angle-left"></i></p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataLaporan" class="nav-link">
-                <i class="fas fa-list-alt"></i>
-                Laporan DPP
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataLaporanSPP" class="nav-link">
-                <i class="fas fa-list-alt"></i>
-                <p>
-                  Laporan SPP
-                </p>
-              </a>
-            </li>
+        <?php if ($this->session->userdata('level') == 'siswa') { ?>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataLaporanRekapan/detail/<?= $this->session->userdata('id_user') ?>" class="nav-link">
+              <i class="fas fa-hand-holding-usd"></i>
+              <p>
+                Tagihan Pembayaran
+              </p>
+            </a>
+          </li>
 
-            <li class="nav-item">
-              <a href="<?= base_url('DataLaporanUjian') ?>" class="nav-link">
-                <i class="fas fa-list-alt"></i>
-                <p>Laporan Ujian</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataLaporanRekapan" class="nav-link">
-                <i class="fas fa-list-alt"></i>
-                <p>Rekapan Pembayaran</p>
-              </a>
-            </li>
 
-          </ul>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataLaporanPemasukan" class="nav-link">
-            <i class="fas fa-hand-holding-usd"></i>
-            <p>
-              Data Laporan Pemasukan
-            </p>
-          </a>
-        </li>
-        </li>
+        <?php } ?>
+
 
     </nav>
     <!-- /.sidebar-menu -->

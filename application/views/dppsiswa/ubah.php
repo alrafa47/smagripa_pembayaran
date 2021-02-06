@@ -69,13 +69,14 @@
                           <label for="exampleInputPassword1">Alamat</label>
                           <input type="text" class="form-control" name="almat" value="<?= $ubah1['alamat'] ?>">
                         </div>
-                      </div>
-                      <div class="col-md-6">
-
                         <div class="form-group">
                           <label for="exampleInputPassword1">No Telp</label>
                           <input type="text" class="form-control" name="telp_siswa" value="<?= $ubah1['no_telfon'] ?>">
                         </div>
+                      </div>
+                      <div class="col-md-6">
+
+
                         <div class="form-group">
                           <label for="exampleInputPassword1">Tahun Masuk</label>
                           <select class="form-control" name="kd_ta">
@@ -176,6 +177,10 @@
                             ?>
                           </select>
                         </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="text" class="form-control" name="password" value="<?= $ubah1['password'] ?>">
+                        </div>
                       </div>
                     </div>
                     <hr>
@@ -208,6 +213,7 @@
                             ?>
                           </select>
                         </div>
+
                       </div>
                     </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">

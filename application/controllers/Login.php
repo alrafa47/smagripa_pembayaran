@@ -9,6 +9,7 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User_Model');
+        $this->load->model('Siswa_Model');
         $this->load->library('form_validation');
     }
     function index()
@@ -28,11 +29,20 @@ class Login extends CI_Controller
             $username  = $this->input->post('username', true);
             $password  = $this->input->post('password', true);
             $validation = $this->User_Model->validation($username, $password);
+            $validationSiswa = $this->Siswa_Model->validation($username, $password);
             if (is_object($validation)) {
                 $newdata = array(
                     'id_user'     => $validation->id_user,
                     'username'  => $validation->username,
                     'level' => $validation->level
+                );
+                $this->session->set_userdata($newdata);
+                redirect('Welcome');
+            } else if (is_object($validationSiswa)) {
+                $newdata = array(
+                    'id_user'     => $validationSiswa->nisn,
+                    'username'  => $validationSiswa->nama_siswa,
+                    'level' => 'siswa'
                 );
                 $this->session->set_userdata($newdata);
                 redirect('Welcome');

@@ -13,9 +13,10 @@ class DataTahunAjaran extends CI_Controller
 		if (!$this->session->has_userdata('id_user')) {
 			redirect('Login');
 		}
-		if ($this->session->userdata('level') != 'admin') {
+		if ($this->session->userdata('level') == 'siswa') {
 			show_404();
 		}
+
 
 		$this->load->model('TahunAjaran_Model');
 		$this->load->model('Jenis_Pembayaran_Model');
@@ -34,6 +35,9 @@ class DataTahunAjaran extends CI_Controller
 
 	public function validation_form()
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		// $this->form_validation->set_rules("kd_ta", "Kode Tahun Ajaran", "required|is_unique[tbl_tahun_ajaran.kode_ta]|max_length[5]");
 		$this->form_validation->set_rules("thn_ajaran", "Tahun Ajaran", "required|is_unique[tbl_tahun_ajaran.tahun_ajaran]");
 		// $this->form_validation->set_rules("smt", "Semester", "callback_check_select_semester");
@@ -95,6 +99,9 @@ class DataTahunAjaran extends CI_Controller
 	}
 	public function hapus($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->TahunAjaran_Model->hapus_data($kd);
 		$this->DataTagihanUjian_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_tahunajaran', 'Dihapus');
@@ -103,6 +110,9 @@ class DataTahunAjaran extends CI_Controller
 
 	public function ubah($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		// $this->form_validation->set_rules("kd_ta", "Kode Tahun Ajaran", "required|max_length[5]");
 		$this->form_validation->set_rules("thn_ajaran", "Tahun Ajaran", "required");
 		// $this->form_validation->set_rules("smt", "Semester", "required");
@@ -131,6 +141,9 @@ class DataTahunAjaran extends CI_Controller
 
 	public function konfigurasiUjian($kode_ta)
 	{
+		// if ($this->session->userdata('level') != 'admin') {
+		// 	show_404();
+		// }
 		$disabled = '';
 		$tagihan = $this->DataTagihanUjian_Model->getData($kode_ta);
 		$data = [
@@ -152,6 +165,9 @@ class DataTahunAjaran extends CI_Controller
 
 	public function insertKonfigUjian($dataKonfigUjian = null)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		if ($dataKonfigUjian == null) {
 			$kode_ta = $this->input->post('kd_ta');
 			$tagihan = $this->DataTagihanUjian_Model->getData($kode_ta);

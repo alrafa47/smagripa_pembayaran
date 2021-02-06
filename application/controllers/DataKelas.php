@@ -12,7 +12,7 @@ class DataKelas extends CI_Controller
 		if (!$this->session->has_userdata('id_user')) {
 			redirect('Login');
 		}
-		if ($this->session->userdata('level') != 'admin') {
+		if ($this->session->userdata('level') == 'siswa') {
 			show_404();
 		}
 
@@ -36,6 +36,9 @@ class DataKelas extends CI_Controller
 
 	public function validation_form()
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->form_validation->set_rules("kelas", "Kelas", "callback_check_select_kelas");
 		$this->form_validation->set_rules("kode_jurusan", "Kode jurusan", "callback_check_select_jurusan");
 		$this->form_validation->set_rules("nama_kelas", "Nama Kelas", "callback_check_select_nama_kelas");
@@ -77,6 +80,9 @@ class DataKelas extends CI_Controller
 	}
 	public function hapus($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->Kelas_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_kelas', 'Dihapus');
 		redirect('DataKelas');
@@ -84,6 +90,9 @@ class DataKelas extends CI_Controller
 
 	public function ubah($id)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->form_validation->set_rules("kd_kls", "Kode Kelas", "max_length[10]");
 		$this->form_validation->set_rules("kelas", "Kelas", "required|max_length[5]");
 		$this->form_validation->set_rules("kd_jur", "Nama Jurusan", "required");

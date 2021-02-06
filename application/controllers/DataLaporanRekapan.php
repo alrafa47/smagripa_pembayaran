@@ -20,6 +20,9 @@ class DataLaporanRekapan extends CI_Controller
         if (!$this->session->has_userdata('id_user')) {
             redirect('Login');
         }
+        // if ($this->session->userdata('level') == 'siswa') {
+        //     show_404();
+        // }
         $this->load->model('Siswa_Model');
         $this->load->model('Jurusan_Model');
         $this->load->model('Kelas_Model');
@@ -67,6 +70,9 @@ class DataLaporanRekapan extends CI_Controller
 
     function index()
     {
+        if ($this->session->userdata('level') == 'siswa') {
+            show_404();
+        }
         $dataPembayaran = [];
         $dataSiswa = [];
         if ($this->input->get('ta') != 'lihat_semua' && $this->input->get('kelas') != 'lihat_semua') {
@@ -215,6 +221,11 @@ class DataLaporanRekapan extends CI_Controller
 
     public function detail($nisn)
     {
+        if ($this->session->userdata('level') == 'siswa') {
+            if ($this->session->userdata('id_user') != $nisn) {
+                show_404();
+            }
+        }
         $dataPembayaran = [];
         $dataSiswa = $this->Siswa_Model->detail_data($nisn);
         // foreach ($dataSiswa as $key => $value) {
@@ -354,8 +365,8 @@ class DataLaporanRekapan extends CI_Controller
         $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(30);
         $sheet->setCellValue('A1', 'RINCIAN KEKURANGAN ADMINISTRASI KEUANGAN');
         $spreadsheet->getActiveSheet(0)->mergeCells('A1:B1');
-        $sheet->setCellValue('A2', 'TAHUN PELAJARAN');
-        $sheet->setCellValue('B2', $tahunajaran);
+        $sheet->setCellValue('A2', 'TAHUN PELAJARAN' . " " . $tahunajaran);
+        $spreadsheet->getActiveSheet(0)->mergeCells('A2:B2');
 
         $kelasSiswa = '-';
         for ($k = 3; $k >= 1; $k--) {
@@ -577,8 +588,9 @@ class DataLaporanRekapan extends CI_Controller
             $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(30);
             $sheet->setCellValue('A1', 'RINCIAN KEKURANGAN ADMINISTRASI KEUANGAN');
             $spreadsheet->getActiveSheet(0)->mergeCells('A1:B1');
-            $sheet->setCellValue('A3', 'TAHUN PELAJARAN');
-            $sheet->setCellValue('B3', $dataTahunAjaran);
+            $sheet->setCellValue('A2', 'TAHUN PELAJARAN' . "  " . $dataTahunAjaran);
+            // $sheet->setCellValue('B3', $dataTahunAjaran);
+            $spreadsheet->getActiveSheet(0)->mergeCells('A2:B2');
             $sheet->setCellValue('A5', 'Data Siswa');
             $spreadsheet->getActiveSheet(0)->mergeCells('A5:B5');
 

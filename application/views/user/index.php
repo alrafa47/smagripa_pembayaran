@@ -65,6 +65,7 @@
                       <select name="level" class="form-control">
                         <option value="admin">Admin</option>
                         <option value="petugas">Petugas</option>
+                        <option value="siswa">Siswa</option>
                       </select>
                     </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">

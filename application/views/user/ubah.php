@@ -43,9 +43,22 @@ Content Wrapper. Contains page content -->
                     </div>
                     <div class="form-group">
                       <label for="level">Admin</label>
-                      <select name="level" class="form-control">
-                        <option value="admin">Admin</option>
-                        <option value="petugas">Petugas</option>
+                      <select class="form-control" name="level">
+                        <?php
+                        if ($ubah['level'] == 'admin') {
+                          echo "<option value = 'admin' selected>Admin</option>
+                          <option value ='petugas'>petugas</option>
+                          <option value ='siswa'>Siswa</option>";
+                        } elseif ($ubah['level'] == 'petugas') {
+                          echo "<option value = 'admin' >Admin</option>
+                          <option value ='petugas' selected>petugas</option>
+                          <option value ='siswa'>Siswa</option>";
+                        } else {
+                          echo "<option value = 'admin' >Admin</option>
+                          <option value ='petugas'>petugas</option>
+                          <option value ='siswa'selected>Siswa</option>";
+                        }
+                        ?>
                       </select>
                     </div>
                     <input type="submit" name="save" class="btn btn-primary" value="Save">

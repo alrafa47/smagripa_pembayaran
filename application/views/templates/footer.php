@@ -165,6 +165,7 @@
                     var dataSiswa = JSON.parse(data);
                     modal.find('#nisn').text(dataSiswa.nisn)
                     modal.find('#nama_siswa').text(dataSiswa.nama_siswa)
+                    modal.find('#password').text(dataSiswa.password)
                     modal.find('#jk').text(dataSiswa.jk)
                     modal.find('#tempat_lahir').text(dataSiswa.tempat_lahir)
                     modal.find('#tgl_lahir').text(dataSiswa.tgl_lahir)

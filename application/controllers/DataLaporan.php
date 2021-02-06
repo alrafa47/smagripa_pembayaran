@@ -12,6 +12,9 @@ class DataLaporan extends CI_Controller
         if (!$this->session->has_userdata('id_user')) {
             redirect('Login');
         }
+        if ($this->session->userdata('level') == 'siswa') {
+            show_404();
+        }
 
         $this->load->model('DPPSiswa_Model');
         $this->load->model('Jurusan_Model');

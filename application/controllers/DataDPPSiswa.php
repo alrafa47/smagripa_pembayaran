@@ -7,9 +7,10 @@ class DataDPPSiswa extends CI_Controller
 		if (!$this->session->has_userdata('id_user')) {
 			redirect('Login');
 		}
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
+		// if ($this->session->userdata('level') == 'siswa') {
+		// 	show_404();
+		// }
+
 
 		$this->load->model('DPPSiswa_Model');
 		$this->load->model('Siswa_Model');
@@ -33,6 +34,9 @@ class DataDPPSiswa extends CI_Controller
 
 	function index()
 	{
+		if ($this->session->userdata('level') == 'siswa') {
+			show_404();
+		}
 		$data['dppsiswa'] = $this->DPPSiswa_Model->getAllData();
 		$data['dppsiswa1'] = $this->Siswa_Model->getAllData();
 		$data['jenis_spp'] = $this->Jenis_Spp_Model->getAllData();
@@ -56,10 +60,13 @@ class DataDPPSiswa extends CI_Controller
 
 	public function validation_form()
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->form_validation->set_rules("Nisn", "nisn", "required|is_unique[tbl_dpp_siswa.nisn]|max_length[20]");
 		$this->form_validation->set_rules("nmnl_dpp", "Nominal DPP", "required");
 		$this->form_validation->set_rules("jmlh_angsuran", "Jumlah Angsuran", "required");
-		// $this->form_validation->set_rules("nmnl_angsuran", "Nominal Angsuran", "required");
+		$this->form_validation->set_rules("password", "Password", "required");
 		$this->form_validation->set_rules("stts", "Status", "callback_check_select_stts");
 		$this->form_validation->set_rules("nm_siswa", "Nama", "required");
 		$this->form_validation->set_rules("jk_siswa", "Jenis Kelamin", "callback_check_select_jk_siswa");
@@ -139,6 +146,9 @@ class DataDPPSiswa extends CI_Controller
 
 	public function hapus($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->DPPSiswa_Model->hapus_data($kd);
 		$this->Siswa_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_dppsiswa', 'Dihapus');
@@ -158,21 +168,23 @@ class DataDPPSiswa extends CI_Controller
 
 	public function ubah($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->form_validation->set_rules("Nisn", "nisn", "required|max_length[5]");
 		$this->form_validation->set_rules("nmnl_dpp", "Nominal", "required");
 		$this->form_validation->set_rules("jmlh_angsuran", "Jumlah Angsuran", "required");
-		// $this->form_validation->set_rules("nmnl_angsuran", "Nominal Angsuran", "required");
+		$this->form_validation->set_rules("password", "Password", "required");
 		$this->form_validation->set_rules("stts", "Status", "required");
 		$this->form_validation->set_rules("nm_siswa", "Nama", "required");
-		$this->form_validation->set_rules("jk_siswa", "Jenis Kelamin", "required");
-		$this->form_validation->set_rules("tmpt_lahir", "Tempat Lahir", "required");
-		$this->form_validation->set_rules("tgl_lahir", "Tanggal Lahir", "required");
-		$this->form_validation->set_rules("almat", "Alamat", "required");
-		$this->form_validation->set_rules("telp_siswa", "Telp Siswa", "required");
-		$this->form_validation->set_rules("kd_ta", "Kode TA", "required");
-		// $this->form_validation->set_rules("tahun_keluar", "Tahun keluar", "required");
-		$this->form_validation->set_rules("jurusan", "Jurusan", "required");
-		$this->form_validation->set_rules("jenis_spp", "Jenis SPP", "required");
+		$this->form_validation->set_rules("jk_siswa", "Jenis Kelamin");
+		$this->form_validation->set_rules("tmpt_lahir", "Tempat Lahir");
+		$this->form_validation->set_rules("tgl_lahir", "Tanggal Lahir");
+		$this->form_validation->set_rules("almat", "Alamat");
+		$this->form_validation->set_rules("telp_siswa", "Telp Siswa");
+		$this->form_validation->set_rules("kd_ta", "Kode TA");
+		$this->form_validation->set_rules("jurusan", "Jurusan");
+		$this->form_validation->set_rules("jenis_spp", "Jenis SPP");
 
 
 		if ($this->form_validation->run() == FALSE) {
@@ -194,6 +206,48 @@ class DataDPPSiswa extends CI_Controller
 			$this->Siswa_Model->ubah_data();
 			$this->session->set_flashdata('flash_dppsiswa', 'DiUbah');
 			redirect('DataDPPSiswa');
+		}
+	}
+	public function ubahsiswa($kd)
+	{
+		if ($this->session->userdata('level') == 'siswa') {
+			if ($this->session->userdata('id_user') != $kd) {
+				show_404();
+			}
+		}
+
+		$this->form_validation->set_rules("Nisn", "nisn", "required|max_length[5]");
+		$this->form_validation->set_rules("password", "Password", "required");
+		$this->form_validation->set_rules("nm_siswa", "Nama", "required");
+		$this->form_validation->set_rules("jk_siswa", "Jenis Kelamin");
+		$this->form_validation->set_rules("tmpt_lahir", "Tempat Lahir");
+		$this->form_validation->set_rules("tgl_lahir", "Tanggal Lahir");
+		$this->form_validation->set_rules("almat", "Alamat");
+		$this->form_validation->set_rules("telp_siswa", "Telp Siswa");
+		$this->form_validation->set_rules("kd_ta", "Kode TA");
+		// $this->form_validation->set_rules("tahun_keluar", "Tahun keluar", "required");
+		$this->form_validation->set_rules("jurusan", "Jurusan");
+		$this->form_validation->set_rules("jenis_spp", "Jenis SPP");
+
+
+
+		if ($this->form_validation->run() == FALSE) {
+			$data['ubah'] = $this->DPPSiswa_Model->detail_data($kd);
+			$data['ubah1'] = $this->Siswa_Model->detail_data($kd);
+			$data['tahunajaran'] = $this->TahunAjaran_Model->getAllData();
+			$data['jurusan'] = $this->Jurusan_Model->getAllData();
+			$data['jenis_spp'] = $this->Jenis_Spp_Model->getAllData();
+			$data['kelas'] = $this->Kelas_Model->getAllData();
+
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar');
+			$this->load->view('dppsiswa/ubahsiswa', $data);
+			$this->load->view('templates/footer');
+		} else {
+
+			$this->Siswa_Model->ubah_data();
+			$this->session->set_flashdata('flash_dppsiswa', 'DiUbah');
+			redirect('Welcome');
 		}
 	}
 }

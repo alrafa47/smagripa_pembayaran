@@ -24,7 +24,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Konfigurasi Ujian Tahun Ajaran <?= $tahunAjaran['tahun_ajaran'] ?></h5>
-                        <button id="ganti_konfigurasi" class="btn btn-xs btn-primary float-right">Ganti Konfigurasi</button>
+                        <?php if ($this->session->userdata('level') == 'admin') { ?>
+                            <button id="ganti_konfigurasi" class="btn btn-s btn-primary float-right">Ganti Konfigurasi</button>
+                        <?php } ?>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

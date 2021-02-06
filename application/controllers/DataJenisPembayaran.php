@@ -11,9 +11,10 @@ class DataJenisPembayaran extends CI_Controller
 		if (!$this->session->has_userdata('id_user')) {
 			redirect('Login');
 		}
-		if ($this->session->userdata('level') != 'admin') {
+		if ($this->session->userdata('level') == 'siswa') {
 			show_404();
 		}
+
 
 		$this->load->model('Jenis_Pembayaran_Model');
 		$this->load->model('TahunAjaran_Model');
@@ -32,6 +33,9 @@ class DataJenisPembayaran extends CI_Controller
 
 	public function validation_form()
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		// $this->form_validation->set_rules("kode_jenispembayaran", "Kode Jenis Pembayaran", "required|is_unique[tbl_jenis_pembayaran.kode_jenispembayaran]|max_length[20]");
 		$this->form_validation->set_rules("nama_pembayaran", "Nama Pembayaran", "required");
 		$this->form_validation->set_rules("nominal", "Nominal", "required");
@@ -48,6 +52,9 @@ class DataJenisPembayaran extends CI_Controller
 
 	public function hapus($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->Jenis_Pembayaran_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_jenis_pembayaran', 'Dihapus');
 		redirect('DataJenisPembayaran');
@@ -55,6 +62,9 @@ class DataJenisPembayaran extends CI_Controller
 
 	public function ubah($kd)
 	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
 		$this->form_validation->set_rules("kode_jenispembayaran", "Kode Jenis Pembayaran", "required|max_length[20]");
 		$this->form_validation->set_rules("nama_pembayaran", "Nama Pembayaran", "required");
 		$this->form_validation->set_rules("nominal", "Nominal", "required");

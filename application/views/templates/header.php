@@ -41,13 +41,22 @@
         <li class="nav-item d-none d-sm-inline-block">
           <a href="Welcome" class="nav-link">DashBoard</a>
         </li>
+        <?php if ($this->session->userdata('level') == 'siswa') { ?>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-sm-inline-block">
+              <a href="<?= base_url() ?>DataDPPSiswa/ubahsiswa/<?= $this->session->userdata('id_user') ?>" class="nav-link">Profil</a>
+            </li>
+
+          </ul>
+        <?php } ?>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item d-none d-sm-inline-block">
             <a href="<?= base_url('Login/logout') ?>" class="nav-link">Log Out</a>
           </li>
         </ul>
-        <!-- <li class="nav-item d-none d-sm-inline-block">
-          <a href="<?= base_url() ?>DataPembayaranSPP/bayar" class="nav-link">Bayar</a>
-        </li> -->
+
+
+
+
       </ul>
     </nav>
