@@ -44,15 +44,15 @@ class DataJurusan extends CI_Controller
 		}
 	}
 
-	public function hapus($kd)
-	{
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
-		$this->Jurusan_Model->hapus_data($kd);
-		$this->session->set_flashdata('flash_jurusan', 'Dihapus');
-		redirect('DataJurusan');
-	}
+	// public function hapus($kd)
+	// {
+	// 	if ($this->session->userdata('level') != 'admin') {
+	// 		show_404();
+	// 	}
+	// 	$this->Jurusan_Model->hapus_data($kd);
+	// 	$this->session->set_flashdata('flash_jurusan', 'Dihapus');
+	// 	redirect('DataJurusan');
+	// }
 
 	public function ubah($kd)
 	{
@@ -72,5 +72,22 @@ class DataJurusan extends CI_Controller
 			$this->session->set_flashdata('flash_jurusan', 'DiUbah');
 			redirect('DataJurusan');
 		}
+	}
+
+	public function hapus()
+	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+		$id = $this->input->post('id');
+		$this->Jurusan_Model->hapus_data($id);
+		$this->session->set_flashdata('flash_jurusan', 'Dihapus');
+		// redirect('DataMapel');
+	}
+
+	public function checkForeign()
+	{
+		$data = $this->Jurusan_Model->checkForeign($this->input->post('id'));
+		echo json_encode($data);
 	}
 }

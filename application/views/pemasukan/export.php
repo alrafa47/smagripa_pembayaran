@@ -1,6 +1,6 @@
 <?php
-// header("Content-type: application/vnd-ms-excel");
-// header("Content-Disposition: attachment; filename=Data LaporanDPP.xls");
+header("Content-type: application/vnd-ms-excel");
+header("Content-Disposition: attachment; filename=LaporanPemasukan<?= $start sd $end ?>.xls");
 ?>
 <style type="text/css">
     body {
@@ -28,7 +28,8 @@
     }
 </style>
 <center>
-    <h3>LAPORAN PEMASUKAN</h3>
+    <h3>LAPORAN PEMASUKAN<br>
+        Tanggal<?php echo "\n" .  $start . "\nsd\n" . $end ?></h3>
 
 
 </center>

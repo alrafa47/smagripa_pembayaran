@@ -44,41 +44,43 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Angsuran Ke-</th>
-                  <th>nominal Pembayaran</th>
-                  <th>Tanggal</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                if (empty($detailAngsuran)) {
-                  echo "<tr><td colspan='5' style='text-align: center;'> belum ada pembayaran DPP</td></tr>";
-                } else {
-                  for ($i = 1; $i <= $jumlahAngsuran; $i++) {
-                    if (in_array($i, array_column($detailAngsuran, 'angsuran'))) {
-                      $key = array_search($i, array_column($detailAngsuran, 'angsuran'));
-                ?>
-                      <tr>
-                        <td><?= $detailAngsuran[$key]->angsuran ?></td>
-                        <td><?= $detailAngsuran[$key]->nominal_bayar ?></td>
-                        <td><?= $detailAngsuran[$key]->tanggal ?></td>
-                        <td>
-                          <a href="<?= base_url() ?>DataPembayaranDPP/hapusDetailTransaksi/<?= $detailAngsuran[$key]->nisn ?>/<?= $detailAngsuran[$key]->no_transaksi ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
-                        </td>
-                      </tr>
-                <?php
-                    } else {
-                      echo "<tr><td colspan='5' style='text-align: center;'>belum ada pembayaran pada angsuran ke $i</td></tr>";
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
+                  <tr>
+                    <th>Angsuran Ke-</th>
+                    <th>nominal Pembayaran</th>
+                    <th>Tanggal</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  if (empty($detailAngsuran)) {
+                    echo "<tr><td colspan='5' style='text-align: center;'> belum ada pembayaran DPP</td></tr>";
+                  } else {
+                    for ($i = 1; $i <= $jumlahAngsuran; $i++) {
+                      if (in_array($i, array_column($detailAngsuran, 'angsuran'))) {
+                        $key = array_search($i, array_column($detailAngsuran, 'angsuran'));
+                  ?>
+                        <tr>
+                          <td><?= $detailAngsuran[$key]->angsuran ?></td>
+                          <td><?= $detailAngsuran[$key]->nominal_bayar ?></td>
+                          <td><?= $detailAngsuran[$key]->tanggal ?></td>
+                          <td>
+                            <a href="<?= base_url() ?>DataPembayaranDPP/hapusDetailTransaksi/<?= $detailAngsuran[$key]->nisn ?>/<?= $detailAngsuran[$key]->no_transaksi ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
+                          </td>
+                        </tr>
+                  <?php
+                      } else {
+                        echo "<tr><td colspan='5' style='text-align: center;'>belum ada pembayaran pada angsuran ke $i</td></tr>";
+                      }
                     }
                   }
-                }
-                ?>
-              </tbody>
-            </table>
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- ./card-body -->
         </div>

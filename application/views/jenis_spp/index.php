@@ -95,42 +95,45 @@
         <div class="card">
           <!-- card-body -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Kode Jenis SPP</th>
-                  <th>Nominal Jenis</th>
-                  <th>Tingkat</th>
-                  <?php if ($this->session->userdata('level') == 'admin') { ?>
-                    <th>Action</th>
-                  <?php } ?>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($jenis_spp as $row) { ?>
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->kode_jenisspp ?></td>
-                    <td><?= $row->nominal_jenis ?></td>
-                    <td><?= $row->kategori ?></td>
+                    <th>No</th>
+                    <th>Kode Jenis SPP</th>
+                    <th>Nominal Jenis</th>
+                    <th>Tingkat</th>
                     <?php if ($this->session->userdata('level') == 'admin') { ?>
-                      <td>
-                        <div class="btn-group">
-                          <a href="<?= base_url() ?>DataJenisSpp/hapus/<?= $row->kode_jenisspp ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a>
-                          <a href="<?= base_url() ?>DataJenisSpp/ubah/<?= $row->kode_jenisspp ?>" class="btn btn-warning">update</a>
-                        </div>
-                      </td>
+                      <th>Action</th>
                     <?php } ?>
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($jenis_spp as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->kode_jenisspp ?></td>
+                      <td><?= $row->nominal_jenis ?></td>
+                      <td><?= $row->kategori ?></td>
+                      <?php if ($this->session->userdata('level') == 'admin') { ?>
+                        <td>
+                          <div class="btn-group">
+                            <button data-ref="<?= base_url('DataJenisSpp/hapus') ?>" data-id="<?= $row->kode_jenisspp ?>" class="btn btn-danger hapus">Hapus</button>
+                            <!-- <a href="<?= base_url() ?>DataJenisSpp/hapus/<?= $row->kode_jenisspp ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a> -->
+                            <a href="<?= base_url() ?>DataJenisSpp/ubah/<?= $row->kode_jenisspp ?>" class="btn btn-warning">update</a>
+                          </div>
+                        </td>
+                      <?php } ?>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>

@@ -39,41 +39,43 @@
         <div class="card">
           <!-- card-body -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>NISN</th>
-                  <th>Nama</th>
-                  <th>Jurusan</th>
-                  <th>Jenis</th>
-                  <th>Nominal spp</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($dataSiswa as $row) { ?>
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->nisn ?></td>
-                    <td><?= $row->nama_siswa ?></td>
-                    <td><?= $row->kode_jurusan ?></td>
-                    <td><?= $row->kategori ?></td>
-                    <td><?= $row->nominal_jenis ?></td>
-                    <td>
-
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bayarSPP" data-nisn="<?= $row->nisn ?>">Bayar SPP</button>
-                      <a href="<?= base_url() ?>DataPembayaranSPP/detailTransaksi/<?= $row->nisn ?>" class="btn btn-danger">Detail Transaksi</a>
-                    </td>
+                    <th>No</th>
+                    <th>NISN</th>
+                    <th>Nama</th>
+                    <th>Jurusan</th>
+                    <th>Jenis</th>
+                    <th>Nominal spp</th>
+                    <th>Action</th>
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($dataSiswa as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->nisn ?></td>
+                      <td><?= $row->nama_siswa ?></td>
+                      <td><?= $row->kode_jurusan ?></td>
+                      <td><?= $row->kategori ?></td>
+                      <td><?= $row->nominal_jenis ?></td>
+                      <td>
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bayarSPP" data-nisn="<?= $row->nisn ?>">Bayar SPP</button>
+                        <a href="<?= base_url() ?>DataPembayaranSPP/detailTransaksi/<?= $row->nisn ?>" class="btn btn-danger">Detail Transaksi</a>
+                      </td>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>
@@ -102,42 +104,43 @@
         </div>
         <form action="<?= base_url('DataPembayaran/insertData') ?>" method="post">
           <div class="modal-body">
-            <table class="table tabel-bordered">
-              <tr>
-                <td>NISN</td>
-                <td>
-                  <div id="dataNISN"></div>
-                  <input type="hidden" id="NIS" value="" name="dataNISN">
-                </td>
-              </tr>
-              <tr>
-                <td>Nama</td>
-                <td>
-                  <div id="dataNama"></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Jurusan</td>
-                <td>
-                  <div id="dataJurusan"></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Jenis SPP</td>
-                <td>
-                  <div id="dataJenisSPP"></div>
-                  <input type="hidden" id="jenisSpp" value="" name="jenisspp">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped responsive">
+                <tr>
+                  <td>NISN</td>
+                  <td>
+                    <div id="dataNISN"></div>
+                    <input type="hidden" id="NIS" value="" name="dataNISN">
+                  </td>
+                </tr>
+                <tr>
+                  <td>Nama</td>
+                  <td>
+                    <div id="dataNama"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Jurusan</td>
+                  <td>
+                    <div id="dataJurusan"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Jenis SPP</td>
+                  <td>
+                    <div id="dataJenisSPP"></div>
+                    <input type="hidden" id="jenisSpp" value="" name="jenisspp">
 
-                </td>
-              </tr>
-              <tr>
-                <td>Nominal SPP</td>
-                <td>
-                  <div id="dataNominalSPP"></div>
-                  <input type="hidden" id="nominalspp" value="" name="nominal">
-                </td>
-              </tr>
-              <!-- <tr>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Nominal SPP</td>
+                  <td>
+                    <div id="dataNominalSPP"></div>
+                    <input type="hidden" id="nominalspp" value="" name="nominal">
+                  </td>
+                </tr>
+                <!-- <tr>
                 <td>Kelas</td>
                 <td>
                   <div class="form-group">
@@ -145,7 +148,8 @@
                   </div>
                 </td>
               </tr> -->
-            </table>
+              </table>
+            </div>
             <div id="dataDaftarTagihan"></div>
           </div>
           <div class="modal-footer">

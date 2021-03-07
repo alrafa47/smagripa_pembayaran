@@ -61,4 +61,16 @@ class Jenis_Pembayaran_Model extends CI_Model
 	{
 		return $this->db->get_where('tbl_jenis_pembayaran', ['kode_jenispembayaran' => $kode])->row_array();
 	}
+
+	public function checkForeign($id)
+	{
+		$where = ['kode_jenispembayaran' => $id];
+		$jenis = $this->db->get_where('tbl_jenis_pembayaran', $where)->row()->nama_pembayaran;
+		$query1 = $this->db->get_where('tbl_tagihan_ujian', [$jenis => $id]);
+		$query2 = $this->db->get_where('tbl_pembayaran_ujian', ['kode_jenispembayaran' => $id]);
+		if ($query1->num_rows() >= 1 || $query2->num_rows() >= 1) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -78,15 +78,15 @@ class DataKelas extends CI_Controller
 			return TRUE;
 		}
 	}
-	public function hapus($kd)
-	{
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
-		$this->Kelas_Model->hapus_data($kd);
-		$this->session->set_flashdata('flash_kelas', 'Dihapus');
-		redirect('DataKelas');
-	}
+	// public function hapus($kd)
+	// {
+	// 	if ($this->session->userdata('level') != 'admin') {
+	// 		show_404();
+	// 	}
+	// 	$this->Kelas_Model->hapus_data($kd);
+	// 	$this->session->set_flashdata('flash_kelas', 'Dihapus');
+	// 	redirect('DataKelas');
+	// }
 
 	public function ubah($id)
 	{
@@ -109,5 +109,21 @@ class DataKelas extends CI_Controller
 			$this->session->set_flashdata('flash_kelas', 'DiUbah');
 			redirect('DataKelas');
 		}
+	}
+	public function hapus()
+	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+		$id = $this->input->post('id');
+		$this->Kelas_Model->hapus_data($id);
+		$this->session->set_flashdata('flash_kelas', 'Dihapus');
+		// redirect('DataMapel');
+	}
+
+	public function checkForeign()
+	{
+		$data = $this->Kelas_Model->checkForeign($this->input->post('id'));
+		echo json_encode($data);
 	}
 }

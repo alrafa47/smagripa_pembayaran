@@ -42,4 +42,14 @@ class Jenis_Spp_Model extends CI_Model
 	{
 		return $this->db->get_where('tbl_jenis_spp', ['kode_jenisspp' => $kode])->row_array();
 	}
+	public function checkForeign($id)
+	{
+		$where = ['kode_jenisspp' => $id];
+		$query1 = $this->db->get_where('tbl_siswa', $where);
+		$query2 = $this->db->get_where('tbl_pembayaran_spp', $where);
+		if ($query1->num_rows() >= 1 || $query2->num_rows() >= 1) {
+			return true;
+		}
+		return false;
+	}
 }

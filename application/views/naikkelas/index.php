@@ -104,121 +104,123 @@
                 <div class="card-body">
                     <form action="<?= base_url('DataNaikKelas/naikTingkat/' . $this->input->get('ta') . '/' . $this->input->get('kelas')) ?>" method="post" id="naikkelas">
 
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>NISN</th>
-                                    <th>Nama Siswa</th>
-                                    <th>Jurusan</th>
-                                    <th>X</th>
-                                    <th>XI</th>
-                                    <th>XII</th>
-                                    <th>Kelulusan</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                foreach ($datasiswa as $row) { ?>
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped responsive">
+                                <thead>
                                     <tr>
-                                        <input type="hidden" name="id[]" value="<?= $row->nisn ?>">
-                                        <td><?= $no ?></td>
-                                        <td><?= $row->nisn ?></td>
-                                        <td><?= $row->nama_siswa ?></td>
-                                        <td><?= $row->kode_jurusan ?></td>
-                                        <td>
-                                            <?php
-                                            if ($row->kelas_1 != null || $row->kelas_1 != '') {
-                                                echo $row->kelas_1;
-                                            } else {
-                                            ?>
-
-                                                <select class="form-control opt-X" name="kelas_1[]">
-                                                    <option value="">Pilih kelas</option>
-                                                    <?php
-                                                    foreach ($kelas as $valueKelas) {
-                                                        $expKelas = explode('_', $valueKelas->kode_kelas);
-                                                        if ($row->kode_jurusan == $expKelas[1] && 'X' == $expKelas[0]) {
-                                                    ?>
-                                                            <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
-                                                    <?php }
-                                                    } ?>
-                                                </select>
-                                            <?php
-                                            }
-
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            if ($row->kelas_2 != null || $row->kelas_2 != '') {
-                                                echo $row->kelas_2;
-                                            } else {
-                                            ?>
-                                                <select class="form-control opt-XI" name="kelas_2[]">
-                                                    <option value="">Pilih kelas</option>
-                                                    <?php
-                                                    foreach ($kelas as $valueKelas) {
-                                                        $expKelas = explode('_', $valueKelas->kode_kelas);
-                                                        if ($row->kode_jurusan == $expKelas[1] && 'XI' == $expKelas[0]) {
-                                                    ?>
-                                                            <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
-
-                                                    <?php }
-                                                    } ?>
-                                                </select>
-                                            <?php
-                                            }
-
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            if ($row->kelas_3 != null || $row->kelas_3 != '') {
-                                                echo $row->kelas_3;
-                                            } else {
-                                            ?>
-                                                <select class="form-control opt-XII" name="kelas_3[]">
-                                                    <option value="">Pilih kelas</option>
-                                                    <?php
-                                                    foreach ($kelas as $valueKelas) {
-                                                        $expKelas = explode('_', $valueKelas->kode_kelas);
-                                                        if ($row->kode_jurusan == $expKelas[1] && 'XII' == $expKelas[0]) {
-                                                    ?>
-                                                            <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
-
-                                                    <?php }
-                                                    } ?>
-                                                </select>
-                                            <?php
-                                            }
-
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php if ($row->tahun_keluar != null || $row->tahun_keluar != '') {
-                                                foreach ($tahunajaran as $valueTahunAjaran) {
-                                                    if ($row->tahun_keluar == $valueTahunAjaran->kode_ta) {
-                                                        echo $valueTahunAjaran->tahun_ajaran;
-                                                    }
-                                                }
-                                            } else {
-                                                if (($row->kelas_3 != null || $row->kelas_3 != '') && ($row->kelas_2 != null || $row->kelas_2 != '') && ($row->kelas_1 != null || $row->kelas_1 != '')) {
-                                            ?>
-                                                    <input type="checkbox" name="kelulusan[]" value="<?= $row->nisn ?>">
-                                            <?php
-                                                }
-                                            } ?>
-                                        </td>
+                                        <th>No</th>
+                                        <th>NISN</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Jurusan</th>
+                                        <th>X</th>
+                                        <th>XI</th>
+                                        <th>XII</th>
+                                        <th>Kelulusan</th>
                                     </tr>
-                                <?php
-                                    $no++;
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($datasiswa as $row) { ?>
+                                        <tr>
+                                            <input type="hidden" name="id[]" value="<?= $row->nisn ?>">
+                                            <td><?= $no ?></td>
+                                            <td><?= $row->nisn ?></td>
+                                            <td><?= $row->nama_siswa ?></td>
+                                            <td><?= $row->kode_jurusan ?></td>
+                                            <td>
+                                                <?php
+                                                if ($row->kelas_1 != null || $row->kelas_1 != '') {
+                                                    echo $row->kelas_1;
+                                                } else {
+                                                ?>
+
+                                                    <select class="form-control opt-X" name="kelas_1[]">
+                                                        <option value="">Pilih kelas</option>
+                                                        <?php
+                                                        foreach ($kelas as $valueKelas) {
+                                                            $expKelas = explode('_', $valueKelas->kode_kelas);
+                                                            if ($row->kode_jurusan == $expKelas[1] && 'X' == $expKelas[0]) {
+                                                        ?>
+                                                                <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
+                                                        <?php }
+                                                        } ?>
+                                                    </select>
+                                                <?php
+                                                }
+
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                if ($row->kelas_2 != null || $row->kelas_2 != '') {
+                                                    echo $row->kelas_2;
+                                                } else {
+                                                ?>
+                                                    <select class="form-control opt-XI" name="kelas_2[]">
+                                                        <option value="">Pilih kelas</option>
+                                                        <?php
+                                                        foreach ($kelas as $valueKelas) {
+                                                            $expKelas = explode('_', $valueKelas->kode_kelas);
+                                                            if ($row->kode_jurusan == $expKelas[1] && 'XI' == $expKelas[0]) {
+                                                        ?>
+                                                                <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
+
+                                                        <?php }
+                                                        } ?>
+                                                    </select>
+                                                <?php
+                                                }
+
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                if ($row->kelas_3 != null || $row->kelas_3 != '') {
+                                                    echo $row->kelas_3;
+                                                } else {
+                                                ?>
+                                                    <select class="form-control opt-XII" name="kelas_3[]">
+                                                        <option value="">Pilih kelas</option>
+                                                        <?php
+                                                        foreach ($kelas as $valueKelas) {
+                                                            $expKelas = explode('_', $valueKelas->kode_kelas);
+                                                            if ($row->kode_jurusan == $expKelas[1] && 'XII' == $expKelas[0]) {
+                                                        ?>
+                                                                <option data-kelas="<?= $valueKelas->kode_kelas ?>" value="<?= $row->nisn . '+' . $valueKelas->kode_kelas ?>"><?= $valueKelas->kelas . ' ' . $valueKelas->nama_jurusan . ' ' . $valueKelas->nama_kelas ?></option>
+
+                                                        <?php }
+                                                        } ?>
+                                                    </select>
+                                                <?php
+                                                }
+
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($row->tahun_keluar != null || $row->tahun_keluar != '') {
+                                                    foreach ($tahunajaran as $valueTahunAjaran) {
+                                                        if ($row->tahun_keluar == $valueTahunAjaran->kode_ta) {
+                                                            echo $valueTahunAjaran->tahun_ajaran;
+                                                        }
+                                                    }
+                                                } else {
+                                                    if (($row->kelas_3 != null || $row->kelas_3 != '') && ($row->kelas_2 != null || $row->kelas_2 != '') && ($row->kelas_1 != null || $row->kelas_1 != '')) {
+                                                ?>
+                                                        <input type="checkbox" name="kelulusan[]" value="<?= $row->nisn ?>">
+                                                <?php
+                                                    }
+                                                } ?>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        $no++;
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </form>
 
                 </div>

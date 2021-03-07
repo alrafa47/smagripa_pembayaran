@@ -111,43 +111,45 @@
         <div class="card">
           <!-- card-body -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>NISN</th>
-                  <th>Nama Siswa</th>
-                  <th>Jurusan</th>
-                  <th>Total DPP</th>
-                  <th>Jumlah Anguran</th>
-                  <th>Nominal Angsuran</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($dataDPP as $row) { ?>
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->nisn ?></td>
-                    <td><?= $row->nama_siswa ?></td>
-                    <td><?= $row->nama_jurusan ?></td>
-                    <td><?= $row->nominal_dpp ?></td>
-                    <td><?= $row->jumlah_angsuran ?></td>
-                    <td><?= $row->nominal_angsuran ?></td>
-                    <td><?= ($row->status == 0) ? 'Belum Lunas' : 'Lunas'; ?></td>
-                    <td>
-                      <a href="<?= base_url() ?>DataPembayaranDPP/detailTransaksi/<?= $row->nisn ?>" class="btn btn-primary">Detail Transaksi</a>
-                    </td>
+                    <th>No</th>
+                    <th>NISN</th>
+                    <th>Nama Siswa</th>
+                    <th>Jurusan</th>
+                    <th>Total DPP</th>
+                    <th>Jumlah Anguran</th>
+                    <th>Nominal Angsuran</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($dataDPP as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->nisn ?></td>
+                      <td><?= $row->nama_siswa ?></td>
+                      <td><?= $row->nama_jurusan ?></td>
+                      <td><?= $row->nominal_dpp ?></td>
+                      <td><?= $row->jumlah_angsuran ?></td>
+                      <td><?= $row->nominal_angsuran ?></td>
+                      <td><?= ($row->status == 0) ? 'Belum Lunas' : 'Lunas'; ?></td>
+                      <td>
+                        <a href="<?= base_url() ?>DataPembayaranDPP/detailTransaksi/<?= $row->nisn ?>" class="btn btn-primary">Detail Transaksi</a>
+                      </td>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>

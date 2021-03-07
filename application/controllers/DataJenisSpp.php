@@ -54,15 +54,15 @@ class DataJenisSpp extends CI_Controller
 			return TRUE;
 		}
 	}
-	public function hapus($kd)
-	{
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
-		$this->Jenis_Spp_Model->hapus_data($kd);
-		$this->session->set_flashdata('flash_jenis_spp', 'Dihapus');
-		redirect('DataJenisSpp');
-	}
+	// public function hapus($kd)
+	// {
+	// 	if ($this->session->userdata('level') != 'admin') {
+	// 		show_404();
+	// 	}
+	// 	$this->Jenis_Spp_Model->hapus_data($kd);
+	// 	$this->session->set_flashdata('flash_jenis_spp', 'Dihapus');
+	// 	redirect('DataJenisSpp');
+	// }
 
 	public function ubah($kd)
 	{
@@ -85,5 +85,21 @@ class DataJenisSpp extends CI_Controller
 			$this->session->set_flashdata('flash_jenis_spp', 'DiUbah');
 			redirect('DataJenisSpp');
 		}
+	}
+	public function hapus()
+	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+		$id = $this->input->post('id');
+		$this->Jenis_Spp_Model->hapus_data($id);
+		$this->session->set_flashdata('flash_jenis_spp', 'Dihapus');
+		// redirect('DataMapel');
+	}
+
+	public function checkForeign()
+	{
+		$data = $this->Jenis_Spp_Model->checkForeign($this->input->post('id'));
+		echo json_encode($data);
 	}
 }

@@ -35,15 +35,15 @@
                 <div class="card-body">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <th>NISN</th>
+                            <td>NISN</td>
                             <td><?= $dataSiswa['nisn']; ?></td>
                         </tr>
                         <tr>
-                            <th>Nama</th>
+                            <td>Nama</td>
                             <td><?= $dataSiswa['nama_siswa']; ?></td>
                         </tr>
                         <tr>
-                            <th>Kelas</th>
+                            <td>Kelas</td>
                             <td>
                                 <?php
                                 for ($i = 3; $i >= 1; $i--) {
@@ -54,6 +54,10 @@
                                 }
                                 ?>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>DPP</td>
+                            <td><?= $dataSiswa['dpp']; ?></td>
                         </tr>
                     </table>
                     <br>
@@ -69,54 +73,46 @@
                             <h4>Kelas <?= $alphabet[$i - 1]; ?></h4>
                             <table class="table table-bordered table-striped">
                                 <tbody>
-                                    <?php if ($i == 1 && !empty($dataSiswa['kelas_1'])) : ?>
-                                        <tr>
-                                            <th>DPP</th>
-                                            <th><?= $dataSiswa['dpp']; ?></th>
-                                        </tr>
-                                    <?php
-                                        $total[$i] += $dataSiswa['dpp'];
-                                    endif;
-                                    ?>
+
                                     <tr>
-                                        <th>Kelas</th>
-                                        <th><?= $dataSiswa['kelas_' . $i]['kode_kelas']; ?></th>
+                                        <td>Kelas</td>
+                                        <td><?= $dataSiswa['kelas_' . $i]['kode_kelas']; ?></td>
                                     </tr>
                                     <tr>
-                                        <th>Biaya SPP</th>
-                                        <th><?php $total[$i] += $dataSiswa['kelas_' . $i]['spp'];
-                                            echo $dataSiswa['kelas_' . $i]['spp']; ?></th>
+                                        <td>Biaya SPP</td>
+                                        <td><?php $total[$i] += $dataSiswa['kelas_' . $i]['spp'];
+                                            echo $dataSiswa['kelas_' . $i]['spp']; ?></td>
                                     </tr>
                                     <tr>
-                                        <th>UTS ganjil</th>
-                                        <th><?php $total[$i] += $dataSiswa['kelas_' . $i]['uts1'];
-                                            echo $dataSiswa['kelas_' . $i]['uts1']; ?></th>
+                                        <td>UTS ganjil</td>
+                                        <td><?php $total[$i] += $dataSiswa['kelas_' . $i]['uts1'];
+                                            echo $dataSiswa['kelas_' . $i]['uts1']; ?></td>
                                     </tr>
                                     <tr>
-                                        <th>UAS ganjil</th>
+                                        <td>UAS ganjil</td>
                                         <td><?php $total[$i] += $dataSiswa['kelas_' . $i]['uas1'];
                                             echo $dataSiswa['kelas_' . $i]['uas1']; ?></td>
                                     </tr>
                                     <tr>
-                                        <th>UTS genap</th>
-                                        <th><?php $total[$i] += $dataSiswa['kelas_' . $i]['uts2'];
-                                            echo $dataSiswa['kelas_' . $i]['uts2']; ?></th>
+                                        <td>UTS genap</td>
+                                        <td><?php $total[$i] += $dataSiswa['kelas_' . $i]['uts2'];
+                                            echo $dataSiswa['kelas_' . $i]['uts2']; ?></td>
                                     </tr>
                                     <tr>
-                                        <th>UTS ganjil</th>
-                                        <th><?php $total[$i] += $dataSiswa['kelas_' . $i]['uas2'];
-                                            echo $dataSiswa['kelas_' . $i]['uas2']; ?></th>
+                                        <td>UTS ganjil</td>
+                                        <td><?php $total[$i] += $dataSiswa['kelas_' . $i]['uas2'];
+                                            echo $dataSiswa['kelas_' . $i]['uas2']; ?></td>
                                     </tr>
                                     <?php if ($i == 3 && !empty($dataSiswa['kelas_3'])) : ?>
                                         <tr>
-                                            <th>UNBK</th>
-                                            <th><?php $total[$i] += $dataSiswa['unbk'];
-                                                echo $dataSiswa['unbk']; ?></th>
+                                            <td>UNBK</td>
+                                            <td><?php $total[$i] += $dataSiswa['unbk'];
+                                                echo $dataSiswa['unbk']; ?></td>
                                         </tr>
                                     <?php endif; ?>
                                     <tr>
-                                        <th>Total Tanggungan Biaya Kelas <?= $alphabet[$i - 1]; ?></th>
-                                        <th><?= $total[$i]; ?></th>
+                                        <td>Total Tanggungan Biaya Kelas <?= $alphabet[$i - 1]; ?></td>
+                                        <td><?= $total[$i]; ?></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -126,6 +122,11 @@
                     }
                     ?>
                     <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>DPP</td>
+                            <td><?= $dataSiswa['dpp']; ?></td>
+
+                        </tr>
                         <?php
                         $totalKeseluruhan = 0;
                         for ($i = 1; $i <= 3; $i++) { ?>
@@ -134,11 +135,12 @@
                                 <td><?= $total[$i] ?></td>
                             </tr>
                         <?php
+
                             $totalKeseluruhan += $total[$i];
                         } ?>
                         <tr>
                             <td>Tanggungan Biaya</td>
-                            <td><?= $totalKeseluruhan ?></td>
+                            <td><?= $totalKeseluruhan += $dataSiswa['dpp']; ?></td>
                         </tr>
                     </table>
 

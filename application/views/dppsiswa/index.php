@@ -201,50 +201,53 @@
         <div class="card">
           <!-- card-body -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>NISN</th>
-                  <th>Nama Siswa</th>
-                  <th>Jenis Kelamin</th>
-                  <th>No Telp</th>
-                  <th>Jurusan</th>
-
-                  <th>Action</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($dppsiswa1 as $row) { ?>
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->nisn ?></td>
-                    <td><?= $row->nama_siswa ?></td>
-                    <td><?= $row->jk ?></td>
-                    <td><?= $row->no_telfon ?></td>
-                    <td><?= $row->kode_jurusan ?></td>
+                    <th>No</th>
+                    <th>NISN</th>
+                    <th>Nama Siswa</th>
+                    <th>Jenis Kelamin</th>
+                    <th>No Telp</th>
+                    <th>Jurusan</th>
 
-                    <td>
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailsiswa" data-nisn="<?= $row->nisn ?>">Detail Siswa</button>
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#detailDPP" data-nisn="<?= $row->nisn ?>">Detail DPP</button>
-                        <?php if ($this->session->userdata('level') == 'admin') { ?>
-                          <a href="<?= base_url() ?>DataDPPSiswa/hapus/<?= $row->nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                          <a href="<?= base_url() ?>DataDPPSiswa/ubah/<?= $row->nisn ?>" class="btn btn-warning">Update</a>
-                        <?php } ?>
-                      </div>
-                    </td>
+                    <th>Action</th>
 
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($dppsiswa1 as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->nisn ?></td>
+                      <td><?= $row->nama_siswa ?></td>
+                      <td><?= $row->jk ?></td>
+                      <td><?= $row->no_telfon ?></td>
+                      <td><?= $row->kode_jurusan ?></td>
+
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailsiswa" data-nisn="<?= $row->nisn ?>">Detail Siswa</button>
+                          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#detailDPP" data-nisn="<?= $row->nisn ?>">Detail DPP</button>
+                          <?php if ($this->session->userdata('level') == 'admin') { ?>
+                            <button data-ref="<?= base_url('DataDPPSiswa/hapus') ?>" data-id="<?= $row->nisn ?>" class="btn btn-danger hapus">Hapus</button>
+                            <!-- <a href="<?= base_url() ?>DataDPPSiswa/hapus/<?= $row->nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a> -->
+                            <a href="<?= base_url() ?>DataDPPSiswa/ubah/<?= $row->nisn ?>" class="btn btn-warning">Update</a>
+                          <?php } ?>
+                        </div>
+                      </td>
+
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>

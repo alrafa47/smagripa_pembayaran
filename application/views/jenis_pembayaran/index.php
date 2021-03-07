@@ -102,16 +102,14 @@
         <!-- /.col -->
       </div>
     <?php } ?>
-    <!-- /.row -->
-    <!-- list data -->
-    <?= validation_errors(); ?>
-    <form action="<?= base_url() ?>DataPembayaranSPP/validation_form" method="post" accept-charset="utf-8">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- card-body -->
-            <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <!-- card-body -->
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
                 <thead>
                   <tr>
                     <th>No</th>
@@ -139,7 +137,7 @@
                       <?php if ($this->session->userdata('level') == 'admin') { ?>
                         <td>
                           <div class="btn-group">
-                            <a href="<?= base_url() ?>DataJenisPembayaran/hapus/<?= $row->kode_jenispembayaran ?>" class="btn btn-danger" onclick="return confirm('Apakah Anada Akan Menghapus Data Ini ?')">Hapus</a>
+                            <button data-ref="<?= base_url('DataJenisPembayaran/hapus') ?>" data-id="<?= $row->kode_jenispembayaran ?>" class="btn btn-danger hapus">Hapus</button>
                             <a href="<?= base_url() ?>DataJenisPembayaran/ubah/<?= $row->kode_jenispembayaran ?>" class="btn btn-warning">update</a>
                           </div>
                         </td>
@@ -152,13 +150,14 @@
                 </tbody>
               </table>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
+          <!-- /.card-body -->
         </div>
-        <!-- /.col -->
+        <!-- /.card -->
       </div>
-      <!-- /.row -->
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
   </section>
   <!-- /.content -->
 </div>

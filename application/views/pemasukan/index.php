@@ -64,41 +64,43 @@
                 <!-- card-body -->
                 <div class="card-body">
 
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>NISN</th>
-                                <th>Nama Siswa</th>
-                                <th>Kelas</th>
-                                <th>Tanggal</th>
-                                <th>Jenis Pembayaran</th>
-                                <th>Keterangan Pembayaran</th>
-                                <th>Nominal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $no = 1;
-                            foreach ($pemasukan as $row) { ?>
+                    <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-striped responsive">
+                            <thead>
                                 <tr>
-                                    <td><?= $no ?></td>
-                                    <td><?= $row['nisn'] ?></td>
-                                    <td><?= $row['nama_siswa'] ?></td>
-                                    <td><?= $row['kelas'] ?></td>
-                                    <td><?= $row['tanggal'] ?></td>
-                                    <td><?= $row['jenis_pembayaran'] ?></td>
-                                    <td><?= $row['keterangan_pembayaran'] ?></td>
-                                    <td align="right"><?= $row['nominal'] ?></td>
+                                    <th>No</th>
+                                    <th>NISN</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Kelas</th>
+                                    <th>Tanggal</th>
+                                    <th>Jenis Pembayaran</th>
+                                    <th>Keterangan Pembayaran</th>
+                                    <th>Nominal</th>
                                 </tr>
-                            <?php
-                                $no++;
-                            }
-                            ?>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                foreach ($pemasukan as $row) { ?>
+                                    <tr>
+                                        <td><?= $no ?></td>
+                                        <td><?= $row['nisn'] ?></td>
+                                        <td><?= $row['nama_siswa'] ?></td>
+                                        <td><?= $row['kelas'] ?></td>
+                                        <td><?= $row['tanggal'] ?></td>
+                                        <td><?= $row['jenis_pembayaran'] ?></td>
+                                        <td><?= $row['keterangan_pembayaran'] ?></td>
+                                        <td align="right"><?= $row['nominal'] ?></td>
+                                    </tr>
+                                <?php
+                                    $no++;
+                                }
+                                ?>
 
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Feb 2021 pada 10.12
+-- Waktu pembuatan: 08 Feb 2021 pada 17.27
 -- Versi server: 10.4.16-MariaDB
 -- Versi PHP: 7.4.12
 
@@ -29,29 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_angsuran_dpp` (
   `no_transaksi` int(20) NOT NULL,
+  `kelas` varchar(20) NOT NULL,
   `nisn` varchar(20) NOT NULL,
   `nominal_bayar` int(10) NOT NULL,
   `tanggal` date NOT NULL,
   `angsuran` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tbl_angsuran_dpp`
---
-
-INSERT INTO `tbl_angsuran_dpp` (`no_transaksi`, `nisn`, `nominal_bayar`, `tanggal`, `angsuran`) VALUES
-(1, '1', 200000, '2021-01-28', 1),
-(2, '1', 200000, '2021-01-28', 2),
-(3, '1', 200000, '2021-01-28', 3),
-(4, '1', 200000, '2021-01-28', 4),
-(6, '2', 400000, '2021-01-28', 1),
-(7, '2', 400000, '2021-01-28', 2),
-(8, '4', 500000, '2021-01-28', 1),
-(9, '4', 500000, '2021-01-28', 2),
-(10, '4', 500000, '2021-01-28', 3),
-(11, '2', 400000, '2021-02-01', 3),
-(12, '2', 400000, '2021-02-01', 4),
-(13, '2', 400000, '2021-02-01', 5);
 
 -- --------------------------------------------------------
 
@@ -72,15 +55,7 @@ CREATE TABLE `tbl_dpp_siswa` (
 --
 
 INSERT INTO `tbl_dpp_siswa` (`nisn`, `nominal_dpp`, `jumlah_angsuran`, `nominal_angsuran`, `status`) VALUES
-('1', 1000000, 5, 200000, '0'),
-('2', 2000000, 5, 400000, '1'),
-('3', 3000000, 5, 600000, '0'),
-('4', 1500000, 3, 500000, '1'),
-('5', 500000, 5, 100000, '0'),
-('6', 700000, 7, 100000, '0'),
-('7', 2000000, 2, 1000000, '0'),
-('8', 2000000, 4, 500000, '0'),
-('9', 9000000, 9, 1000000, '0');
+('1', 100, 2, 50, '0');
 
 -- --------------------------------------------------------
 
@@ -101,12 +76,9 @@ CREATE TABLE `tbl_jenis_pembayaran` (
 --
 
 INSERT INTO `tbl_jenis_pembayaran` (`kode_jenispembayaran`, `nama_pembayaran`, `nominal`, `kode_ta`, `jumlah_pembayaran`) VALUES
-(1, 'UAS', 100000, 1, 2),
-(2, 'UNBK', 1500000, 1, 12),
-(3, 'UTS', 200000, 1, 2),
-(5, 'UAS', 150000, 2, 2),
-(6, 'UTS', 300000, 2, 2),
-(7, 'UNBK', 500000, 2, 12);
+(4, 'UTS', 100, 1, 2),
+(5, 'UAS', 2, 1, 2),
+(6, 'UNBK', 24, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -125,10 +97,7 @@ CREATE TABLE `tbl_jenis_spp` (
 --
 
 INSERT INTO `tbl_jenis_spp` (`kode_jenisspp`, `nominal_jenis`, `kategori`) VALUES
-(8, 20000, '1'),
-(9, 30000, '2'),
-(11, 40000, '3'),
-(12, 55000, '4');
+(13, 10, '1');
 
 -- --------------------------------------------------------
 
@@ -146,8 +115,7 @@ CREATE TABLE `tbl_jurusan` (
 --
 
 INSERT INTO `tbl_jurusan` (`kode_jurusan`, `nama_jurusan`) VALUES
-('ak', 'Akuntansi'),
-('tkj', 'teknik komputer dan jaringann');
+('ak', 'Akuntansi');
 
 -- --------------------------------------------------------
 
@@ -167,19 +135,7 @@ CREATE TABLE `tbl_kelas` (
 --
 
 INSERT INTO `tbl_kelas` (`kode_kelas`, `kelas`, `kode_jurusan`, `nama_kelas`) VALUES
-('XII_ak_A', 'XII', 'ak', 'A'),
-('XII_ak_B', 'XII', 'ak', 'B'),
-('XII_tkj_A', 'XII', 'tkj', 'A'),
-('XII_tkj_B', 'XII', 'tkj', 'B'),
-('XI_ak_A', 'XI', 'ak', 'A'),
-('XI_ak_B', 'XI', 'ak', 'B'),
-('XI_tkj_A', 'XI', 'tkj', 'A'),
-('XI_tkj_B', 'XI', 'tkj', 'B'),
-('X_ak_A', 'X', 'ak', 'A'),
-('X_ak_B', 'X', 'ak', 'B'),
-('X_ak_D', 'X', 'ak', 'D'),
-('X_tkj_A', 'X', 'tkj', 'A'),
-('X_tkj_B', 'X', 'tkj', 'B');
+('X_ak_A', 'X', 'ak', 'A');
 
 -- --------------------------------------------------------
 
@@ -203,10 +159,7 @@ CREATE TABLE `tbl_pembayaran_spp` (
 --
 
 INSERT INTO `tbl_pembayaran_spp` (`no_transaksi`, `nisn`, `kode_kelas`, `tanggal`, `bulan`, `kode_ta`, `kode_jenisspp`, `nominal`) VALUES
-(1, '1', 'X_ak_A', '2021-01-28', '7', 1, 8, 20000),
-(2, '1', 'X_ak_A', '2021-01-28', '8', 1, 8, 20000),
-(3, '1', 'X_ak_A', '2021-01-28', '9', 1, 8, 20000),
-(4, '1', 'X_ak_A', '2021-01-28', '11', 1, 8, 20000);
+(1, '1', 'X_ak_A', '2021-02-08', '7', 2, 13, 10);
 
 -- --------------------------------------------------------
 
@@ -216,31 +169,14 @@ INSERT INTO `tbl_pembayaran_spp` (`no_transaksi`, `nisn`, `kode_kelas`, `tanggal
 
 CREATE TABLE `tbl_pembayaran_ujian` (
   `no_transaksi` int(10) NOT NULL,
-  `nisn` varchar(20) NOT NULL,
-  `kode_kelas` varchar(20) NOT NULL,
+  `nisn` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `kode_kelas` varchar(20) CHARACTER SET latin1 NOT NULL,
   `tanggal` date NOT NULL,
-  `kode_jenispembayaran` varchar(20) NOT NULL,
+  `kode_jenispembayaran` int(20) NOT NULL,
   `nominal` int(20) NOT NULL,
   `kode_ta` int(15) NOT NULL,
   `keterangan` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tbl_pembayaran_ujian`
---
-
-INSERT INTO `tbl_pembayaran_ujian` (`no_transaksi`, `nisn`, `kode_kelas`, `tanggal`, `kode_jenispembayaran`, `nominal`, `kode_ta`, `keterangan`) VALUES
-(30, '1', 'X_ak_A', '2021-02-01', '5', 150000, 1, '1'),
-(31, '1', 'X_ak_A', '2021-02-01', '5', 150000, 1, '2'),
-(39, '2', 'XII_ak_A', '2021-02-01', '2', 125000, 3, '1'),
-(40, '2', 'XII_ak_A', '2021-02-01', '2', 125000, 3, '2'),
-(41, '2', 'XII_ak_A', '2021-02-01', '2', 125000, 3, '3'),
-(42, '2', 'XII_ak_A', '2021-02-01', '2', 125000, 3, '4'),
-(43, '2', 'XII_ak_A', '2021-02-01', '2', 125000, 3, '5'),
-(44, '2', 'XII_ak_A', '2021-02-01', '2', 125000, 3, '6'),
-(45, '2', 'XII_ak_A', '2021-02-01', '3', 200000, 3, '1'),
-(46, '2', 'XII_ak_A', '2021-02-01', '3', 200000, 3, '2'),
-(47, '2', 'XII_ak_A', '2021-02-01', '2', 125000, 3, '7');
 
 -- --------------------------------------------------------
 
@@ -271,15 +207,7 @@ CREATE TABLE `tbl_siswa` (
 --
 
 INSERT INTO `tbl_siswa` (`nisn`, `nama_siswa`, `password`, `jk`, `tempat_lahir`, `tgl_lahir`, `alamat`, `no_telfon`, `kode_ta`, `tahun_keluar`, `kode_jurusan`, `kelas_1`, `kelas_2`, `kelas_3`, `kode_jenisspp`) VALUES
-('1', 'Ulva Dwi Mariyani', 'ulvadwi', 'perempuan', 'Malang', '2020-12-23', 'Malang', '098', 1, NULL, 'ak', 'X_ak_A', 'XI_ak_A', 'XII_ak_A', 9),
-('2', 'Alfrizal Rhama', 'ulva', 'laki-laki', 'Malang', '2020-12-25', 'Kalimantan', '12345', 1, NULL, 'ak', 'X_ak_A', 'XI_ak_A', 'XII_ak_A', 9),
-('3', 'Aqlan', 'aqlan', 'laki-laki', 'Malang', '2020-12-26', 'Malanag', '09876', 1, NULL, 'tkj', 'X_tkj_A', 'XI_tkj_A', NULL, 9),
-('4', 'Aqila', 'aqila', 'perempuan', 'Malang', '2020-12-26', 'Malang', '0876543456', 2, NULL, 'tkj', 'X_tkj_A', NULL, NULL, 9),
-('5', 'Jerome Polin', 'jerome', 'laki-laki', 'Malang', '2020-12-26', 'Surabaya', '987654', 2, NULL, 'tkj', 'X_tkj_B', NULL, NULL, 9),
-('6', 'Aldebaran', 'aldebaran', 'laki-laki', 'Malang', '2020-12-26', 'Malang', '09865', 2, NULL, 'ak', 'X_ak_A', NULL, NULL, 8),
-('7', 'Nabila', 'nabila', 'perempuan', 'Malang', '2020-12-26', 'Malang', '0766', 3, NULL, 'ak', 'X_ak_B', NULL, NULL, 9),
-('8', 'Zahra', 'zahra', 'perempuan', 'Malang', '2020-12-26', 'Malang', '09876578', 3, NULL, 'tkj', 'X_tkj_A', NULL, NULL, 9),
-('9', 'Jessica', 'jessica', 'perempuan', 'Malang', '2020-12-26', 'Malang', '0765478', 3, NULL, 'ak', 'X_ak_B', NULL, NULL, 9);
+('1', 'q', '1', 'laki-laki', 'q', '2020-01-07', 'q', '1', 2, NULL, 'ak', 'X_ak_A', NULL, NULL, 13);
 
 -- --------------------------------------------------------
 
@@ -299,9 +227,8 @@ CREATE TABLE `tbl_tagihan_ujian` (
 --
 
 INSERT INTO `tbl_tagihan_ujian` (`kode_ta`, `UAS`, `UTS`, `UNBK`) VALUES
-(1, 5, 6, 7),
-(2, 5, 6, 7),
-(3, 5, 3, 2);
+(1, 5, 4, 6),
+(2, 5, 4, 6);
 
 -- --------------------------------------------------------
 
@@ -321,8 +248,7 @@ CREATE TABLE `tbl_tahun_ajaran` (
 
 INSERT INTO `tbl_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `status`) VALUES
 (1, '2017/2018', 'tidak aktif'),
-(2, '2018/2019', 'tidak aktif'),
-(3, '2019/2020', 'aktif');
+(2, '2018/2019', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -354,7 +280,8 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `level`) VALUES
 --
 ALTER TABLE `tbl_angsuran_dpp`
   ADD PRIMARY KEY (`no_transaksi`),
-  ADD KEY `nisn` (`nisn`);
+  ADD KEY `nisn` (`nisn`),
+  ADD KEY `kelas` (`kelas`);
 
 --
 -- Indeks untuk tabel `tbl_dpp_siswa`
@@ -403,10 +330,10 @@ ALTER TABLE `tbl_pembayaran_spp`
 --
 ALTER TABLE `tbl_pembayaran_ujian`
   ADD PRIMARY KEY (`no_transaksi`),
-  ADD KEY `nisn` (`nisn`),
   ADD KEY `kode_jenispembayaran` (`kode_jenispembayaran`),
   ADD KEY `kode_ta` (`kode_ta`),
-  ADD KEY `kode_kelas` (`kode_kelas`);
+  ADD KEY `kode_kelas` (`kode_kelas`),
+  ADD KEY `nisn` (`nisn`);
 
 --
 -- Indeks untuk tabel `tbl_siswa`
@@ -418,13 +345,17 @@ ALTER TABLE `tbl_siswa`
   ADD KEY `kode_ta` (`kode_ta`),
   ADD KEY `kelas_1` (`kelas_1`),
   ADD KEY `kelas_2` (`kelas_2`),
-  ADD KEY `kelas_3` (`kelas_3`);
+  ADD KEY `kelas_3` (`kelas_3`),
+  ADD KEY `tahun_keluar` (`tahun_keluar`);
 
 --
 -- Indeks untuk tabel `tbl_tagihan_ujian`
 --
 ALTER TABLE `tbl_tagihan_ujian`
-  ADD PRIMARY KEY (`kode_ta`);
+  ADD PRIMARY KEY (`kode_ta`),
+  ADD KEY `UAS` (`UAS`),
+  ADD KEY `UTS` (`UTS`),
+  ADD KEY `UNBK` (`UNBK`);
 
 --
 -- Indeks untuk tabel `tbl_tahun_ajaran`
@@ -446,7 +377,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `tbl_angsuran_dpp`
 --
 ALTER TABLE `tbl_angsuran_dpp`
-  MODIFY `no_transaksi` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `no_transaksi` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_jenis_pembayaran`
@@ -458,19 +389,19 @@ ALTER TABLE `tbl_jenis_pembayaran`
 -- AUTO_INCREMENT untuk tabel `tbl_jenis_spp`
 --
 ALTER TABLE `tbl_jenis_spp`
-  MODIFY `kode_jenisspp` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `kode_jenisspp` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pembayaran_spp`
 --
 ALTER TABLE `tbl_pembayaran_spp`
-  MODIFY `no_transaksi` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `no_transaksi` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pembayaran_ujian`
 --
 ALTER TABLE `tbl_pembayaran_ujian`
-  MODIFY `no_transaksi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `no_transaksi` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
@@ -486,7 +417,14 @@ ALTER TABLE `user`
 -- Ketidakleluasaan untuk tabel `tbl_angsuran_dpp`
 --
 ALTER TABLE `tbl_angsuran_dpp`
-  ADD CONSTRAINT `tbl_angsuran_dpp_ibfk_1` FOREIGN KEY (`nisn`) REFERENCES `tbl_dpp_siswa` (`nisn`);
+  ADD CONSTRAINT `tbl_angsuran_dpp_ibfk_2` FOREIGN KEY (`kelas`) REFERENCES `tbl_kelas` (`kode_kelas`),
+  ADD CONSTRAINT `tbl_angsuran_dpp_ibfk_3` FOREIGN KEY (`nisn`) REFERENCES `tbl_siswa` (`nisn`);
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_jenis_pembayaran`
+--
+ALTER TABLE `tbl_jenis_pembayaran`
+  ADD CONSTRAINT `tbl_jenis_pembayaran_ibfk_1` FOREIGN KEY (`kode_ta`) REFERENCES `tbl_tahun_ajaran` (`kode_ta`);
 
 --
 -- Ketidakleluasaan untuk tabel `tbl_kelas`
@@ -507,7 +445,10 @@ ALTER TABLE `tbl_pembayaran_spp`
 -- Ketidakleluasaan untuk tabel `tbl_pembayaran_ujian`
 --
 ALTER TABLE `tbl_pembayaran_ujian`
-  ADD CONSTRAINT `tbl_pembayaran_ujian_ibfk_1` FOREIGN KEY (`kode_ta`) REFERENCES `tbl_tahun_ajaran` (`kode_ta`);
+  ADD CONSTRAINT `tbl_pembayaran_ujian_ibfk_1` FOREIGN KEY (`kode_ta`) REFERENCES `tbl_tahun_ajaran` (`kode_ta`),
+  ADD CONSTRAINT `tbl_pembayaran_ujian_ibfk_2` FOREIGN KEY (`kode_jenispembayaran`) REFERENCES `tbl_jenis_pembayaran` (`kode_jenispembayaran`),
+  ADD CONSTRAINT `tbl_pembayaran_ujian_ibfk_3` FOREIGN KEY (`kode_kelas`) REFERENCES `tbl_kelas` (`kode_kelas`),
+  ADD CONSTRAINT `tbl_pembayaran_ujian_ibfk_4` FOREIGN KEY (`nisn`) REFERENCES `tbl_siswa` (`nisn`);
 
 --
 -- Ketidakleluasaan untuk tabel `tbl_siswa`
@@ -515,7 +456,19 @@ ALTER TABLE `tbl_pembayaran_ujian`
 ALTER TABLE `tbl_siswa`
   ADD CONSTRAINT `tbl_siswa_ibfk_1` FOREIGN KEY (`kode_jurusan`) REFERENCES `tbl_jurusan` (`kode_jurusan`),
   ADD CONSTRAINT `tbl_siswa_ibfk_2` FOREIGN KEY (`kode_ta`) REFERENCES `tbl_tahun_ajaran` (`kode_ta`),
-  ADD CONSTRAINT `tbl_siswa_ibfk_3` FOREIGN KEY (`kode_jenisspp`) REFERENCES `tbl_jenis_spp` (`kode_jenisspp`);
+  ADD CONSTRAINT `tbl_siswa_ibfk_3` FOREIGN KEY (`kode_jenisspp`) REFERENCES `tbl_jenis_spp` (`kode_jenisspp`),
+  ADD CONSTRAINT `tbl_siswa_ibfk_4` FOREIGN KEY (`kelas_1`) REFERENCES `tbl_kelas` (`kode_kelas`),
+  ADD CONSTRAINT `tbl_siswa_ibfk_5` FOREIGN KEY (`kelas_2`) REFERENCES `tbl_kelas` (`kode_kelas`),
+  ADD CONSTRAINT `tbl_siswa_ibfk_6` FOREIGN KEY (`kelas_3`) REFERENCES `tbl_kelas` (`kode_kelas`),
+  ADD CONSTRAINT `tbl_siswa_ibfk_7` FOREIGN KEY (`tahun_keluar`) REFERENCES `tbl_tahun_ajaran` (`kode_ta`);
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_tagihan_ujian`
+--
+ALTER TABLE `tbl_tagihan_ujian`
+  ADD CONSTRAINT `tbl_tagihan_ujian_ibfk_1` FOREIGN KEY (`UAS`) REFERENCES `tbl_jenis_pembayaran` (`kode_jenispembayaran`),
+  ADD CONSTRAINT `tbl_tagihan_ujian_ibfk_2` FOREIGN KEY (`UTS`) REFERENCES `tbl_jenis_pembayaran` (`kode_jenispembayaran`),
+  ADD CONSTRAINT `tbl_tagihan_ujian_ibfk_3` FOREIGN KEY (`UNBK`) REFERENCES `tbl_jenis_pembayaran` (`kode_jenispembayaran`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

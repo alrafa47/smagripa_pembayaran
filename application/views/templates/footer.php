@@ -37,7 +37,7 @@
 <!-- page script Table -->
 <!-- Select2 -->
 <script src="<?= base_url() ?>assets/plugins/select2/js/select2.full.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     $(function() {
         $('#example1').DataTable();
@@ -134,7 +134,7 @@
                 success: function(data) {
                     // alert(data);
                     var dataSiswa = JSON.parse(data);
-                    console.log(dataSiswa);
+                    // console.log(dataSiswa);
                     modal.find('#dataNISN').text(dataSiswa.nisn)
                     modal.find('#NIS').val(dataSiswa.nisn)
                     modal.find('#dataNama').text(dataSiswa.nama_siswa)
@@ -305,6 +305,98 @@
 
         <?php }  ?>
 
+    });
+
+    //notif hapus data relasi
+    $('.hapus').click(function() {
+        let id = $(this).data('id');
+        let ref = $(this).data('ref');
+
+        function hapus_data(id, ref) {
+            $.ajax({
+                data: {
+                    'id': id,
+                },
+                method: "POST",
+                url: ref,
+                dataType: 'JSON',
+                success: function(res) {}
+            });
+        }
+
+
+        Swal.fire({
+            title: 'Apakah anda yakin menghapus data ini?',
+            // text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // ajax
+                $.ajax({
+                    data: {
+                        'id': id
+                    },
+                    method: "POST",
+                    url: "<?= base_url($this->uri->segment(1) . '/checkForeign') ?>",
+                    dataType: 'JSON',
+                    success: function(res) {
+                        if (JSON.parse(res)) {
+                            Swal.fire('Hapus Gagal, Terdapat Data Terkait')
+                        } else {
+                            hapus_data(id, ref);
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            ).then(function() {
+
+                                location.reload();
+                            });
+                        }
+                    }
+                });
+            }
+        })
+
+
+        // (async () => {
+        //     const {
+        //         value: accept
+        //     } = await Swal.fire({
+        //         title: 'Perhatian',
+        //         confirmButtonText: 'Hapus &nbsp;<i class="fa fa-arrow-right"></i>',
+        //         inputValidator: (result) => {
+        //             if (!result) {
+        //                 $.ajax({
+        //                     data: {
+        //                         'id': id
+        //                     },
+        //                     method: "POST",
+        //                     url: "<?= base_url($this->uri->segment(1) . '/checkForeign') ?>",
+        //                     dataType: 'JSON',
+        //                     success: function(res) {
+        //                         if (JSON.parse(res)) {
+        //                             Swal.fire('Terdapat Data Terkait, Silahkan Paksa Hapus/ Hapus Data Terkait Terlebih dahulu')
+        //                         } else {
+        //                             hapus_data(id, ref, false);
+        //                             location.reload();
+        //                         }
+        //                     }
+        //                 });
+        //             }
+        //         }
+        //     })
+        //     if (accept) {
+        //         hapus_data(id, ref, true);
+        //         Swal.fire('Hapus data').then(function(params) {
+        //             location.reload();
+        //         });
+        //     }
+        // })()
     });
 </script>
 

@@ -398,9 +398,9 @@ class DataLaporanRekapan extends CI_Controller
         // body 
         // DPP
         $sheet->setCellValue('A9', 'DPP ');
-        $dataDPP = ($dataSiswa['dpp'] == 0) ? '0,-' : $dataSiswa['dpp'];
+        $dataDPP = ($dataSiswa['dpp'] == 0) ? '0' : $dataSiswa['dpp'];
         $sheet->setCellValue('B9', $dataDPP);
-        $spreadsheet->getActiveSheet(0)->getStyle('B9')->getNumberFormat()->setFormatCode('#,##0.-');
+        $spreadsheet->getActiveSheet(0)->getStyle('B9')->getNumberFormat()->setFormatCode('#,##0');
 
         // tanggungan per kelas
         $alphabet = ['10', '11', '12'];
@@ -412,12 +412,12 @@ class DataLaporanRekapan extends CI_Controller
 
                 $total[$urutanKelas] = $dataSiswa['kelas_' . $urutanKelas]['spp'] + $dataSiswa['kelas_' . $urutanKelas]['uts1'] + $dataSiswa['kelas_' . $urutanKelas]['uas1'] + $dataSiswa['kelas_' . $urutanKelas]['uts2'] + $dataSiswa['kelas_' . $urutanKelas]['uas2'];
 
-                $spp = ($dataSiswa['kelas_' . $urutanKelas]['spp'] == 0) ? '0,-' : $dataSiswa['kelas_' . $urutanKelas]['spp'];
-                $uts1 = ($dataSiswa['kelas_' . $urutanKelas]['uts1'] == 0) ? '0,-' : $dataSiswa['kelas_' . $urutanKelas]['uts1'];
-                $uas1 = ($dataSiswa['kelas_' . $urutanKelas]['uas1'] == 0) ? '0,-' : $dataSiswa['kelas_' . $urutanKelas]['uas1'];
-                $uts2 = ($dataSiswa['kelas_' . $urutanKelas]['uts2'] == 0) ? '0,-' : $dataSiswa['kelas_' . $urutanKelas]['uts2'];
-                $uas2 = ($dataSiswa['kelas_' . $urutanKelas]['uas2'] == 0) ? '0,-' : $dataSiswa['kelas_' . $urutanKelas]['uas2'];
-                $unbk = ($dataSiswa['unbk'] == 0) ? '0,-' : $dataSiswa['unbk'];
+                $spp = ($dataSiswa['kelas_' . $urutanKelas]['spp'] == 0) ? '0' : $dataSiswa['kelas_' . $urutanKelas]['spp'];
+                $uts1 = ($dataSiswa['kelas_' . $urutanKelas]['uts1'] == 0) ? '0' : $dataSiswa['kelas_' . $urutanKelas]['uts1'];
+                $uas1 = ($dataSiswa['kelas_' . $urutanKelas]['uas1'] == 0) ? '0' : $dataSiswa['kelas_' . $urutanKelas]['uas1'];
+                $uts2 = ($dataSiswa['kelas_' . $urutanKelas]['uts2'] == 0) ? '0' : $dataSiswa['kelas_' . $urutanKelas]['uts2'];
+                $uas2 = ($dataSiswa['kelas_' . $urutanKelas]['uas2'] == 0) ? '0' : $dataSiswa['kelas_' . $urutanKelas]['uas2'];
+                $unbk = ($dataSiswa['unbk'] == 0) ? '0' : $dataSiswa['unbk'];
 
                 if ($urutanKelas == 3) {
                     $total[$urutanKelas] += $dataSiswa['unbk'];
@@ -443,9 +443,9 @@ class DataLaporanRekapan extends CI_Controller
                         ['UNBK',  $unbk],
                         ['Total Tanggungan Biaya Kelas ' . $alphabet[$urutanKelas - 1], $total[$urutanKelas]],
                     ];
-                    $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows . ':' . 'B' . ($numRows + 8))->getNumberFormat()->setFormatCode('#,##0.-');
+                    $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows . ':' . 'B' . ($numRows + 8))->getNumberFormat()->setFormatCode('#,##0');
                 }
-                $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows . ':' . 'B' . ($numRows + 7))->getNumberFormat()->setFormatCode('#,##0.-');
+                $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows . ':' . 'B' . ($numRows + 7))->getNumberFormat()->setFormatCode('#,##0');
 
                 $dataBiayaKelas = $numRows + 1;
                 $spreadsheet->getActiveSheet(0)
@@ -470,7 +470,7 @@ class DataLaporanRekapan extends CI_Controller
         for ($urutanKelas = 1; $urutanKelas <= 3; $urutanKelas++) {
             if (!empty($dataSiswa['kelas_' . $urutanKelas]['kode_kelas'])) {
                 $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()
-                    ->setFormatCode('#,##0.-');
+                    ->setFormatCode('#,##0');
                 $sheet->setCellValue('A' . $numRows, 'Total Tanggungan kelas ' . $alphabet[$urutanKelas - 1]);
                 $sheet->setCellValue('B' . $numRows, $total[$urutanKelas]);
                 $numRows = $numRows + 1;
@@ -478,7 +478,7 @@ class DataLaporanRekapan extends CI_Controller
             }
         }
         $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()
-            ->setFormatCode('#,##0.-');
+            ->setFormatCode('#,##0');
         $sheet->setCellValue('A' . $numRows, 'total Tanggungan Biaya');
         $sheet->setCellValue('B' . $numRows, $totalTanggungan);
         // end of body
@@ -623,9 +623,9 @@ class DataLaporanRekapan extends CI_Controller
             // body 
             // DPP
             $sheet->setCellValue('A9', 'DPP ');
-            $dataDPP = ($valueDataSiswa->dpp == 0) ? '0,-' : $valueDataSiswa->dpp;
+            $dataDPP = ($valueDataSiswa->dpp == 0) ? '0' : $valueDataSiswa->dpp;
             $sheet->setCellValue('B9', $dataDPP);
-            $spreadsheet->getActiveSheet(0)->getStyle('B9')->getNumberFormat()->setFormatCode('#,##0.-');
+            $spreadsheet->getActiveSheet(0)->getStyle('B9')->getNumberFormat()->setFormatCode('#,##0');
 
 
             // tanggungan per kelas
@@ -638,14 +638,14 @@ class DataLaporanRekapan extends CI_Controller
                     $sheet->setCellValue('A' . $numRows, 'Kelas ' . $alphabet[$urutanKelas - 1]);
                     $spreadsheet->getActiveSheet(0)->mergeCells('A' . $numRows . ':' . 'B' . $numRows);
                     $total[$urutanKelas] = $valueDataSiswa->$kelas['spp'] + $valueDataSiswa->$kelas['uts1'] + $valueDataSiswa->$kelas['uas1'] + $valueDataSiswa->$kelas['uts2'] + $valueDataSiswa->$kelas['uas2'];
-                    $spp = ($valueDataSiswa->$kelas['spp'] == 0) ? '0,-' : $valueDataSiswa->$kelas['spp'];
-                    $uts1 = ($valueDataSiswa->$kelas['uts1'] == 0) ? '0,-' : $valueDataSiswa->$kelas['uts1'];
-                    $uas1 = ($valueDataSiswa->$kelas['uas1'] == 0) ? '0,-' : $valueDataSiswa->$kelas['uas1'];
-                    $uts2 = ($valueDataSiswa->$kelas['uts2'] == 0) ? '0,-' : $valueDataSiswa->$kelas['uts2'];
-                    $uas2 = ($valueDataSiswa->$kelas['uas2'] == 0) ? '0,-' : $valueDataSiswa->$kelas['uas2'];
+                    $spp = ($valueDataSiswa->$kelas['spp'] == 0) ? '0' : $valueDataSiswa->$kelas['spp'];
+                    $uts1 = ($valueDataSiswa->$kelas['uts1'] == 0) ? '0' : $valueDataSiswa->$kelas['uts1'];
+                    $uas1 = ($valueDataSiswa->$kelas['uas1'] == 0) ? '0' : $valueDataSiswa->$kelas['uas1'];
+                    $uts2 = ($valueDataSiswa->$kelas['uts2'] == 0) ? '0' : $valueDataSiswa->$kelas['uts2'];
+                    $uas2 = ($valueDataSiswa->$kelas['uas2'] == 0) ? '0' : $valueDataSiswa->$kelas['uas2'];
 
                     if ($urutanKelas == 3) {
-                        $unbk = ($valueDataSiswa->unbk == 0) ? '0,-' : $valueDataSiswa->unbk;
+                        $unbk = ($valueDataSiswa->unbk == 0) ? '0' : $valueDataSiswa->unbk;
                         $total[$urutanKelas] += $valueDataSiswa->unbk;
                     }
                     $arrayData = [
@@ -668,9 +668,9 @@ class DataLaporanRekapan extends CI_Controller
                             ['UNBK',  $unbk],
                             ['Total Tanggungan Biaya Kelas ' . $alphabet[$urutanKelas - 1], $total[$urutanKelas]],
                         ];
-                        $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows . ':' . 'B' . ($numRows + 8))->getNumberFormat()->setFormatCode('#,##0.-');
+                        $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows . ':' . 'B' . ($numRows + 8))->getNumberFormat()->setFormatCode('#,##0');
                     }
-                    $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows . ':' . 'B' . ($numRows + 7))->getNumberFormat()->setFormatCode('#,##0.-');
+                    $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows . ':' . 'B' . ($numRows + 7))->getNumberFormat()->setFormatCode('#,##0');
 
                     $dataBiayaKelas = $numRows + 1;
                     $spreadsheet->getActiveSheet(0)
@@ -689,7 +689,7 @@ class DataLaporanRekapan extends CI_Controller
             $numRows = $numRows + 1;
             $sheet->setCellValue('A' . $numRows, 'DPP');
             $sheet->setCellValue('B' . $numRows, $dataDPP);
-            $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()->setFormatCode('#,##0.-');
+            $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()->setFormatCode('#,##0');
 
             $numRows = $numRows + 1;
             $totalTanggungan = $valueDataSiswa->dpp;
@@ -699,7 +699,7 @@ class DataLaporanRekapan extends CI_Controller
                 if (!empty($valueDataSiswa->$kelas['kode_kelas'])) {
                     $sheet->setCellValue('A' . $numRows, 'Total Tanggungan kelas ' . $alphabet[$urutanKelas - 1]);
                     $sheet->setCellValue('B' . $numRows, $total[$urutanKelas]);
-                    $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()->setFormatCode('#,##0.-');
+                    $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()->setFormatCode('#,##0');
                     $numRows = $numRows + 1;
                     $totalTanggungan += $total[$urutanKelas];
                 }
@@ -709,7 +709,7 @@ class DataLaporanRekapan extends CI_Controller
             $sheet->setCellValue('A' . $numRows, 'total Tanggugan Biaya');
             $sheet->setCellValue('B' . $numRows, $totalTanggungan);
             $spreadsheet->getActiveSheet(0)->getStyle('B' . $numRows)->getNumberFormat()
-                ->setFormatCode('#,##0.-');
+                ->setFormatCode('#,##0');
             // end of body
 
             $styleArray = [

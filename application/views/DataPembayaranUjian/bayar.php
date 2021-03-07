@@ -47,14 +47,28 @@
                                     <option value="-">Pilih Tahun Ajaran</option>
                                     <?php
                                     $no = 1;
-                                    foreach ($tahunAjaran as $valueTahunAJaran) :
-                                        if ($siswa['kelas_' . $no] !== null) {
+                                    $index = null;
+                                    for ($i = 1; $i <= 3; $i++) {
+                                        if ($siswa['kelas_' . $i] !== null) {
+                                            if ($index === null) {
+                                                $index = 0;
+                                            }
                                     ?>
-                                            <option data-tahun="<?= $valueTahunAJaran->kode_ta ?>" value="<?= $valueTahunAJaran->kode_ta . '-' . $siswa['kelas_' . $no] ?>" data-kelas='<?= $siswa['kelas_' . $no] ?>'><?= $valueTahunAJaran->tahun_ajaran . '::' . $siswa['kelas_' . $no] ?></option>
+                                            <option data-tahun="<?= $tahunAjaran[$index]->kode_ta ?>" value="<?= $tahunAjaran[$index]->kode_ta . '-' . $siswa['kelas_' . $i] ?>" data-kelas='<?= $siswa['kelas_' . $i] ?>'><?= $tahunAjaran[$index]->tahun_ajaran . '::' . $siswa['kelas_' . $i] ?></option>
                                     <?php
+                                            $index++;
                                         }
-                                        $no++;
-                                    endforeach; ?>
+                                    }
+
+                                    // foreach ($tahunAjaran as $valueTahunAJaran) :
+                                    //     if ($siswa['kelas_' . $no] !== null) {
+                                    ?>
+                                    <!-- <option data-tahun="<?= $valueTahunAJaran->kode_ta ?>" value="<?= $valueTahunAJaran->kode_ta . '-' . $siswa['kelas_' . $no] ?>" data-kelas='<?= $siswa['kelas_' . $no] ?>'><?= $valueTahunAJaran->tahun_ajaran . '::' . $siswa['kelas_' . $no] ?></option> -->
+                                    <?php
+                                    //     }
+                                    //     $no++;
+                                    // endforeach; 
+                                    ?>
                                 </select>
                             </div>
                             <div class="row">

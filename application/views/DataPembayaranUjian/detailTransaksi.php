@@ -8,7 +8,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="Welcome">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Pembayaran SPP</li>
+                        <li class="breadcrumb-item active">Data Pembayaran Ujian</li>
                     </ol>
                 </div>
             </div>
@@ -52,7 +52,7 @@
         }
         $kls = 1;
         foreach ($tahunAjaran as $valueTahunAjaran) :
-            if ($dataSiswa['kelas_' . $kls] !== null) {
+            if ($kls <= 3 && $dataSiswa['kelas_' . $kls] !== null) {
         ?>
                 <div class="row">
 
@@ -73,35 +73,37 @@
                                 $ujian = ['1' => 'UTS', '2' => 'UAS'];
                                 foreach ($semester as $keySemester => $valueSemester) { ?>
                                     <h3>Semester <?= $valueSemester ?></h3>
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Ujian</th>
-                                                <th>nominal Pembayaran</th>
-                                                <th>Tanggal</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($ujian as $valueujian) {
-                                                $data = DataPembayaranUjian($pembayaranUjian, $valueTahunAjaran->kode_ta, $keySemester, $valueujian);
-                                            ?>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped responsive">
+                                            <thead>
                                                 <tr>
-                                                    <td><?= strtoupper($valueujian) ?></td>
-                                                    <td><?= $data['nominal'] ?></td>
-                                                    <td><?= $data['tanggal'] ?></td>
-                                                    <td>
-                                                        <?php if ($data['no_transaksi'] != '-') { ?>
-                                                            <a href="<?= base_url() ?>DataPembayaranUjian/hapusDetailTransaksi/<?= $data['no_transaksi'] ?>/<?= $nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
-                                                        <?php } else {
-                                                            echo '-';
-                                                        } ?>
-                                                    </td>
+                                                    <th>Ujian</th>
+                                                    <th>Nominal Pembayaran</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Action</th>
                                                 </tr>
-                                            <?php } ?>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($ujian as $valueujian) {
+                                                    $data = DataPembayaranUjian($pembayaranUjian, $valueTahunAjaran->kode_ta, $keySemester, $valueujian);
+                                                ?>
+                                                    <tr>
+                                                        <td><?= strtoupper($valueujian) ?></td>
+                                                        <td><?= $data['nominal'] ?></td>
+                                                        <td><?= $data['tanggal'] ?></td>
+                                                        <td>
+                                                            <?php if ($data['no_transaksi'] != '-') { ?>
+                                                                <a href="<?= base_url() ?>DataPembayaranUjian/hapusDetailTransaksi/<?= $data['no_transaksi'] ?>/<?= $nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
+                                                            <?php } else {
+                                                                echo '-';
+                                                            } ?>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 <?php } ?>
 
                             </div>
@@ -131,35 +133,36 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Angsuran Ke-</th>
-                                        <th>nominal Pembayaran</th>
-                                        <th>Tanggal</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php for ($i = 1; $i <= 12; $i++) {
-                                        $data = DataPembayaranUjianUNBK($pembayaranUjian, $i);
-                                    ?>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped responsive">
+                                    <thead>
                                         <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $data['nominal'] ?></td>
-                                            <td><?= $data['tanggal'] ?></td>
-                                            <td>
-                                                <?php if ($data['no_transaksi'] != '-') { ?>
-                                                    <a href="<?= base_url() ?>DataPembayaranUjian/hapusDetailTransaksi/<?= $data['no_transaksi'] ?>/<?= $nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
-                                                <?php } else {
-                                                    echo '-';
-                                                } ?>
-                                            </td>
+                                            <th>Angsuran Ke-</th>
+                                            <th>Nominal Pembayaran</th>
+                                            <th>Tanggal</th>
+                                            <th>Action</th>
                                         </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-
+                                    </thead>
+                                    <tbody>
+                                        <?php for ($i = 1; $i <= 12; $i++) {
+                                            $data = DataPembayaranUjianUNBK($pembayaranUjian, $i);
+                                        ?>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $data['nominal'] ?></td>
+                                                <td><?= $data['tanggal'] ?></td>
+                                                <td>
+                                                    <?php if ($data['no_transaksi'] != '-') { ?>
+                                                        <a href="<?= base_url() ?>DataPembayaranUjian/hapusDetailTransaksi/<?= $data['no_transaksi'] ?>/<?= $nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
+                                                    <?php } else {
+                                                        echo '-';
+                                                    } ?>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- ./card-body -->
                     </div>

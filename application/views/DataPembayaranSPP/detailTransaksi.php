@@ -42,7 +42,7 @@
         }
         $no = 1;
         foreach ($tahunAjaran as $keyTahunAjaran => $valueTahunAjaran) :
-            if ($dataSiswa['kelas_' . $no] !== null) {
+            if ($no <= 3 && $dataSiswa['kelas_' . $no] !== null) {
         ?>
                 <div class="row">
                     <div class="col-md-12">
@@ -58,64 +58,69 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <h3>Semester Ganjil</h3>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Bulan</th>
-                                            <th>nominal Pembayaran</th>
-                                            <th>Tanggal</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($ganjil as $angkaBulan => $namaBulan) :
-                                            $dataPembayaran = DataPembayaranSpp($pembayaran, $valueTahunAjaran->kode_ta, $angkaBulan);
-                                        ?>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped responsive">
+                                        <thead>
                                             <tr>
-                                                <td><?= $namaBulan ?></td>
-                                                <td><?= $dataPembayaran['nominal'] ?></td>
-                                                <td><?= $dataPembayaran['tanggal'] ?></td>
-                                                <td>
-                                                    <?php if ($dataPembayaran['no_transaksi'] != '-') { ?>
-                                                        <a href="<?= base_url() ?>DataPembayaranSPP/hapusDetailTransaksi/<?= $dataPembayaran['no_transaksi'] ?>/<?= $nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
-                                                    <?php } else {
-                                                        echo '-';
-                                                    } ?>
-                                                </td>
+                                                <th>Bulan</th>
+                                                <th>Nominal Pembayaran</th>
+                                                <th>Tanggal</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($ganjil as $angkaBulan => $namaBulan) :
+                                                $dataPembayaran = DataPembayaranSpp($pembayaran, $valueTahunAjaran->kode_ta, $angkaBulan);
+                                            ?>
+                                                <tr>
+                                                    <td><?= $namaBulan ?></td>
+                                                    <td><?= $dataPembayaran['nominal'] ?></td>
+                                                    <td><?= $dataPembayaran['tanggal'] ?></td>
+                                                    <td>
+                                                        <?php if ($dataPembayaran['no_transaksi'] != '-') { ?>
+                                                            <a href="<?= base_url() ?>DataPembayaranSPP/hapusDetailTransaksi/<?= $dataPembayaran['no_transaksi'] ?>/<?= $nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
+                                                        <?php } else {
+                                                            echo '-';
+                                                        } ?>
+                                                    </td>
 
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <h3 class="mt-3">Semester Genap</h3>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Bulan</th>
-                                            <th>nominal Pembayaran</th>
-                                            <th>Tanggal</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($genap as $angkaBulan => $namaBulan) :
-                                            $dataPembayaran = DataPembayaranSpp($pembayaran, $valueTahunAjaran->kode_ta, $angkaBulan);
-                                        ?>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped responsive">
+
+                                        <thead>
                                             <tr>
-                                                <th><?= $namaBulan ?></th>
-                                                <th><?= $dataPembayaran['nominal'] ?></th>
-                                                <th><?= $dataPembayaran['tanggal'] ?></th>
-                                                <td>
-                                                    <?php if ($dataPembayaran['no_transaksi'] != '-') { ?>
-                                                        <a href="<?= base_url() ?>DataPembayaranSPP/hapusDetailTransaksi/<?= $dataPembayaran['no_transaksi'] ?>/<?= $nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
-                                                    <?php } else {
-                                                        echo '-';
-                                                    } ?>
-                                                </td>
+                                                <th>Bulan</th>
+                                                <th>Nominal Pembayaran</th>
+                                                <th>Tanggal</th>
+                                                <th>Action</th>
                                             </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($genap as $angkaBulan => $namaBulan) :
+                                                $dataPembayaran = DataPembayaranSpp($pembayaran, $valueTahunAjaran->kode_ta, $angkaBulan);
+                                            ?>
+                                                <tr>
+                                                    <td><?= $namaBulan ?></td>
+                                                    <td><?= $dataPembayaran['nominal'] ?></td>
+                                                    <td><?= $dataPembayaran['tanggal'] ?></td>
+                                                    <td>
+                                                        <?php if ($dataPembayaran['no_transaksi'] != '-') { ?>
+                                                            <a href="<?= base_url() ?>DataPembayaranSPP/hapusDetailTransaksi/<?= $dataPembayaran['no_transaksi'] ?>/<?= $nisn ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus Transaksi</a>
+                                                        <?php } else {
+                                                            echo '-';
+                                                        } ?>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <!-- ./card-body -->
                         </div>

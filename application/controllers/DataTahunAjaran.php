@@ -97,16 +97,16 @@ class DataTahunAjaran extends CI_Controller
 			return TRUE;
 		}
 	}
-	public function hapus($kd)
-	{
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
-		$this->TahunAjaran_Model->hapus_data($kd);
-		$this->DataTagihanUjian_Model->hapus_data($kd);
-		$this->session->set_flashdata('flash_tahunajaran', 'Dihapus');
-		redirect('DataTahunAjaran');
-	}
+	// public function hapus($kd)
+	// {
+	// 	if ($this->session->userdata('level') != 'admin') {
+	// 		show_404();
+	// 	}
+	// 	$this->TahunAjaran_Model->hapus_data($kd);
+	// 	$this->DataTagihanUjian_Model->hapus_data($kd);
+	// 	$this->session->set_flashdata('flash_tahunajaran', 'Dihapus');
+	// 	redirect('DataTahunAjaran');
+	// }
 
 	public function ubah($kd)
 	{
@@ -187,5 +187,21 @@ class DataTahunAjaran extends CI_Controller
 			$this->DataTagihanUjian_Model->insertData($dataKonfigUjian);
 		}
 		redirect('DataTahunAjaran');
+	}
+	public function hapus()
+	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+		$id = $this->input->post('id');
+		$this->TahunAjaran_Model->hapus_data($id);
+		$this->DataTagihanUjian_Model->hapus_data($id);
+		$this->session->set_flashdata('flash_tahunajaran', 'Dihapus');
+	}
+
+	public function checkForeign()
+	{
+		$data = $this->TahunAjaran_Model->checkForeign($this->input->post('id'));
+		echo json_encode($data);
 	}
 }

@@ -50,15 +50,15 @@ class DataJenisPembayaran extends CI_Controller
 		}
 	}
 
-	public function hapus($kd)
-	{
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
-		$this->Jenis_Pembayaran_Model->hapus_data($kd);
-		$this->session->set_flashdata('flash_jenis_pembayaran', 'Dihapus');
-		redirect('DataJenisPembayaran');
-	}
+	// public function hapus($kd)
+	// {
+	// 	if ($this->session->userdata('level') != 'admin') {
+	// 		show_404();
+	// 	}
+	// 	$this->Jenis_Pembayaran_Model->hapus_data($kd);
+	// 	$this->session->set_flashdata('flash_jenis_pembayaran', 'Dihapus');
+	// 	redirect('DataJenisPembayaran');
+	// }
 
 	public function ubah($kd)
 	{
@@ -82,5 +82,20 @@ class DataJenisPembayaran extends CI_Controller
 			$this->session->set_flashdata('flash_jenis_pembayaran', 'DiUbah');
 			redirect('DataJenisPembayaran');
 		}
+	}
+	public function hapus()
+	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+		$id = $this->input->post('id');
+		$this->Jenis_Pembayaran_Model->hapus_data($id);
+		$this->session->set_flashdata('flash_jenis_pembayaran', 'Dihapus');
+	}
+
+	public function checkForeign()
+	{
+		$data = $this->Jenis_Pembayaran_Model->checkForeign($this->input->post('id'));
+		echo json_encode($data);
 	}
 }

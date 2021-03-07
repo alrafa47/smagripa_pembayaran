@@ -26,13 +26,17 @@ class DataLaporan extends CI_Controller
     function index()
     {
         $kelas = $this->input->get('kelas');
-        $kelas = ($this->input->get('kelas') == 'lihat_semua') ? null : $kelas;
+        $dataSiswa = [];
         $tahun_awal = $this->input->get('tahun_awal');
-        // $tahun_akhir = $this->input->get('tahun_akhir');
+        if (($this->input->get('kelas') == 'lihat_semua' || $this->input->get('kelas') == '') && ($this->input->get('tahun_awal') == 'lihat_semua' || $this->input->get('tahun_awal') == '')) {
+            $kelas = null;
+        } else {
+            $dataSiswa = $this->DPPSiswa_Model->getAllDataJoinDataSiswa_Kelas($kelas, $tahun_awal);
+        }
 
 
         $data = [
-            'dataSiswa' => $this->DPPSiswa_Model->getAllDataJoinDataSiswa_Kelas($kelas, $tahun_awal),
+            'dataSiswa' => $dataSiswa,
             'dataTahunAjaran' => $this->TahunAjaran_Model->getAllData(),
             'dataAngsuran' => $this->DataPembayaranDPP_Model->getAllData(),
             'kelas' => $this->Kelas_Model->getAllData()

@@ -63,4 +63,29 @@ class Kelas_Model extends CI_Model
 	{
 		return $this->db->get_where('tbl_kelas', ['kode_kelas' => $kd])->row_array();
 	}
+
+	public function checkForeign($id)
+	{
+		$where = ['kode_kelas' => $id];
+		$query1 = $this->db->get_where('tbl_pembayaran_ujian', $where);
+		$query2 = $this->db->get_where('tbl_pembayaran_spp', $where);
+		$query3 = $this->db->get_where('tbl_angsuran_dpp', ['kelas' => $id]);
+		$kelas = explode('_', $id);
+		switch ($kelas[0]) {
+			case 'X':
+				$kelas = 1;
+				break;
+			case 'XI':
+				$kelas = 2;
+				break;
+			case 'XII':
+				$kelas = 3;
+				break;
+		}
+		$query4 = $this->db->get_where('tbl_siswa', ['kelas_' . $kelas => $id]);
+		if ($query1->num_rows() >= 1 || $query2->num_rows() >= 1 || $query3->num_rows() >= 1 || $query4->num_rows() >= 1) {
+			return true;
+		}
+		return false;
+	}
 }

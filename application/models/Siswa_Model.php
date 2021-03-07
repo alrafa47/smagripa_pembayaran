@@ -21,7 +21,7 @@ class Siswa_Model extends CI_Model
 			'tempat_lahir' => $this->input->post('tmpt_lahir'),
 			'tgl_lahir' => $this->input->post('tgl_lahir'),
 			'alamat' => $this->input->post('almat'),
-			'no_telfon' => $this->input->post('telp_siswa',),
+			'no_telfon' => $this->input->post('telp_siswa'),
 			'kode_ta' => $this->input->post('kd_ta'),
 			'tahun_keluar' => $this->input->post('thn_keluar'),
 			'kode_jurusan' => $this->input->post('jurusan'),
@@ -117,6 +117,17 @@ class Siswa_Model extends CI_Model
 		$query = $this->db->get('tbl_siswa');
 		if ($query->num_rows() >= 1) {
 			return $query->row();
+		}
+		return false;
+	}
+	public function checkForeign($id)
+	{
+		$where = ['nisn' => $id];
+		$query1 = $this->db->get_where('tbl_pembayaran_ujian', $where);
+		$query2 = $this->db->get_where('tbl_pembayaran_spp', $where);
+		$query3 = $this->db->get_where('tbl_angsuran_dpp', $where);
+		if ($query1->num_rows() >= 1 || $query2->num_rows() >= 1 || $query3->num_rows() >= 1) {
+			return true;
 		}
 		return false;
 	}

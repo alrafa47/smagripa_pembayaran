@@ -56,15 +56,18 @@ class DataPembayaranSPP extends CI_Controller
 		$semesterGenap = [1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni'];
 		$listTagihan  = $this->DataPembayaranSPP_Model->getTagihanSPP($start, $end);
 		$html = "<form id='formSPP' method='POST' action='" . base_url() . "DataPembayaranSPP/bayarSPP/$nisn'>";
-		$html = '<div class="col-12">';
+		$html .= '<div class="col-12">';
 		$no = 1;
-
-		foreach ($listTagihan as $rowTagihan) {
-			if ($dataKelasSiswa['kelas_' . $no] !== null || $dataKelasSiswa['kelas_' . $no] != '') {
-				# code...
-				$html .= '<table class="table table-bordered">';
+		$index = null;
+		for ($ii = 1; $ii <= 3; $ii++) {
+			if ($dataKelasSiswa['kelas_' . $ii] !== null || $dataKelasSiswa['kelas_' . $ii] != '') {
+				if ($index === null) {
+					$index = 0;
+				}
+				$html .= '<div class="table-responsive">';
+				$html .= '<table class="table table-bordered table-striped responsive">';
 				$html .= '<tr>';
-				$html .= '<td colspan="6">tahun Ajaran : ' . $rowTagihan->tahun_ajaran . ' , Kelas : ' . $dataKelasSiswa['kelas_' . $no] . '</td>';
+				$html .= '<td colspan="6">tahun Ajaran : ' . $listTagihan[$index]->tahun_ajaran . ' , Kelas : ' . $dataKelasSiswa['kelas_' . $ii] . '</td>';
 				$html .= '</tr>';
 				$html .= '<tr>';
 				$html .= '<tr>';
@@ -72,19 +75,19 @@ class DataPembayaranSPP extends CI_Controller
 				$html .= '</tr>';
 
 				foreach ($semesterGanjil as $key => $value) {
-					if (isset($listPembayaran[$rowTagihan->kode_ta])) {
-						if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
+					if (isset($listPembayaran[$listTagihan[$index]->kode_ta])) {
+						if (in_array($key, $listPembayaran[$listTagihan[$index]->kode_ta])) {
 							$html .= '<td >';
 							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
 							$html .= '</td>';
 						} else {
 							$html .= '<td >';
-							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $listTagihan[$index]->kode_ta . '-' . $dataKelasSiswa['kelas_' . $ii] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
 							$html .= '</td>';
 						}
 					} else {
 						$html .= '<td >';
-						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $listTagihan[$index]->kode_ta . '-' . $dataKelasSiswa['kelas_' . $ii] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
 						$html .= '</td>';
 					}
 				}
@@ -94,27 +97,89 @@ class DataPembayaranSPP extends CI_Controller
 				$html .= '</tr>';
 				$html .= '<tr>';
 				foreach ($semesterGenap as $key => $value) {
-					if (isset($listPembayaran[$rowTagihan->kode_ta])) {
-						if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
+					if (isset($listPembayaran[$listTagihan[$index]->kode_ta])) {
+						if (in_array($key, $listPembayaran[$listTagihan[$index]->kode_ta])) {
 							$html .= '<td >';
 							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
 							$html .= '</td>';
 						} else {
 							$html .= '<td >';
-							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+							$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $listTagihan[$index]->kode_ta . '-' . $dataKelasSiswa['kelas_' . $ii] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
 							$html .= '</td>';
 						}
 					} else {
 						$html .= '<td >';
-						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+						$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $listTagihan[$index]->kode_ta . '-' . $dataKelasSiswa['kelas_' . $ii] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
 						$html .= '</td>';
 					}
 				}
 				$html .= '</tr>';
 				$html .= '</table>';
-				$no++;
+				$html .= '</div>';
+				$index++;
 			}
 		}
+
+		// foreach ($listTagihan as $rowTagihan) {
+		// 	if ($dataKelasSiswa['kelas_' . $no] !== null || $dataKelasSiswa['kelas_' . $no] != '') {
+		// 		$html .= '<div class="table-responsive">';
+		// 		$html .= '<table class="table table-bordered table-striped responsive">';
+		// 		$html .= '<tr>';
+		// 		$html .= '<td colspan="6">tahun Ajaran : ' . $rowTagihan->tahun_ajaran . ' , Kelas : ' . $dataKelasSiswa['kelas_' . $no] . '</td>';
+		// 		$html .= '</tr>';
+		// 		$html .= '<tr>';
+		// 		$html .= '<tr>';
+		// 		$html .= '<td colspan="6">Semester Ganjil</td>';
+		// 		$html .= '</tr>';
+
+		// 		foreach ($semesterGanjil as $key => $value) {
+		// 			if (isset($listPembayaran[$rowTagihan->kode_ta])) {
+		// 				if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
+		// 					$html .= '<td >';
+		// 					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
+		// 					$html .= '</td>';
+		// 				} else {
+		// 					$html .= '<td >';
+		// 					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+		// 					$html .= '</td>';
+		// 				}
+		// 			} else {
+		// 				$html .= '<td >';
+		// 				$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+		// 				$html .= '</td>';
+		// 			}
+		// 		}
+		// 		$html .= '</tr>';
+		// 		$html .= '<tr>';
+		// 		$html .= '<td colspan="6">Semester Genap</td>';
+		// 		$html .= '</tr>';
+		// 		$html .= '<tr>';
+		// 		foreach ($semesterGenap as $key => $value) {
+		// 			if (isset($listPembayaran[$rowTagihan->kode_ta])) {
+		// 				if (in_array($key, $listPembayaran[$rowTagihan->kode_ta])) {
+		// 					$html .= '<td >';
+		// 					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" checked disabled><label class="form-check-label">' . $value . '</label></div>';
+		// 					$html .= '</td>';
+		// 				} else {
+		// 					$html .= '<td >';
+		// 					$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+		// 					$html .= '</td>';
+		// 				}
+		// 			} else {
+		// 				$html .= '<td >';
+		// 				$html .= '<div class="form-group form-check"><input type="checkbox" class="form-check-input" name="chkBulan[]" value="' . $rowTagihan->kode_ta . '-' . $dataKelasSiswa['kelas_' . $no] . '-' . $key . '"><label class="form-check-label">' . $value . '</label></div>';
+		// 				$html .= '</td>';
+		// 			}
+		// 		}
+		// 		$html .= '</tr>';
+		// 		$html .= '</table>';
+		// 		$html .= '</div>';
+		// 	}
+		// 	if ($no == 3) {
+		// 		break;
+		// 	}
+		// 	$no++;
+		// }
 		$html .= '</div>';
 		$html .= '</form>';
 		return $html;

@@ -108,10 +108,11 @@
                         function getNominal($jenisPembayaran, $kode_ta)
                         {
                             $index  = array_search($kode_ta, array_column($jenisPembayaran, 'kode_jenispembayaran'));
-                            if (!$index) {
+                            if (is_bool($index)) {
                                 return 'error';
                             }
                             return $jenisPembayaran[$index]->nominal;
+                            return $index;
                         }
                         ?>
                         <table id="example1" class="table table-bordered table-striped responsive">

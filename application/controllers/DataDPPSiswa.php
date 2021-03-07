@@ -144,16 +144,16 @@ class DataDPPSiswa extends CI_Controller
 		}
 	}
 
-	public function hapus($kd)
-	{
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
-		$this->DPPSiswa_Model->hapus_data($kd);
-		$this->Siswa_Model->hapus_data($kd);
-		$this->session->set_flashdata('flash_dppsiswa', 'Dihapus');
-		redirect('DataDPPSiswa');
-	}
+	// public function hapus($kd)
+	// {
+	// 	if ($this->session->userdata('level') != 'admin') {
+	// 		show_404();
+	// 	}
+	// 	$this->Siswa_Model->hapus_data($kd);
+	// 	$this->DPPSiswa_Model->hapus_data($kd);
+	// 	$this->session->set_flashdata('flash_dppsiswa', 'Dihapus');
+	// 	redirect('DataDPPSiswa');
+	// }
 	public function tampildata()
 	{
 		$nisn = $this->input->post('nisn');
@@ -249,5 +249,22 @@ class DataDPPSiswa extends CI_Controller
 			$this->session->set_flashdata('flash_dppsiswa', 'DiUbah');
 			redirect('Welcome');
 		}
+	}
+	public function hapus()
+	{
+		if ($this->session->userdata('level') != 'admin') {
+			show_404();
+		}
+		$id = $this->input->post('id');
+		$this->Siswa_Model->hapus_data($id);
+		$this->DPPSiswa_Model->hapus_data($id);
+
+		$this->session->set_flashdata('flash_jurusan', 'Dihapus');
+	}
+
+	public function checkForeign()
+	{
+		$data = $this->Siswa_Model->checkForeign($this->input->post('id'));
+		echo json_encode($data);
 	}
 }

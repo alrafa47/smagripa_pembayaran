@@ -97,48 +97,50 @@
         <div class="card">
           <!-- card-body -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Kode Tahun Ajaran</th>
-                  <th>Tahun Ajaran</th>
-                  <th>Status</th>
-
-                  <th>Action</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($tahunajaran as $row) { ?>
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->kode_ta ?></td>
-                    <td><?= $row->tahun_ajaran ?></td>
-                    <td><?= $row->status ?></td>
+                    <th>No</th>
+                    <th>Kode Tahun Ajaran</th>
+                    <th>Tahun Ajaran</th>
+                    <th>Status</th>
 
-
-                    <td>
-                      <div class="btn-group">
-                        <?php if ($this->session->userdata('level') == 'admin') { ?>
-                          <a href="<?= base_url() ?>DataTahunAjaran/hapus/<?= $row->kode_ta ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-
-
-                          <a href="<?= base_url() ?>DataTahunAjaran/ubah/<?= $row->kode_ta ?>" class="btn btn-warning">update</a>
-                        <?php } ?>
-                        <a href="<?= base_url() ?>DataTahunAjaran/konfigurasiUjian/<?= $row->kode_ta ?>" class="btn btn-primary">config Ujian</a>
-                      </div>
-                    </td>
+                    <th>Action</th>
 
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($tahunajaran as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->kode_ta ?></td>
+                      <td><?= $row->tahun_ajaran ?></td>
+                      <td><?= $row->status ?></td>
+
+
+                      <td>
+                        <div class="btn-group">
+                          <?php if ($this->session->userdata('level') == 'admin') { ?>
+                            <!-- <a href="<?= base_url() ?>DataTahunAjaran/hapus/<?= $row->kode_ta ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a> -->
+
+                            <button data-ref="<?= base_url('DataTahunAjaran/hapus') ?>" data-id="<?= $row->kode_ta ?>" class="btn btn-danger hapus">Hapus</button>
+                            <a href="<?= base_url() ?>DataTahunAjaran/ubah/<?= $row->kode_ta ?>" class="btn btn-warning">update</a>
+                          <?php } ?>
+                          <a href="<?= base_url() ?>DataTahunAjaran/konfigurasiUjian/<?= $row->kode_ta ?>" class="btn btn-primary">config Ujian</a>
+                        </div>
+                      </td>
+
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>

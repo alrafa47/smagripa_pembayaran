@@ -64,7 +64,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label>jurusan</label>
+                        <label>Jurusan</label>
                         <select class="form-control" name="kd_jur">
                           <option>--Pilih Jurusan--</option>
                           <?php
@@ -109,42 +109,45 @@
         <div class="card">
           <!-- card-body -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Kode Kelas</th>
-                  <th>kelas</th>
-                  <th>Jurusan</th>
-                  <th>Nama Kelas</th>
-                  <?php if ($this->session->userdata('level') == 'admin') { ?>
-                    <th>Action</th>
-                  <?php } ?>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($kelas as $row) { ?>
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->kode_kelas ?></td>
-                    <td><?= $row->kelas ?></td>
-                    <td><?= $row->nama_jurusan ?></td>
-                    <td><?= $row->nama_kelas ?></td>
+                    <th>No</th>
+                    <th>Kode Kelas</th>
+                    <th>Kelas</th>
+                    <th>Jurusan</th>
+                    <th>Nama Kelas</th>
                     <?php if ($this->session->userdata('level') == 'admin') { ?>
-                      <td>
-                        <a href="<?= base_url() ?>DataKelas/hapus/<?= $row->kode_kelas ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                        <a href="<?= base_url() ?>DataKelas/ubah/<?= $row->kode_kelas ?>" class="btn btn-warning">update</a>
-                      </td>
+                      <th>Action</th>
                     <?php } ?>
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($kelas as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->kode_kelas ?></td>
+                      <td><?= $row->kelas ?></td>
+                      <td><?= $row->nama_jurusan ?></td>
+                      <td><?= $row->nama_kelas ?></td>
+                      <?php if ($this->session->userdata('level') == 'admin') { ?>
+                        <td>
+                          <button data-ref="<?= base_url('DataKelas/hapus') ?>" data-id="<?= $row->kode_kelas ?>" class="btn btn-danger hapus">Hapus</button>
+                          <!-- <a href="<?= base_url() ?>DataKelas/hapus/<?= $row->kode_kelas ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a> -->
+                          <a href="<?= base_url() ?>DataKelas/ubah/<?= $row->kode_kelas ?>" class="btn btn-warning">update</a>
+                        </td>
+                      <?php } ?>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>

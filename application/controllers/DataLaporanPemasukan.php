@@ -104,6 +104,8 @@ class DataLaporanPemasukan extends CI_Controller
 
         $data['pemasukan'] = [];
         $data['total']  = 0;
+        $data['start'] =  $start;
+        $data['end'] = $end;
         if ($start !== null && $end !== null) {
             $result = $this->getLaporanPemasukan($start, $end);
             $data['pemasukan'] = $result['laporan'];

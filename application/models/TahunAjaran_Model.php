@@ -82,4 +82,18 @@ class TahunAjaran_Model extends CI_Model
 		$this->db->order_by('kode_ta', 'DESC');
 		return $this->db->get('tbl_tahun_ajaran')->row();
 	}
+	public function checkForeign($id)
+	{
+		$where = ['kode_ta' => $id];
+		$where2 = ['tahun_keluar' => $id];
+		$query1 = $this->db->get_where('tbl_jenis_pembayaran', $where);
+		$query2 = $this->db->get_where('tbl_pembayaran_spp', $where);
+		$query3 = $this->db->get_where('tbl_pembayaran_ujian', $where);
+		$query4 = $this->db->get_where('tbl_siswa', $where);
+		$query5 = $this->db->get_where('tbl_siswa', $where2);
+		if ($query1->num_rows() >= 1 || $query2->num_rows() >= 1 || $query3->num_rows() >= 1 || $query4->num_rows() >= 1 || $query5->num_rows() >= 1) {
+			return true;
+		}
+		return false;
+	}
 }

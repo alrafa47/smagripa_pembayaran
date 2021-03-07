@@ -91,38 +91,40 @@
           <!-- card-body -->
 
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Level</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($user as $row) { ?>
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->username ?></td>
-                    <td><?= $row->password ?></td>
-                    <td><?= $row->level ?></td>
-                    <td>
-                      <div class="btn-group">
-                        <a href="<?= base_url() ?>DataUser/hapus/<?= $row->id_user ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                        <a href="<?= base_url() ?>DataUser/ubah/<?= $row->id_user ?>" class="btn btn-warning">update</a>
-                      </div>
-                    </td>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Level</th>
+                    <th>Action</th>
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($user as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->username ?></td>
+                      <td><?= $row->password ?></td>
+                      <td><?= $row->level ?></td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="<?= base_url() ?>DataUser/hapus/<?= $row->id_user ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
+                          <a href="<?= base_url() ?>DataUser/ubah/<?= $row->id_user ?>" class="btn btn-warning">update</a>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>

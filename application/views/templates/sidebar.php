@@ -59,7 +59,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url() ?>DataJenisSPP" class="nav-link">
+            <a href="<?= base_url() ?>DataJenisSpp" class="nav-link">
               <i class="fas fa-list"></i>
               <p>
                 Data Jenis SPP

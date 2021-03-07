@@ -89,44 +89,47 @@
         <div class="card">
           <!-- card-body -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Kode Jurusan</th>
-                  <th>Jurusan</th>
-                  <?php if ($this->session->userdata('level') == 'admin') { ?>
-                    <th>Action</th>
-                  <?php
-                  }
-                  ?>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($jurusan as $row) { ?>
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped responsive">
+                <thead>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><?= $row->kode_jurusan ?></td>
-                    <td><?= $row->nama_jurusan ?></td>
+                    <th>No</th>
+                    <th>Kode Jurusan</th>
+                    <th>Jurusan</th>
                     <?php if ($this->session->userdata('level') == 'admin') { ?>
-                      <td>
-                        <div class="btn-group">
-                          <a href="<?= base_url() ?>DataJurusan/hapus/<?= $row->kode_jurusan ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                          <a href="<?= base_url() ?>DataJurusan/ubah/<?= $row->kode_jurusan ?>" class="btn btn-warning">update</a>
-                        </div>
-                      </td>
+                      <th>Action</th>
                     <?php
                     }
                     ?>
                   </tr>
-                <?php
-                  $no++;
-                }
-                ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  foreach ($jurusan as $row) { ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row->kode_jurusan ?></td>
+                      <td><?= $row->nama_jurusan ?></td>
+                      <?php if ($this->session->userdata('level') == 'admin') { ?>
+                        <td>
+                          <div class="btn-group">
+                            <button data-ref="<?= base_url('DataJurusan/hapus') ?>" data-id="<?= $row->kode_jurusan ?>" class="btn btn-danger hapus">Hapus</button>
+                            <!-- <a href="<?= base_url() ?>DataJurusan/hapus/<?= $row->kode_jurusan ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a> -->
+                            <a href="<?= base_url() ?>DataJurusan/ubah/<?= $row->kode_jurusan ?>" class="btn btn-warning">update</a>
+                          </div>
+                        </td>
+                      <?php
+                      }
+                      ?>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>
